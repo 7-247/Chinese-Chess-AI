@@ -1,0 +1,8 @@
+{
+    "editor.detectIndentation": false,
+    "files.associations": {
+        "iostream": "cpp",
+        "*.asp": "plaintext",
+        "vector": "cpp"
+    }
+}
