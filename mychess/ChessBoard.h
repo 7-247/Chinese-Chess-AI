@@ -20,11 +20,13 @@ const int ROW = 10;
 const int COL = 9;
 
 // 棋子类型对应的中文棋子符号标识
-const char* const cszPieceBytesInChineseBlack[7] = { "将","士","象","碼","車","砲","卒" };
-const char* const cszPieceBytesInChineseRed[7] = { "帅","仕","相","马","车","炮","兵" };
+const char* const cszPieceBytesInChineseBlack[7] = {"将", "士", "象", "碼",
+                                                    "車", "砲", "卒"};
+const char* const cszPieceBytesInChineseRed[7] = {"帅", "仕", "相", "马",
+                                                  "车", "炮", "兵"};
 
-struct ChessBoard {//棋盘
-	int ucpcSquares[COL*ROW+1];//0~90 0不用
-	ChessBoard(PositionStruct&);
-	void DrawBoard();
+struct ChessBoard {                 //棋盘
+   int ucpcSquares[COL * ROW + 1];  // 0~90 0不用
+   ChessBoard(PositionStruct&);
+   void DrawBoard();
 };
