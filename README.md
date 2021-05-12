@@ -1,6 +1,8 @@
 # Chinese-Chess-AI
 
 象棋 AI
+
+不要删除此文件！
 test from gzy
 
 2021 5 12
