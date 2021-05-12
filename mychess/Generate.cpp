@@ -300,13 +300,13 @@ vector<vector<int>> PositionStruct::possibleMove(const int chessboard[]) {
     }
 
     //Çë×¢ÊÍµô
-    for (int i = 0; i < 32; i++) {  //Êä³ö
+    /*for (int i = 0; i < 32; i++) {  //Êä³ö
         cout << sdPlayer << "---" << cnPieceTypes[i] << "---" << ucsqPieces[i]
              << "---";
         for (int j = 0; j < possible[i].size(); j++)
             cout << possible[i][j] << " ";
         cout << endl;
-    }
+    }*/
 
     return possible;
 }
