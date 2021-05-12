@@ -277,8 +277,10 @@ vector<int> PositionStruct::move_soldier(const int chessboard[], int pos) {
 vector<vector<int>> PositionStruct::possibleMove(const int chessboard[]) {
    vector<int> (PositionStruct::*move_chess[7])(const int chessboard[],
                                                 int pos) = {
-       &PositionStruct::move_chief,&PositionStruct::move_knight,&PositionStruct::move_elephant,& PositionStruct::move_horse,
-       & PositionStruct::move_cart,& PositionStruct::move_cannon,& PositionStruct::move_soldier};
+       &PositionStruct::move_chief,    &PositionStruct::move_knight,
+       &PositionStruct::move_elephant, &PositionStruct::move_horse,
+       &PositionStruct::move_cart,     &PositionStruct::move_cannon,
+       &PositionStruct::move_soldier};
    vector<vector<int>> possible(
        32,
        vector<int>(
@@ -288,23 +290,26 @@ vector<vector<int>> PositionStruct::possibleMove(const int chessboard[]) {
       if (ucsqPieces[i] != 0)
          possible[i] = (this->*move_chess[cnPieceTypes[i]])(chessboard, i);
    }
-   for (int i = 0; i < 32; i++) {
+
+   //请注释掉
+   for (int i = 0; i < 32; i++) {  //输出
       cout << sdPlayer << "---" << cnPieceTypes[i] << "---" << ucsqPieces[i]
            << "---";
       for (int j = 0; j < possible[i].size(); j++)
          cout << possible[i][j] << " ";
       cout << endl;
    }
+
    return possible;
 }
 
-void PositionStruct::Generate() {
+vector<vector<int>> PositionStruct::Generate() {
    int chessboard[91] = {0};
    for (int i = 0; i < 16; i++) chessboard[ucsqPieces[i]] = cnPieceTypes[i] + 1;
    for (int i = 16; i < 32; i++)
       chessboard[ucsqPieces[i]] = cnPieceTypes[i] + 1 + 7;
 
-   possibleMove(chessboard);  //输出
+   return possibleMove(chessboard);
 }
 
 //将帅相对 没写

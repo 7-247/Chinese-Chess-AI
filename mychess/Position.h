@@ -34,7 +34,7 @@ const char* const cszStartFen =
 struct PositionStruct {
    int ucsqPieces[32];  // 每个棋子在棋盘上放的位置，0表示被吃了
    //其中0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
-   //帅仕仕相相马马车车炮炮兵兵兵兵兵(将	士士象象马马车车炮炮卒卒卒卒卒)
+   //帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
    //判断棋子是红子用"pc < 16"，黑子用"pc >= 16"
    //其可行值为33~cb
    bool sdPlayer;  // 轮到谁走，0=红方，1=黑方
@@ -43,9 +43,9 @@ struct PositionStruct {
    PositionStruct(const char* const arr) { FromFen(arr); }
    void ClearBoard();
    void FromFen(const char* const);
-   void AddPiece(int, int);  // 在棋盘上放一枚棋子
-   void DelPiece(int);       // 从棋盘上拿走一枚棋子
-   void Generate();          //顶层函数，生成若干种走法
+   void AddPiece(int, int);         // 在棋盘上放一枚棋子
+   void DelPiece(int);              // 从棋盘上拿走一枚棋子
+   vector<vector<int>> Generate();  //顶层函数，生成若干种走法
    vector<vector<int>> possibleMove(const int chessboard[]);  //输出
    vector<int> move_soldier(const int chessboard[], int pos);
    vector<int> move_cannon(const int chessboard[], int pos);
