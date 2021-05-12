@@ -5,10 +5,10 @@
 using namespace std;
 
 /*
-        棋子序号对应的棋子类型
-        0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
-        每方的棋子顺序依次是：帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
-        判断棋子是红子用"pc < 16"，黑子用"pc >= 16"
+    棋子序号对应的棋子类型
+    0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
+    每方的棋子顺序依次是：帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
+    判断棋子是红子用"pc < 16"，黑子用"pc >= 16"
  */
 static const int cnPieceTypes[32] = {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5,
                                      6, 6, 6, 6, 6, 0, 1, 1, 2, 2, 3,
@@ -46,6 +46,8 @@ struct PositionStruct {
    void AddPiece(int, int);         // 在棋盘上放一枚棋子
    void DelPiece(int);              // 从棋盘上拿走一枚棋子
    vector<vector<int>> Generate();  //顶层函数，生成若干种走法
+
+   //请在结构体中删掉下面的无关函数
    vector<vector<int>> possibleMove(const int chessboard[]);  //输出
    vector<int> move_soldier(const int chessboard[], int pos);
    vector<int> move_cannon(const int chessboard[], int pos);
@@ -64,4 +66,4 @@ struct PositionStruct {
    bool horse_rule(const int chessboard[], int pos, int move);
    vector<int> move_chief(const int chessboard[], int pos);
 };
-int GetPiecePos(int i, int j);
+int GetPiecePos(int i, int j);  //二维转一维

@@ -27,12 +27,18 @@
     <ClCompile Include="Generate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Evaluate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Position.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ChessBoard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Evaluate.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "ChessBoard.h"
 
 inline void PositionStruct::AddPiece(int pos, int no) {  // 在棋盘上放一枚棋子
-   ucsqPieces[no] = pos;  //第no号（0~15）棋子的位置（9*10）
+   ucsqPieces[no] = pos;  //第no号（0~32）棋子的位置（9*10）
 }
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
    ucsqPieces[no] = 0;
@@ -19,19 +19,19 @@ inline int GetPiecePos(int i, int j) {
 // FEN串识别
 void PositionStruct::FromFen(const char* const szFen) {
    int i, j, k;
-   int pcWhite[7];
+   int pcRed[7];
    int pcBlack[7];
    const char* lpFen;
    // FEN串的识别包括以下几个步骤：
    // 1. 初始化，清空棋盘
    for (i = 0; i < 7; i++) {
-      pcWhite[i] = FROM_NUM[i];
-      pcBlack[i] = pcWhite[i] + 16;
+      pcRed[i] = FROM_NUM[i];
+      pcBlack[i] = pcRed[i] + 16;
    }
 
-   //数组"pcWhite[7]"和"pcBlack[7]"分别代表红方和黑方每个兵种即将占有的序号，
-   //以"pcWhite[7]"为例，由于棋子0到15依次代表“帅仕仕相相马马车车炮炮兵兵兵兵兵”，
-   //所以最初应该是"pcWhite[7] =
+   //数组"pcRed[7]"和"pcBlack[7]"分别代表红方和黑方每个兵种即将占有的序号，
+   //以"pcRed[7]"为例，由于棋子0到15依次代表“帅仕仕相相马马车车炮炮兵兵兵兵兵”，
+   //所以最初应该是"pcRed[7] =
    //{0,1,3,5,7,9,11}"，每添加一个棋子，该项就增加1，
 
    ClearBoard();
@@ -50,7 +50,7 @@ void PositionStruct::FromFen(const char* const szFen) {
          j += (*lpFen - '0');  //跳到该行下一块找
       } else if (*lpFen >= 'A' && *lpFen <= 'Z') {
          k = FenPiece[*lpFen];
-         AddPiece(GetPiecePos(i, j), pcWhite[k]++);
+         AddPiece(GetPiecePos(i, j), pcRed[k]++);
          ++j;
       } else if (*lpFen >= 'a' && *lpFen <= 'z') {
          k = FenPiece[*lpFen - 32];
