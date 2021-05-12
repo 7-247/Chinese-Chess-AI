@@ -6,9 +6,10 @@ inline void PrintLn(const char* sz) {
 }
 int main() {
    char arr[600] =
-       "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1";
+       "3akabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR b - - 0 1";
    PositionStruct mychess(arr);
    ChessBoard myboard(mychess);
    myboard.DrawBoard();
+   mychess.Generate();
    return 0;
 }
