@@ -62,10 +62,10 @@ int main() {
                     memcpy(arr, tep, len);
                     PositionStruct mychess(arr);
                     ChessBoard myboard(mychess);
-                    // myboard.DrawBoard();  //输出棋盘
+                    myboard.DrawBoard();  //输出棋盘
                     mychess.Generate();
                     Eval myeval(mychess);
-                    // printf("%d", myeval.GetEvalNum());  //输出评估值
+                    printf("%d", myeval.GetEvalNum());  //输出评估值
                     //然后把改变后的c转化为局面
                 }
             } else if (!strncmp(tep, "fen ", 4 * sizeof(char))) {
@@ -74,11 +74,12 @@ int main() {
                     memcpy(arr, tep, len);
                     PositionStruct mychess(arr);
                     ChessBoard myboard(mychess);
-                    // myboard.DrawBoard();  //输出棋盘
+                    myboard.DrawBoard();  //输出棋盘
                     mychess.Generate();
                     Eval myeval(mychess);
-                    // printf("%d", myeval.GetEvalNum());  //输出评估值
-                    //然后把改变后的c转化为局面
+                    printf("%d",
+                           myeval.GetEvalNum());  //输出评估值
+                                                  //然后把改变后的c转化为局面
                 }
             }
         } else if (!strcmp(input, "quit")) {
