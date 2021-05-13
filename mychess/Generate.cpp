@@ -299,14 +299,14 @@ vector<vector<int>> PositionStruct::possibleMove(const int chessboard[]) {
             possible[i] = (this->*move_chess[cnPieceTypes[i]])(chessboard, i);
     }
 
-    //Çë×¢ÊÍµô
-    /*for (int i = 0; i < 32; i++) {  //Êä³ö
+    //Êä³öÔÚ´Ë£¬Çë×¢ÊÍµô
+    for (int i = 0; i < 32; i++) {  //Êä³ö
         cout << sdPlayer << "---" << cnPieceTypes[i] << "---" << ucsqPieces[i]
              << "---";
         for (int j = 0; j < possible[i].size(); j++)
             cout << possible[i][j] << " ";
         cout << endl;
-    }*/
+    }
 
     return possible;
 }

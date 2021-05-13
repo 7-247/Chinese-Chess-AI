@@ -46,6 +46,7 @@ struct PositionStruct {
 
     PositionStruct() { FromFen(cszStartFen); }
     PositionStruct(const char* const arr) { FromFen(arr); }
+    void PositionInit(const char* const arr) { FromFen(arr); }
     void ClearBoard();
     void FromFen(const char* const);
     void AddPiece(int, int);         // 在棋盘上放一枚棋子

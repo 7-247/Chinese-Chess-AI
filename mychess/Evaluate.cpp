@@ -48,8 +48,6 @@ Eval::Eval(PositionStruct& pos) {
     // 首先判断局势处于开中局还是残局阶段。
     int midgameValue =
         calculateValue(pos.ucsqPieces, 0) + calculateValue(pos.ucsqPieces, 1);
-    printf("%d %d\n", calculateValue(pos.ucsqPieces, 0),
-           calculateValue(pos.ucsqPieces, 1));
     for (int i = 0; i < 16; ++i)
         if (pos.ucsqPieces[i])
             calculateEval(pos.ucsqPieces[i], cnPieceTypes[i], EvalRed,
