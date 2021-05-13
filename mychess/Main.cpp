@@ -5,7 +5,7 @@
 #include "Ucci.h"
 using namespace std;
 
-int main() {
+int main(int argc, char** argv) {
     char input[MAXLEN], tep[MAXLEN], arr[MAXLEN];  //给阿谊的串存在arr[]
     memset(tep, 0, sizeof(char) * MAXLEN);
     memcpy(

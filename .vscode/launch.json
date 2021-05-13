@@ -2,21 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(gdb) Launch",
+      "name": "C++ Launch(GDB)",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceRoot}/test.exe",
-      "args": [
-        "/C",
-        "${fileDirname}\\test.exe",
-        "&",
-        "pause"
-      ],
-      //"&",
-      //"pause",
+      "program": "${workspaceRoot}/mychess/test.exe",
+      "miDebuggerPath": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\gdb.exe",
+      "args": [],
+
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "environment": [],
       "externalConsole": false,
       "MIMode":"gdb",
       "preLaunchTask": "C/C++: g++.exe 生成活动文件" // 调试前执行的任务，一般为编译程序。与tasks.json的label相对应
