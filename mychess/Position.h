@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <cstring>
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -52,24 +53,5 @@ struct PositionStruct {
     void AddPiece(int, int);         // 在棋盘上放一枚棋子
     void DelPiece(int);              // 从棋盘上拿走一枚棋子
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
-
-    //请在结构体中删掉下面的无关函数
-    vector<vector<int>> possibleMove(const int chessboard[]);  //输出
-    vector<int> move_soldier(const int chessboard[], int pos);
-    vector<int> move_cannon(const int chessboard[], int pos);
-    vector<int> move_cart(const int chessboard[], int pos);
-    vector<int> move_horse(const int chessboard[], int pos);
-    bool elephant_rule(const int chessboard[], int pos, int move);
-    vector<int> move_elephant(const int chessboard[], int pos);
-    vector<int> move_knight(const int chessboard[], int pos);
-    bool knight_rule(const int chessboard[], int pos, int move);
-    bool exist_friend(const int chessboard[], int pos, int move);
-    bool exist_all(const int chessboard[], int pos, int move);
-    bool exist_enemy(const int chessboard[], int pos, int move);
-    bool chief_rule(const int chessboard[], int pos, int move);
-    bool judge9(int move_new);
-    bool judgeRiver(int move_new);
-    bool horse_rule(const int chessboard[], int pos, int move);
-    vector<int> move_chief(const int chessboard[], int pos);
 };
 int GetPiecePos(int i, int j);  //二维转一维
