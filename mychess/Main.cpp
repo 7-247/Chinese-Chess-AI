@@ -65,7 +65,7 @@ int main() {
                     myboard.DrawBoard();  //输出棋盘
                     mychess.Generate();
                     Eval myeval(mychess);
-                    printf("%d", myeval.GetEvalNum());  //输出评估值
+                    printf("%d\n", myeval.GetEvalNum());  //输出评估值
                     //然后把改变后的c转化为局面
                 }
             } else if (!strncmp(tep, "fen ", 4 * sizeof(char))) {
@@ -77,7 +77,7 @@ int main() {
                     myboard.DrawBoard();  //输出棋盘
                     mychess.Generate();
                     Eval myeval(mychess);
-                    printf("%d",
+                    printf("%d\n",
                            myeval.GetEvalNum());  //输出评估值
                                                   //然后把改变后的c转化为局面
                 }
