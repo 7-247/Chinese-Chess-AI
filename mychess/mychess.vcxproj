@@ -141,13 +141,13 @@
   <ItemGroup>
     <ClCompile Include="ChessBoard.cpp" />
     <ClCompile Include="Evaluate.cpp" />
-    <ClCompile Include="Evaluate.h" />
     <ClCompile Include="Generate.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Search.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Evaluate.h" />
     <ClInclude Include="ChessBoard.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Search.h" />

@@ -20,6 +20,11 @@ const char* const cszPieceBytes = "KABNRCP";
 
 const int FROM_NUM[] = {0, 1, 3, 5, 7, 9, 11};  // 每种子力的开始序号和结束序号
 
+const char* const cszPieceBytesInChineseBlack[7] = { "将", "士", "象", "碼",
+                                                    "車", "砲", "卒" };
+const char* const cszPieceBytesInChineseRed[7] = { "帅", "仕", "相", "马",
+                                                  "车", "炮", "兵" };
+
 // FEN串中棋子标识，注意这个函数只能识别大写字母，因此用小写字母时，首先必须转换为大写
 const int FenPiece[] = {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
                         7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
@@ -55,3 +60,4 @@ struct PositionStruct {
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
 };
 int GetPiecePos(int i, int j);  //二维转一维
+int PosToNo(int pos, int ucsqPieces[]);

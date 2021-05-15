@@ -41,13 +41,13 @@
     <ClInclude Include="Position.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ChessBoard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Ucci.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Search.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ChessBoard.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

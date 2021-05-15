@@ -1,4 +1,5 @@
 #pragma once
+#include "Position.h"
 #include <cstdio>
 const int MAXLEN = 1000;
 const int spacenum = 5;
@@ -32,5 +33,26 @@ inline void BestMoveIntToChar(int bestmove) {
     printf("bestmove ");
     PosIntToChar(high);
     PosIntToChar(low);
+    printf("\n");
+}
+inline void BestMoveIntToNum(PositionStruct& pos,int bestmove) {
+    //棋子在直线上进退时，表示棋子进退的步数；当棋子平走或斜走的时候，表示所到达直线的编号
+    int low = (bestmove & 255), high = ((bestmove - low) >> 8);
+    int type = 0;
+    printf("%d", type = cnPieceTypes[PosToNo(high, pos.ucsqPieces)]+1);
+    char ch = '.';
+    if(type)
+    printf("%d", 9-(high - 1) % 9);
+    int firstmoveline = 9 - (high-1) / 9, nextmoveline = 9 - (low-1) / 9;
+    if (pos.sdPlayer == 0) {
+        if (nextmoveline > firstmoveline)ch = '+';
+        else  if (nextmoveline < firstmoveline)ch = '-';
+    }
+    else {
+            if (nextmoveline > firstmoveline)ch = '-';
+            else  if (nextmoveline < firstmoveline)ch = '+';
+    }
+    printf("%c", ch);
+    printf("%d", 9 - (low - 1) % 9);
     printf("\n");
 }
