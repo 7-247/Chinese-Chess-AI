@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "Evaluate.h"
+#include "Search.h"
 #include "Ucci.h"
 using namespace std;
 
@@ -32,8 +32,7 @@ int main() {
             memcpy(tep, input + 9, 591);
             if (!strncmp(tep, "startpos", 8 * sizeof(char))) {
                 memcpy(tep,
-                       "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/"
-                       "RNBAKABNR r - - 0 1",
+                       "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1",
                        69 * sizeof(char));
                 memcpy(tep + 69, input + 17, (MAXLEN - 69) * sizeof(char));
                 if (judge(tep, MAXLEN)) {
@@ -44,6 +43,7 @@ int main() {
                 memmove(tep, tep + 4, (MAXLEN - 4) * sizeof(char));
                 if (judge(tep, MAXLEN)) {
                     memcpy(arr, tep, MAXLEN);
+                    cout << arr << endl;
                     mychess.PositionInit(arr);  //然后把改变后的c转化为局面
                 }
             }
@@ -55,11 +55,11 @@ int main() {
             if (gettime(tep, MAXLEN, gotime)) {
                 // printf("set search time:%d ms\n", gotime);
                 //以下应为搜索得出bestmove和走法
-                ChessBoard myboard(mychess);
-                myboard.DrawBoard();  //输出棋盘
-                mychess.Generate();   //输出走法
-                Eval myeval(mychess);
-                printf("%d\n", myeval.GetEvalNum());  //输出评估值
+                int move = SearchMain(mychess, gotime);
+                if (move == 0) {
+                    PrintLn("error"); continue;
+            }
+                BestMoveIntToChar(move);
             }
         }
     }

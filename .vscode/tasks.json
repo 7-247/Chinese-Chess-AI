@@ -6,7 +6,6 @@
             "command": "C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
-                "${workspaceFolder}/*.cpp",
                 "${workspaceFolder}/mychess/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",

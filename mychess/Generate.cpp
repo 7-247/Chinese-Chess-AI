@@ -319,13 +319,7 @@ vector<vector<int>> possibleMove(int sdPlayer, const int ucsqPieces[],
             possible[i] = move_chess[cnPieceTypes[i]](sdPlayer, ucsqPieces,
                                                       chessboard, i);
     }
-    for (int i = 0; i < 32; i++) {
-        cout << sdPlayer << "---" << cnPieceTypes[i] << "---" << ucsqPieces[i]
-             << "---";
-        for (int j = 0; j < possible[i].size(); j++)
-            cout << possible[i][j] << " ";
-        cout << endl;
-    }
+
     return possible;
 }
 vector<vector<int>> PositionStruct::Generate() {

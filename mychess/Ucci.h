@@ -11,7 +11,7 @@ bool judge(const char* arr, int n) {
     for (int i = 0; i < n && arr[i] && num < spacenum; i++) {
         num += arr[i] == ' ';
     }
-    return num == 5;
+    return num == spacenum;
 }
 bool gettime(const char* arr, int n, int& time) {
     time = 0;
@@ -22,4 +22,15 @@ bool gettime(const char* arr, int n, int& time) {
             return false;
     }
     return true;
+}
+inline void PosIntToChar(int Pos) {
+    --Pos;
+    printf("%c%d", Pos % 9 + 'a', 9 - Pos / 9);
+}
+inline void BestMoveIntToChar(int bestmove) {
+    int low = bestmove & 255, high = (bestmove - low) >> 8;
+    printf("bestmove ");
+    PosIntToChar(high);
+    PosIntToChar(low);
+    printf("\n");
 }

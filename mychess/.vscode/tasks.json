@@ -7,7 +7,6 @@
             "args": [
                 "-g",
                 "${workspaceFolder}/*.cpp",
-                "${workspaceFolder}/mychess/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-lpthread",
