@@ -1,3 +1,0 @@
-C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/test/build/CMakeFiles/test1.dir
-C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/test/build/CMakeFiles/edit_cache.dir
-C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/test/build/CMakeFiles/rebuild_cache.dir
