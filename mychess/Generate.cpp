@@ -215,9 +215,10 @@ vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                 else
                     flag = 0;
             } else {  //有炮台，找敌方棋子
-                if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i)) {
+                if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
-                    possible_move.push_back(ucsqPieces[pos] + i);
+                    if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
+                        possible_move.push_back(ucsqPieces[pos] + i);
                     break;
                 }
             }
@@ -234,9 +235,10 @@ vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                 else
                     flag = 0;
             } else {  //有炮台，找敌方棋子
-                if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i)) {
+                if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
-                    possible_move.push_back(ucsqPieces[pos] + i);
+                    if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
+                        possible_move.push_back(ucsqPieces[pos] + i);
                     break;
                 }
             }
@@ -253,9 +255,10 @@ vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                 else
                     flag = 0;
             } else {  //有炮台，找敌方棋子
-                if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i)) {
+                if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
-                    possible_move.push_back(ucsqPieces[pos] + i);
+                    if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
+                        possible_move.push_back(ucsqPieces[pos] + i);
                     break;
                 }
             }
@@ -271,9 +274,10 @@ vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                 else
                     flag = 0;
             } else {  //有炮台，找敌方棋子
-                if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i)) {
+                if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
-                    possible_move.push_back(ucsqPieces[pos] + i);
+                    if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
+                        possible_move.push_back(ucsqPieces[pos] + i);
                     break;
                 }
             }
