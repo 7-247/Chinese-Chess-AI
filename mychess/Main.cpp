@@ -28,39 +28,47 @@ int main() {
         cin.getline(input, MAXLEN);
         if (!strncmp(input, "isready", 7 * sizeof(char))) {
             PrintLn("readyok");
-        } else if (!strncmp(input, "position ", 9 * sizeof(char))) {
+        } /*else if (!strncmp(input, "position ", 9 * sizeof(char))) {
             memcpy(tep, input + 9, 591);
             if (!strncmp(tep, "startpos", 8 * sizeof(char))) {
                 memcpy(tep,
-                       "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1",
-                       69 * sizeof(char));
-                memcpy(tep + 69, input + 17, (MAXLEN - 69) * sizeof(char));
-                if (judge(tep, MAXLEN)) {
-                    memcpy(arr, tep, MAXLEN);
+                       "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR
+        r - - 0 1", 69 * sizeof(char)); memcpy(tep + 69, input + 17, (MAXLEN -
+        69) * sizeof(char)); if (judge(tep, MAXLEN)) { memcpy(arr, tep, MAXLEN);
                     mychess.PositionInit(arr);  //然后把改变后的c转化为局面
                 }
             } else if (!strncmp(tep, "fen ", 4 * sizeof(char))) {
                 memmove(tep, tep + 4, (MAXLEN - 4) * sizeof(char));
                 if (judge(tep, MAXLEN)) {
                     memcpy(arr, tep, MAXLEN);
-                    cout << arr << endl;
                     mychess.PositionInit(arr);  //然后把改变后的c转化为局面
                 }
             }
-        } else if (!strcmp(input, "quit")) {
+        }*/
+        else if (!strcmp(input, "quit")) {
             PrintLn("bye");
             break;
-        } else if (!strncmp(input, "go time ", 8 * sizeof(char))) {
+        } /*else if (!strncmp(input, "go time ", 8 * sizeof(char))) {
             memcpy(tep, input + 8, (MAXLEN - 8) * sizeof(char));
             if (gettime(tep, MAXLEN, gotime)) {
                 // printf("set search time:%d ms\n", gotime);
                 //以下应为搜索得出bestmove和走法
                 int move = SearchMain(mychess, gotime);
                 if (move == 0) {
-                    PrintLn("error"); continue;
-            }
+                    PrintLn("error");
+                    continue;
+                }
                 BestMoveIntToChar(move);
             }
+        }*/
+        else {
+            mychess.PositionInit(input);  //然后把改变后的c转化为局面
+            int move = SearchMain(mychess, gotime);
+            if (move == 0) {
+                PrintLn("error");
+                continue;
+            }
+            BestMoveIntToChar(move);
         }
     }
     return 0;
