@@ -1,5 +1,5 @@
 #include "Position.h"
-bool judge9(int sdPlayer, int move_new) {
+static inline bool judge9(int sdPlayer, int move_new) {
     //目标位置是否在9宫格中
     if (!sdPlayer)
         if (((move_new <= 87 && move_new >= 85) ||
@@ -17,7 +17,7 @@ bool judge9(int sdPlayer, int move_new) {
             return false;
     }
 }
-bool judgeRiver(int sdPlayer, int move_new) {
+static inline bool judgeRiver(int sdPlayer, int move_new) {
     //目标位置是否在己方界中
     if (!sdPlayer) {
         if (move_new > 45)
@@ -31,35 +31,35 @@ bool judgeRiver(int sdPlayer, int move_new) {
             return false;
     }
 }
-bool judgeIn(int move_new) {
+static inline bool judgeIn(int move_new) {
     //目标位置是否在棋盘中
     return move_new >= 1 && move_new <= 90;
 }
-bool exist_friend(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                  int pos, int move) {
+static inline bool exist_friend(int sdPlayer, const int ucsqPieces[],
+                                const int chessboard[], int pos, int move) {
     //目标位置是否有友方棋子
     return (chessboard[ucsqPieces[pos] + move] <= 7 + sdPlayer * 7 &&
             chessboard[ucsqPieces[pos] + move] >= 1 + sdPlayer * 7);
 }
-bool exist_enemy(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                 int pos, int move) {
+static inline bool exist_enemy(int sdPlayer, const int ucsqPieces[],
+                               const int chessboard[], int pos, int move) {
     //目标位置是否有敌方棋子
     return (chessboard[ucsqPieces[pos] + move] <= 7 + (!sdPlayer) * 7 &&
             chessboard[ucsqPieces[pos] + move] >= 1 + (!sdPlayer) * 7);
 }
-bool exist_all(const int ucsqPieces[], const int chessboard[], int pos,
-               int move) {
+static inline bool exist_all(const int ucsqPieces[], const int chessboard[],
+                             int pos, int move) {
     //目标位置是否有棋子
     return (chessboard[ucsqPieces[pos] + move] <= 14 &&
             chessboard[ucsqPieces[pos] + move] >= 1);
 }
-bool chief_rule(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                int pos, int move) {
+static inline bool chief_rule(int sdPlayer, const int ucsqPieces[],
+                              const int chessboard[], int pos, int move) {
     return judge9(sdPlayer, ucsqPieces[pos] + move) &&
            !exist_friend(sdPlayer, ucsqPieces, chessboard, pos, move);
 }
-vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
-                       const int chessboard[], int pos) {
+static inline vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
+                                     const int chessboard[], int pos) {
     //将帅的移动规则，pos表示当前棋子序数(0-31)
     vector<int> possible_move;
     if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 1))
@@ -81,13 +81,13 @@ vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
     }
     return possible_move;
 }
-bool knight_rule(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                 int pos, int move) {
+static inline bool knight_rule(int sdPlayer, const int ucsqPieces[],
+                               const int chessboard[], int pos, int move) {
     return judge9(sdPlayer, ucsqPieces[pos] + move) &&
            !exist_friend(sdPlayer, ucsqPieces, chessboard, pos, move);
 }
-vector<int> move_knight(int sdPlayer, const int ucsqPieces[],
-                        const int chessboard[], int pos) {
+static inline vector<int> move_knight(int sdPlayer, const int ucsqPieces[],
+                                      const int chessboard[], int pos) {
     //士的移动规则，pos表示当前棋子序数(0-31)
     vector<int> possible_move;
     if (knight_rule(sdPlayer, ucsqPieces, chessboard, pos, -8))
@@ -100,15 +100,15 @@ vector<int> move_knight(int sdPlayer, const int ucsqPieces[],
         possible_move.push_back(ucsqPieces[pos] + 10);
     return possible_move;
 }
-bool elephant_rule(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                   int pos, int move) {
+static inline bool elephant_rule(int sdPlayer, const int ucsqPieces[],
+                                 const int chessboard[], int pos, int move) {
     return judgeRiver(sdPlayer, ucsqPieces[pos] + move) &&
            judgeIn(ucsqPieces[pos] + move) &&
            !exist_friend(sdPlayer, ucsqPieces, chessboard, pos, move) &&
            !exist_all(ucsqPieces, chessboard, pos, move / 2);
 }
-vector<int> move_elephant(int sdPlayer, const int ucsqPieces[],
-                          const int chessboard[], int pos) {
+static inline vector<int> move_elephant(int sdPlayer, const int ucsqPieces[],
+                                        const int chessboard[], int pos) {
     vector<int> possible_move;
     if (ucsqPieces[pos] % 9 != 0 &&
         elephant_rule(sdPlayer, ucsqPieces, chessboard, pos, -16))
@@ -124,13 +124,13 @@ vector<int> move_elephant(int sdPlayer, const int ucsqPieces[],
         possible_move.push_back(ucsqPieces[pos] + 20);
     return possible_move;
 }
-bool horse_rule(int sdPlayer, const int ucsqPieces[], const int chessboard[],
-                int pos, int move) {
+static inline bool horse_rule(int sdPlayer, const int ucsqPieces[],
+                              const int chessboard[], int pos, int move) {
     return judgeIn(ucsqPieces[pos] + move) &&
            !exist_friend(sdPlayer, ucsqPieces, chessboard, pos, move);
 }
-vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
-                       const int chessboard[], int pos) {
+static inline vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
+                                     const int chessboard[], int pos) {
     vector<int> possible_move;
     if (!exist_all(ucsqPieces, chessboard, pos, -9)) {
         if (ucsqPieces[pos] % 9 != 0 &&
@@ -164,8 +164,8 @@ vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
     }
     return possible_move;
 }
-vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
-                      const int chessboard[], int pos) {
+static inline vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
+                                    const int chessboard[], int pos) {
     vector<int> possible_move;
     if (ucsqPieces[pos] % 9 != 1)
         for (int i = -1;; i--) {
@@ -207,8 +207,8 @@ vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
     }
     return possible_move;
 }
-vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
-                        const int chessboard[], int pos) {
+static inline vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
+                                      const int chessboard[], int pos) {
     vector<int> possible_move;
     bool flag = 1;  // flag为0表示存在炮台了
     for (int i = -1;; i--) {
@@ -290,8 +290,8 @@ vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
     }
     return possible_move;
 }
-vector<int> move_soldier(int sdPlayer, const int ucsqPieces[],
-                         const int chessboard[], int pos) {
+static inline vector<int> move_soldier(int sdPlayer, const int ucsqPieces[],
+                                       const int chessboard[], int pos) {
     vector<int> possible_move;
     if (judgeRiver(sdPlayer, ucsqPieces[pos])) {
         int move = 9 * (sdPlayer ? 1 : -1);
@@ -311,8 +311,9 @@ vector<int> move_soldier(int sdPlayer, const int ucsqPieces[],
     return possible_move;
 }
 
-vector<vector<int>> possibleMove(int sdPlayer, const int ucsqPieces[],
-                                 const int chessboard[]) {
+static inline vector<vector<int>> possibleMove(int sdPlayer,
+                                               const int ucsqPieces[],
+                                               const int chessboard[]) {
     vector<int> (*move_chess[7])(int sdPlayer, const int ucsqPieces[],
                                  const int chessboard[], int pos) = {
         move_chief, move_knight, move_elephant, move_horse,
