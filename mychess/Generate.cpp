@@ -172,7 +172,9 @@ vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
             if (judgeIn(ucsqPieces[pos] + i)) {
                 if (!exist_friend(sdPlayer, ucsqPieces, chessboard, pos, i))
                     possible_move.push_back(ucsqPieces[pos] + i);
-                if (exist_all(ucsqPieces, chessboard, pos, i)) break;
+                if (exist_all(ucsqPieces, chessboard, pos, i) ||
+                    ((ucsqPieces[pos] + i) % 9 == 1))
+                    break;
             } else
                 break;
         }
@@ -181,7 +183,9 @@ vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
             if (judgeIn(ucsqPieces[pos] + i)) {
                 if (!exist_friend(sdPlayer, ucsqPieces, chessboard, pos, i))
                     possible_move.push_back(ucsqPieces[pos] + i);
-                if (exist_all(ucsqPieces, chessboard, pos, i)) break;
+                if (exist_all(ucsqPieces, chessboard, pos, i) ||
+                    ((ucsqPieces[pos] + i) % 9 == 0))
+                    break;
             } else
                 break;
         }
