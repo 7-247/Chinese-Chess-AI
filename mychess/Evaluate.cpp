@@ -16,7 +16,7 @@ static const int cvlBottomThreat[16] = {0, 0, 0,  40, 30, 0, 0, 0,
 const int PieceTypeValue[] = {0, 1, 1, 3, 6, 3, 1};
 //判断开中局还是残局阶段，方法是计算各种棋子的数量，按照车=6、马炮=3、其它=1相加
 const int TOTAL_MIDGAME_VALUE = 66;
-const int THRE_GAME_VALUE = 20;  //残局阈值
+const int THRE_GAME_VALUE = 30;  //残局阈值
 
 inline void calculateEval(int position, int type, int& evalnum, bool ismid) {
     if (ismid)
