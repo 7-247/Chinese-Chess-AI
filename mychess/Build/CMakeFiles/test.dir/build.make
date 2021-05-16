@@ -55,7 +55,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build
+CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test.dir/depend.make
@@ -72,7 +72,7 @@ CMakeFiles/test.dir/src/ChessBoard.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/ChessBoard.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/ChessBoard.cpp.obj: ../src/ChessBoard.cpp
 CMakeFiles/test.dir/src/ChessBoard.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/src/ChessBoard.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/src/ChessBoard.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/ChessBoard.cpp.obj -MF CMakeFiles\test.dir\src\ChessBoard.cpp.obj.d -o CMakeFiles\test.dir\src\ChessBoard.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\ChessBoard.cpp
 
 CMakeFiles/test.dir/src/ChessBoard.cpp.i: cmake_force
@@ -87,7 +87,7 @@ CMakeFiles/test.dir/src/Evaluate.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/Evaluate.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/Evaluate.cpp.obj: ../src/Evaluate.cpp
 CMakeFiles/test.dir/src/Evaluate.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/src/Evaluate.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/src/Evaluate.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/Evaluate.cpp.obj -MF CMakeFiles\test.dir\src\Evaluate.cpp.obj.d -o CMakeFiles\test.dir\src\Evaluate.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\Evaluate.cpp
 
 CMakeFiles/test.dir/src/Evaluate.cpp.i: cmake_force
@@ -102,7 +102,7 @@ CMakeFiles/test.dir/src/Generate.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/Generate.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/Generate.cpp.obj: ../src/Generate.cpp
 CMakeFiles/test.dir/src/Generate.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test.dir/src/Generate.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test.dir/src/Generate.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/Generate.cpp.obj -MF CMakeFiles\test.dir\src\Generate.cpp.obj.d -o CMakeFiles\test.dir\src\Generate.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\Generate.cpp
 
 CMakeFiles/test.dir/src/Generate.cpp.i: cmake_force
@@ -117,7 +117,7 @@ CMakeFiles/test.dir/src/Main.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/Main.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/Main.cpp.obj: ../src/Main.cpp
 CMakeFiles/test.dir/src/Main.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test.dir/src/Main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test.dir/src/Main.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/Main.cpp.obj -MF CMakeFiles\test.dir\src\Main.cpp.obj.d -o CMakeFiles\test.dir\src\Main.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\Main.cpp
 
 CMakeFiles/test.dir/src/Main.cpp.i: cmake_force
@@ -132,7 +132,7 @@ CMakeFiles/test.dir/src/Position.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/Position.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/Position.cpp.obj: ../src/Position.cpp
 CMakeFiles/test.dir/src/Position.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test.dir/src/Position.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test.dir/src/Position.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/Position.cpp.obj -MF CMakeFiles\test.dir\src\Position.cpp.obj.d -o CMakeFiles\test.dir\src\Position.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\Position.cpp
 
 CMakeFiles/test.dir/src/Position.cpp.i: cmake_force
@@ -147,7 +147,7 @@ CMakeFiles/test.dir/src/Search.cpp.obj: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/Search.cpp.obj: CMakeFiles/test.dir/includes_CXX.rsp
 CMakeFiles/test.dir/src/Search.cpp.obj: ../src/Search.cpp
 CMakeFiles/test.dir/src/Search.cpp.obj: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test.dir/src/Search.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test.dir/src/Search.cpp.obj"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/Search.cpp.obj -MF CMakeFiles\test.dir\src\Search.cpp.obj.d -o CMakeFiles\test.dir\src\Search.cpp.obj -c C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\src\Search.cpp
 
 CMakeFiles/test.dir/src/Search.cpp.i: cmake_force
@@ -180,7 +180,7 @@ test_EXTERNAL_OBJECTS =
 ../bin/test.exe: CMakeFiles/test.dir/linklibs.rsp
 ../bin/test.exe: CMakeFiles/test.dir/objects1.rsp
 ../bin/test.exe: CMakeFiles/test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ..\bin\test.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ..\bin\test.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\test.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -192,6 +192,6 @@ CMakeFiles/test.dir/clean:
 .PHONY : CMakeFiles/test.dir/clean
 
 CMakeFiles/test.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\Build\CMakeFiles\test.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build C:\Users\111\source\vscode\c++\7-247\Chinese-Chess-AI\mychess\build\CMakeFiles\test.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test.dir/depend
 

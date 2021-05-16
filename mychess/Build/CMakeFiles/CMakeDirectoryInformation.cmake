@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/Build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

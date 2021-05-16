@@ -1,5 +1,5 @@
 #include "Evaluate.h"
-const int DEPTH = 5;
+const int DEPTH = 4;
 static int bestmove;
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
     if (depth == 0 || mychess.ucsqPieces[0] == 0 ||
@@ -17,14 +17,10 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = tep[i][j];
 
-                int isenemy = 33;
-                for (int k = 16; k < 32; ++k) {
-                    if (tep[i][j] == mychess.ucsqPieces[k]) {
-                        isenemy = k;
-                        break;
-                    }
-                }
-                if (isenemy != 33) mychess.ucsqPieces[isenemy] = 0;
+                int isenemy =
+                    PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
+                if (isenemy != -1)
+                    mychess.ucsqPieces[isenemy] = 0;  //找到了，要吃掉
 
                 // alpha = max(alpha,alphabeta(mychess, depth - 1, alpha,beta));
                 int tepalpha = alphabeta(mychess, depth - 1, alpha, beta);
@@ -36,7 +32,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 //复原
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
-                if (isenemy != 33) mychess.ucsqPieces[isenemy] = tep[i][j];
+                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
                 if (beta <= alpha) break;
             }
             if (beta <= alpha) break;  //外层循环也要跳
@@ -53,14 +49,10 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = tep[i][j];  //走了一步
 
-                int isenemy = 33;
-                for (int k = 0; k < 16; ++k) {
-                    if (tep[i][j] == mychess.ucsqPieces[k]) {
-                        isenemy = k;
-                        break;
-                    }
-                }
-                if (isenemy != 33) mychess.ucsqPieces[isenemy] = 0;
+                int isenemy =
+                    PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
+                if (isenemy != -1)
+                    mychess.ucsqPieces[isenemy] = 0;  //找到了，要吃掉
 
                 // beta = min(beta, alphabeta(mychess, depth - 1, alpha, beta));
                 int tepbeta = alphabeta(mychess, depth - 1, alpha, beta);
@@ -72,7 +64,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 //复原
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
-                if (isenemy != 33) mychess.ucsqPieces[isenemy] = tep[i][j];
+                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
 
                 if (beta <= alpha) break;
             }

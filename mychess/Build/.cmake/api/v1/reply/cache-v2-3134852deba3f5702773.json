@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/Build"
+			"value" : "c:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -1267,7 +1267,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/Build"
+			"value" : "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build"
 		},
 		{
 			"name" : "mychess_SOURCE_DIR",

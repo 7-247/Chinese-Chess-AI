@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/Build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

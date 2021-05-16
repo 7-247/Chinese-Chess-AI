@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)#规定cmake的最低版本要求
+cmake_minimum_required (VERSION 2.8...3.13)#规定cmake的最低版本要求
 project(mychess)#项目的名称，不一定和你的文件夹名称一样
 set(CMAKE_CXX_COMPILER "g++")#设置c++编译器
 
