@@ -1,7 +1,6 @@
-#include <cstring>
-
 #include "Search.h"
 #include "Ucci.h"
+#include <cstring>
 using namespace std;
 
 int main() {
@@ -63,26 +62,26 @@ int main() {
         else {
             mychess.PositionInit(input);  //然后把改变后的c转化为局面
 
-            /*debug用/
-            vector<vector<int>> possible=mychess.Generate();
-            for (int i = 0 + 16 * mychess.sdPlayer; i < 16 + 16 *
-            mychess.sdPlayer; i++) { if (!mychess.ucsqPieces[i]) continue;
-            if(i>16)cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]] <<
-            ":\n"; else cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] <<
-            ":\n"; PosIntToChar(mychess.ucsqPieces[i]); cout << endl; for (int j
-            = 0; j < possible[i].size(); j++) { cout << " ";
-            PosIntToChar(possible[i][j]);
-            }
-            cout << endl;
+            /*vector<vector<int>> possible=mychess.Generate();
+            for (int i = 0; i < 32; i++) {
+                if (!mychess.ucsqPieces[i]) continue;
+                if(i>16)cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]] << ":\n"; 
+                else cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] << ":\n";
+                PosIntToChar(mychess.ucsqPieces[i]); cout << endl;
+                for (int j = 0; j < possible[i].size(); j++) {
+                    cout << " ";
+                    PosIntToChar(possible[i][j]); 
+                }
+                cout << endl;
             }*/
-
+            
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
                 PrintLn("error");
                 continue;
             }
-            BestMoveIntToChar(move);          //用于最后的输出
-            BestMoveIntToNum(mychess, move);  //用于象棋巫师调试
+            BestMoveIntToChar(move);//用于最后的输出
+            BestMoveIntToNum(mychess,move);//用于象棋巫师调试
         }
     }
     return 0;

@@ -5,12 +5,20 @@
 #include <vector>
 using namespace std;
 
-/*
+// 棋盘范围9*10
+const int RANK_TOP = 0;
+const int RANK_BOTTOM = 9;
+const int FILE_LEFT = 0;
+const int FILE_RIGHT = 8;
+const int ROW = 10;
+const int COL = 9;
+
+/***************
     棋子序号对应的棋子类型
     0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
     每方的棋子顺序依次是：帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
     判断棋子是红子用"pc < 16"，黑子用"pc >= 16"
- */
+ **************/
 static const int cnPieceTypes[32] = {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5,
                                      6, 6, 6, 6, 6, 0, 1, 1, 2, 2, 3,
                                      3, 4, 4, 5, 5, 6, 6, 6, 6, 6};
@@ -59,5 +67,11 @@ struct PositionStruct {
     void DelPiece(int);              // 从棋盘上拿走一枚棋子
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
 };
-int GetPiecePos(int i, int j);  //二维转一维
-int PosToNo(int pos, int ucsqPieces[]);
+inline int GetPiecePos(int i, int j) {
+    return i * COL + j + 1;  //棋盘中的0空着，用1~90
+}
+inline int PosToNo(int pos, int ucsqPieces[]) {
+    for (int i = 0; i < 32; ++i)
+        if (pos == ucsqPieces[i]) return i;
+    return -1;
+}

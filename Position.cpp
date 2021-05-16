@@ -1,4 +1,4 @@
-#include "ChessBoard.h"
+#include "Position.h"
 
 inline void PositionStruct::AddPiece(int pos, int no) {  // 在棋盘上放一枚棋子
     ucsqPieces[no] = pos;  //第no号（0~32）棋子的位置（9*10）
@@ -6,19 +6,12 @@ inline void PositionStruct::AddPiece(int pos, int no) {  // 在棋盘上放一枚棋子
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
     ucsqPieces[no] = 0;
 }
-inline int PosToNo(int pos, int ucsqPieces[]) {
-    for (int i = 0; i < 32; ++i)
-        if (pos == ucsqPieces[i]) return i;
-    return -1;
-}
 void PositionStruct::ClearBoard() {  // 清空棋盘
     sdPlayer = 0;
     memset(ucsqPieces, 0, 32 * sizeof(int));
 }
 
-inline int GetPiecePos(int i, int j) {
-    return i * COL + j + 1;  //棋盘中的0空着，用1~90
-}
+
 // FEN串识别
 void PositionStruct::FromFen(const char* const szFen) {
     int i, j, k;
