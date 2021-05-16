@@ -1,0 +1,10 @@
+^C:\USERS\111\SOURCE\VSCODE\C++\7-247\CHINESE-CHESS-AI\MYCHESS\BUILD\CMAKEFILES\400483E8D4B0CE27980EEA379D62145C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess -BC:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build/mychess.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

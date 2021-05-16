@@ -3,22 +3,12 @@
 inline void PositionStruct::AddPiece(int pos, int no) {  // 在棋盘上放一枚棋子
     ucsqPieces[no] = pos;  //第no号（0~32）棋子的位置（9*10）
 }
-inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
-    ucsqPieces[no] = 0;
-}
-inline int PosToNo(int pos, int ucsqPieces[]) {
-    for (int i = 0; i < 32; ++i)
-        if (pos == ucsqPieces[i]) return i;
-    return -1;
-}
+
 void PositionStruct::ClearBoard() {  // 清空棋盘
     sdPlayer = 0;
     memset(ucsqPieces, 0, 32 * sizeof(int));
 }
 
-inline int GetPiecePos(int i, int j) {
-    return i * COL + j + 1;  //棋盘中的0空着，用1~90
-}
 // FEN串识别
 void PositionStruct::FromFen(const char* const szFen) {
     int i, j, k;
@@ -89,12 +79,17 @@ void PositionStruct::FromFen(const char* const szFen) {
     }
     while (*lpFen == ' ') ++lpFen;
     moveNode tep = {0, 0, 0};  //开始、结束时子的位置，是否吃子
+    Count = 0;
     while (*lpFen != '\0') {
         tep.src = GetPiecePos('9' - *(lpFen + 1), *lpFen - 'a');
         tep.dst = GetPiecePos('9' - *(lpFen + 3), *(lpFen + 2) - 'a');
         AddPiece(tep.dst, PosToNo(tep.src, ucsqPieces));  //不用考虑吃子
         Moves.push_back(tep);
+        ++Count;
         lpFen += 4;
         while (*lpFen == ' ') ++lpFen;
-    }
+    } /*长打demo局面：2bakab2/9/n6c1/2p3C1p/4r4/9/P3P3P/4B4/9/2BAKA1NR b - - 0 1
+        难度：象棋巫师菜鸟，电脑执红
+        黑方的車一直在e5g5 g5e5地捉炮，红炮一直在e6g6 g6e6地躲着黑車
+     */
 }
