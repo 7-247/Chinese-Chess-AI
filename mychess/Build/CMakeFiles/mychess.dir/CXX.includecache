@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Position.h
+cstdio
+-
+cstring
+-
+iostream
+-
+vector
+-
+
+D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Generate.cpp
+Position.h
+D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Position.h
+

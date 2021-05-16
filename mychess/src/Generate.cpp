@@ -1,6 +1,6 @@
 #include "Position.h"
 static bool judge9(int sdPlayer, int move_new) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÔÚ9¹¬¸ñÖĞ
+    //ç›®æ ‡ä½ç½®æ˜¯å¦åœ¨9å®«æ ¼ä¸­
     if (!sdPlayer)
         if (((move_new <= 87 && move_new >= 85) ||
              (move_new <= 78 && move_new >= 76) ||
@@ -18,7 +18,7 @@ static bool judge9(int sdPlayer, int move_new) {
     }
 }
 static bool judgeRiver(int sdPlayer, int move_new) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÔÚ¼º·½½çÖĞ
+    //ç›®æ ‡ä½ç½®æ˜¯å¦åœ¨å·±æ–¹ç•Œä¸­
     if (!sdPlayer) {
         if (move_new > 45)
             return true;
@@ -32,24 +32,24 @@ static bool judgeRiver(int sdPlayer, int move_new) {
     }
 }
 static bool judgeIn(int move_new) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÔÚÆåÅÌÖĞ
+    //ç›®æ ‡ä½ç½®æ˜¯å¦åœ¨æ£‹ç›˜ä¸­
     return move_new >= 1 && move_new <= 90;
 }
 static bool exist_friend(int sdPlayer, const int ucsqPieces[],
                          const int chessboard[], int pos, int move) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÓĞÓÑ·½Æå×Ó
+    //ç›®æ ‡ä½ç½®æ˜¯å¦æœ‰å‹æ–¹æ£‹å­
     return (chessboard[ucsqPieces[pos] + move] <= 7 + sdPlayer * 7 &&
             chessboard[ucsqPieces[pos] + move] >= 1 + sdPlayer * 7);
 }
 static bool exist_enemy(int sdPlayer, const int ucsqPieces[],
                         const int chessboard[], int pos, int move) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÓĞµĞ·½Æå×Ó
+    //ç›®æ ‡ä½ç½®æ˜¯å¦æœ‰æ•Œæ–¹æ£‹å­
     return (chessboard[ucsqPieces[pos] + move] <= 7 + (!sdPlayer) * 7 &&
             chessboard[ucsqPieces[pos] + move] >= 1 + (!sdPlayer) * 7);
 }
 static bool exist_all(const int ucsqPieces[], const int chessboard[], int pos,
                       int move) {
-    //Ä¿±êÎ»ÖÃÊÇ·ñÓĞÆå×Ó
+    //ç›®æ ‡ä½ç½®æ˜¯å¦æœ‰æ£‹å­
     return (chessboard[ucsqPieces[pos] + move] <= 14 &&
             chessboard[ucsqPieces[pos] + move] >= 1);
 }
@@ -60,17 +60,8 @@ static bool chief_rule(int sdPlayer, const int ucsqPieces[],
 }
 static vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
                               const int chessboard[], int pos) {
-    //½«Ë§µÄÒÆ¶¯¹æÔò£¬pos±íÊ¾µ±Ç°Æå×ÓĞòÊı(0-31)
+    //å°†å¸…çš„ç§»åŠ¨è§„åˆ™ï¼Œposè¡¨ç¤ºå½“å‰æ£‹å­åºæ•°(0-31)
     vector<int> possible_move;
-    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 1))
-        possible_move.push_back(ucsqPieces[pos] + 1);
-    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, -1))
-        possible_move.push_back(ucsqPieces[pos] - 1);
-    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 9))
-        possible_move.push_back(ucsqPieces[pos] + 9);
-    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, -9))
-        possible_move.push_back(ucsqPieces[pos] - 9);
-
     int step = sdPlayer ? 9 : -9;
     for (int i = step;; i += step) {
         if (judgeIn(ucsqPieces[pos] + i) &&
@@ -80,6 +71,14 @@ static vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
             break;
         }
     }
+    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 1))
+        possible_move.push_back(ucsqPieces[pos] + 1);
+    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, -1))
+        possible_move.push_back(ucsqPieces[pos] - 1);
+    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 9))
+        possible_move.push_back(ucsqPieces[pos] + 9);
+    if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, -9))
+        possible_move.push_back(ucsqPieces[pos] - 9);
     return possible_move;
 }
 static bool knight_rule(int sdPlayer, const int ucsqPieces[],
@@ -89,7 +88,7 @@ static bool knight_rule(int sdPlayer, const int ucsqPieces[],
 }
 static vector<int> move_knight(int sdPlayer, const int ucsqPieces[],
                                const int chessboard[], int pos) {
-    //Ê¿µÄÒÆ¶¯¹æÔò£¬pos±íÊ¾µ±Ç°Æå×ÓĞòÊı(0-31)
+    //å£«çš„ç§»åŠ¨è§„åˆ™ï¼Œposè¡¨ç¤ºå½“å‰æ£‹å­åºæ•°(0-31)
     vector<int> possible_move;
     if (knight_rule(sdPlayer, ucsqPieces, chessboard, pos, -8))
         possible_move.push_back(ucsqPieces[pos] - 8);
@@ -105,6 +104,7 @@ static bool elephant_rule(int sdPlayer, const int ucsqPieces[],
                           const int chessboard[], int pos, int move) {
     return judgeRiver(sdPlayer, ucsqPieces[pos] + move) &&
            judgeIn(ucsqPieces[pos] + move) &&
+           judgeIn(ucsqPieces[pos] + move / 2) &&
            !exist_friend(sdPlayer, ucsqPieces, chessboard, pos, move) &&
            !exist_all(ucsqPieces, chessboard, pos, move / 2);
 }
@@ -133,7 +133,8 @@ static bool horse_rule(int sdPlayer, const int ucsqPieces[],
 static vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
                               const int chessboard[], int pos) {
     vector<int> possible_move;
-    if (!exist_all(ucsqPieces, chessboard, pos, -9)) {
+    if (judgeIn(ucsqPieces[pos] - 9) &&
+        !exist_all(ucsqPieces, chessboard, pos, -9)) {
         if (ucsqPieces[pos] % 9 != 0 && judgeIn(ucsqPieces[pos] - 17) &&
             horse_rule(sdPlayer, ucsqPieces, chessboard, pos, -17))
             possible_move.push_back(ucsqPieces[pos] - 17);
@@ -141,7 +142,8 @@ static vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
             horse_rule(sdPlayer, ucsqPieces, chessboard, pos, -19))
             possible_move.push_back(ucsqPieces[pos] - 19);
     }
-    if (!exist_all(ucsqPieces, chessboard, pos, 9)) {
+    if (judgeIn(ucsqPieces[pos] + 9) &&
+        !exist_all(ucsqPieces, chessboard, pos, 9)) {
         if (ucsqPieces[pos] % 9 != 1 && judgeIn(ucsqPieces[pos] + 17) &&
             horse_rule(sdPlayer, ucsqPieces, chessboard, pos, 17))
             possible_move.push_back(ucsqPieces[pos] + 17);
@@ -149,7 +151,8 @@ static vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
             horse_rule(sdPlayer, ucsqPieces, chessboard, pos, 19))
             possible_move.push_back(ucsqPieces[pos] + 19);
     }
-    if (ucsqPieces[pos] % 9 != 1 && ucsqPieces[pos] % 9 != 2 &&
+    if (judgeIn(ucsqPieces[pos] - 1) && ucsqPieces[pos] % 9 != 1 &&
+        ucsqPieces[pos] % 9 != 2 &&
         !exist_all(ucsqPieces, chessboard, pos, -1)) {
         if (horse_rule(sdPlayer, ucsqPieces, chessboard, pos, -11) &&
             judgeIn(ucsqPieces[pos] - 11))
@@ -158,7 +161,8 @@ static vector<int> move_horse(int sdPlayer, const int ucsqPieces[],
             judgeIn(ucsqPieces[pos] + 7))
             possible_move.push_back(ucsqPieces[pos] + 7);
     }
-    if (ucsqPieces[pos] % 9 != 0 && ucsqPieces[pos] % 9 != 8 &&
+    if (judgeIn(ucsqPieces[pos] + 1) && ucsqPieces[pos] % 9 != 0 &&
+        ucsqPieces[pos] % 9 != 8 &&
         !exist_all(ucsqPieces, chessboard, pos, 1)) {
         if (horse_rule(sdPlayer, ucsqPieces, chessboard, pos, +11) &&
             judgeIn(ucsqPieces[pos] + 11))
@@ -215,7 +219,7 @@ static vector<int> move_cart(int sdPlayer, const int ucsqPieces[],
 static vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                                const int chessboard[], int pos) {
     vector<int> possible_move;
-    bool flag = 1;  // flagÎª0±íÊ¾´æÔÚÅÚÌ¨ÁË
+    bool flag = 1;  // flagä¸º0è¡¨ç¤ºå­˜åœ¨ç‚®å°äº†
     if (ucsqPieces[pos] % 9 != 1)
         for (int i = -1;; i--) {
             if (judgeIn(ucsqPieces[pos] + i)) {
@@ -224,7 +228,7 @@ static vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                         possible_move.push_back(ucsqPieces[pos] + i);
                     else
                         flag = 0;
-                } else {  //ÓĞÅÚÌ¨£¬ÕÒµĞ·½Æå×Ó
+                } else {  //æœ‰ç‚®å°ï¼Œæ‰¾æ•Œæ–¹æ£‹å­
                     if (exist_all(ucsqPieces, chessboard, pos, i)) {
                         flag = 1;
                         if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos,
@@ -246,7 +250,7 @@ static vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                         possible_move.push_back(ucsqPieces[pos] + i);
                     else
                         flag = 0;
-                } else {  //ÓĞÅÚÌ¨£¬ÕÒµĞ·½Æå×Ó
+                } else {  //æœ‰ç‚®å°ï¼Œæ‰¾æ•Œæ–¹æ£‹å­
                     if (exist_all(ucsqPieces, chessboard, pos, i)) {
                         flag = 1;
                         if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos,
@@ -267,7 +271,7 @@ static vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                     possible_move.push_back(ucsqPieces[pos] + i);
                 else
                     flag = 0;
-            } else {  //ÓĞÅÚÌ¨£¬ÕÒµĞ·½Æå×Ó
+            } else {  //æœ‰ç‚®å°ï¼Œæ‰¾æ•Œæ–¹æ£‹å­
                 if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
                     if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
@@ -286,7 +290,7 @@ static vector<int> move_cannon(int sdPlayer, const int ucsqPieces[],
                     possible_move.push_back(ucsqPieces[pos] + i);
                 else
                     flag = 0;
-            } else {  //ÓĞÅÚÌ¨£¬ÕÒµĞ·½Æå×Ó
+            } else {  //æœ‰ç‚®å°ï¼Œæ‰¾æ•Œæ–¹æ£‹å­
                 if (exist_all(ucsqPieces, chessboard, pos, i)) {
                     flag = 1;
                     if (exist_enemy(sdPlayer, ucsqPieces, chessboard, pos, i))
@@ -333,7 +337,7 @@ static inline vector<vector<int>> possibleMove(int sdPlayer,
         32,
         vector<int>(
             1,
-            0));  //ËùÓĞÆå×Ó¿ÉÄÜ×ß·¨ÏÈÈ«²¿ÖÃ0£¬Õâ¿ÉÄÜ»áÓë±»³ÔÆå×ÓµÄÖÃ0ÓĞ³åÍ»£¬¶ÁÈ¡·½·¨Ó¦ÓëÏÂ·½Ñ­»·ÏàÍ¬
+            0));  //æ‰€æœ‰æ£‹å­å¯èƒ½èµ°æ³•å…ˆå…¨éƒ¨ç½®0ï¼Œè¿™å¯èƒ½ä¼šä¸è¢«åƒæ£‹å­çš„ç½®0æœ‰å†²çªï¼Œè¯»å–æ–¹æ³•åº”ä¸ä¸‹æ–¹å¾ªç¯ç›¸åŒ
     for (int i = sdPlayer * 16; i < sdPlayer * 16 + 16; i++) {
         if (ucsqPieces[i] != 0)
             possible[i] = move_chess[cnPieceTypes[i]](sdPlayer, ucsqPieces,

@@ -15,10 +15,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
             for (int j = 0; j < tep[i].size(); ++j) {
                 //走一步
                 mychess.sdPlayer = !mychess.sdPlayer;
-                mychess.ucsqPieces[i] = tep[i][j];
 
                 int isenemy =
                     PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
+                mychess.ucsqPieces[i] = tep[i][j];
+
                 if (isenemy != -1)
                     mychess.ucsqPieces[isenemy] = 0;  //找到了，要吃掉
 
@@ -47,10 +48,10 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 continue;
             for (int j = 0; j < tep[i].size(); ++j) {  //走法只有前16个是有值的
                 mychess.sdPlayer = !mychess.sdPlayer;
-                mychess.ucsqPieces[i] = tep[i][j];  //走了一步
-
                 int isenemy =
                     PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
+                mychess.ucsqPieces[i] = tep[i][j];           //走了一步
+
                 if (isenemy != -1)
                     mychess.ucsqPieces[isenemy] = 0;  //找到了，要吃掉
 

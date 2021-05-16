@@ -1,32 +1,37 @@
 [
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\ChessBoard.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\ChessBoard.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/ChessBoard.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\ChessBoard.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\ChessBoard.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/ChessBoard.cpp"
 },
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\Evaluate.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\Evaluate.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/Evaluate.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\Evaluate.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\Evaluate.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Evaluate.cpp"
 },
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\Generate.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\Generate.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/Generate.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\Generate.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\Generate.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Generate.cpp"
 },
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\Main.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\Main.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/Main.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\Main.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\Main.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Main.cpp"
 },
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\Position.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\Position.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/Position.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\Position.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\Position.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Position.cpp"
 },
 {
-  "directory": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build",
-  "command": "g++  @CMakeFiles/test.dir/includes_CXX.rsp -g -o CMakeFiles\\test.dir\\src\\Search.cpp.obj -c C:\\Users\\111\\source\\vscode\\c++\\7-247\\Chinese-Chess-AI\\mychess\\src\\Search.cpp",
-  "file": "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/src/Search.cpp"
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\Search.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\Search.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Search.cpp"
+},
+{
+  "directory": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build",
+  "command": "g++   @CMakeFiles/mychess.dir/includes_CXX.rsp -g   -o CMakeFiles\\mychess.dir\\src\\ucci.cpp.obj -c D:\\7-247\\Chinese-Chess-AI-SSH\\Chinese-Chess-AI\\mychess\\src\\ucci.cpp",
+  "file": "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/ucci.cpp"
 }
 ]

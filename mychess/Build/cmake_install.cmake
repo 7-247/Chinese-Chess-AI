@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess
+# Install script for directory: D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,11 +32,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-# Set default install directory permissions.
-if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Program Files (x86)/Dev-Cpp/MinGW64/bin/objdump.exe")
-endif()
-
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
@@ -45,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/111/source/vscode/c++/7-247/Chinese-Chess-AI/mychess/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
