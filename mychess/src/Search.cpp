@@ -1,5 +1,5 @@
 #include "Evaluate.h"
-const int DEPTH = 4;
+const int DEPTH = 6;
 static int bestmove;
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
     if (depth == 0 || mychess.ucsqPieces[0] == 0 ||
