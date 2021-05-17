@@ -1,6 +1,6 @@
 #include "Evaluate.h"
 #include "Position.h"
-const int DEPTH = 5;
+const int DEPTH = 7;
 const int EXP = -30;
 // alpha - beta >= EXP时剪枝，EXP为0时保证对DEPTH层的最优性(该值越小剪枝越粗略)
 static int bestmove;  //记录返回的步数
@@ -119,6 +119,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
         vector<vector<int>>().swap(tep);  //清空内存
         return beta;
     }
+    return -55555555;  //防warning 实际上应该不会返回会这个值
 }
 int SearchMain(PositionStruct& mychess, int gotime) {
     bestmove = 0;
