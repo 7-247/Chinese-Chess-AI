@@ -22,6 +22,9 @@ CMakeFiles/mychess.dir/src/Position.cpp.obj: ../include/ChessBoard.h
 CMakeFiles/mychess.dir/src/Position.cpp.obj: ../include/Position.h
 CMakeFiles/mychess.dir/src/Position.cpp.obj: ../src/Position.cpp
 
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: ../include/Position.h
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: ../src/Predict.cpp
+
 CMakeFiles/mychess.dir/src/Search.cpp.obj: ../include/ChessBoard.h
 CMakeFiles/mychess.dir/src/Search.cpp.obj: ../include/Evaluate.h
 CMakeFiles/mychess.dir/src/Search.cpp.obj: ../include/Position.h

@@ -327,7 +327,6 @@ static inline vector<vector<int>> possibleMove(int sdPlayer,
             possible[i] = move_chess[cnPieceTypes[i]](sdPlayer, ucsqPieces,
                                                       chessboard, i);
     }
-
     return possible;
 }
 vector<vector<int>> PositionStruct::Predict() {

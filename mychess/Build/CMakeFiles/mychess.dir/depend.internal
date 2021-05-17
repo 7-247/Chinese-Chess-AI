@@ -22,6 +22,9 @@ CMakeFiles/mychess.dir/src/Position.cpp.obj
  ../include/ChessBoard.h
  ../include/Position.h
  D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Position.cpp
+CMakeFiles/mychess.dir/src/Predict.cpp.obj
+ ../include/Position.h
+ D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Predict.cpp
 CMakeFiles/mychess.dir/src/Search.cpp.obj
  ../include/ChessBoard.h
  ../include/Evaluate.h
