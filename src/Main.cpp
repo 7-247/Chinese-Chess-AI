@@ -80,14 +80,13 @@ int main() {
             cout << endl;
             }
             */
-            /*
-             int move = SearchMain(mychess, gotime);
-             if (move == 0) {
-                 PrintLn("error");
-                 continue;
-             }
-             BestMoveIntToChar(move);          //用于最后的输出*/
-            int move = (2 << 8) + 19;
+
+            int move = SearchMain(mychess, gotime);
+            if (move == 0) {
+                PrintLn("error");
+                continue;
+            }
+            BestMoveIntToChar(move);          //用于最后的输出
             BestMoveIntToNum(mychess, move);  //用于象棋巫师调试
         }
     }

@@ -1,7 +1,7 @@
 #include "Evaluate.h"
 #include "Position.h"
-const int DEPTH = 7;
-const int EXP = -30;
+const int DEPTH = 5;
+const int EXP = 0;
 // alpha - beta >= EXP时剪枝，EXP为0时保证对DEPTH层的最优性(该值越小剪枝越粗略)
 static int bestmove;  //记录返回的步数
 /*static const int PosHash [32] =
