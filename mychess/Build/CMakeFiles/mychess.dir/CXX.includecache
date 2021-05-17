@@ -16,23 +16,7 @@ iostream
 vector
 -
 
-../include/Search.h
-Position.h
-../include/Position.h
-
-../include/Ucci.h
-cstdio
--
-Position.h
-../include/Position.h
-
-D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Main.cpp
-cstring
--
+D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Predict.cpp
 Position.h
 D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Position.h
-Search.h
-D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Search.h
-Ucci.h
-D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Ucci.h
 
