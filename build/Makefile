@@ -59,7 +59,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build
+CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\CMakeFiles C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\CMakeFiles C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -248,6 +248,30 @@ src/Position.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Position.cpp.s
 .PHONY : src/Position.cpp.s
 
+src/Predict.obj: src/Predict.cpp.obj
+.PHONY : src/Predict.obj
+
+# target to build an object file
+src/Predict.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Predict.cpp.obj
+.PHONY : src/Predict.cpp.obj
+
+src/Predict.i: src/Predict.cpp.i
+.PHONY : src/Predict.i
+
+# target to preprocess a source file
+src/Predict.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Predict.cpp.i
+.PHONY : src/Predict.cpp.i
+
+src/Predict.s: src/Predict.cpp.s
+.PHONY : src/Predict.s
+
+# target to generate assembly for a file
+src/Predict.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Predict.cpp.s
+.PHONY : src/Predict.cpp.s
+
 src/Repeat.obj: src/Repeat.cpp.obj
 .PHONY : src/Repeat.obj
 
@@ -344,6 +368,9 @@ help:
 	@echo ... src/Position.obj
 	@echo ... src/Position.i
 	@echo ... src/Position.s
+	@echo ... src/Predict.obj
+	@echo ... src/Predict.i
+	@echo ... src/Predict.s
 	@echo ... src/Repeat.obj
 	@echo ... src/Repeat.i
 	@echo ... src/Repeat.s

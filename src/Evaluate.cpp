@@ -40,22 +40,20 @@ inline void calculateEval(int position, int type, int& evalred, int& evalblack,
 
 Eval::Eval(PositionStruct& pos) {
     EvalRed = EvalBlack = 0;
-    vector<vector<int>> tep1 = pos.Generate();
+    vector<vector<int>> tep = pos.Predict();
     for (int i = 0 + 16 * pos.sdPlayer; i < 16 + 16 * pos.sdPlayer; ++i) {
         if (pos.ucsqPieces[i]) {
             calculateEval(pos.ucsqPieces[i], cnPieceTypes[i], EvalRed,
-                          EvalBlack, tep1[i].size(), pos.sdPlayer);
+                          EvalBlack, tep[i].size(), pos.sdPlayer);
         }
     }
     pos.sdPlayer = !pos.sdPlayer;
-    vector<vector<int>> tep2 = pos.Generate();
     for (int i = 0 + 16 * pos.sdPlayer; i < 16 + 16 * pos.sdPlayer; ++i) {
         if (pos.ucsqPieces[i]) {
             calculateEval(pos.ucsqPieces[i], cnPieceTypes[i], EvalRed,
-                          EvalBlack, tep2[i].size(), pos.sdPlayer);
+                          EvalBlack, tep[i].size(), pos.sdPlayer);
         }
     }
     pos.sdPlayer = !pos.sdPlayer;  //改回去
-    vector<vector<int>>().swap(tep1);
-    vector<vector<int>>().swap(tep2);
+    vector<vector<int>>().swap(tep);
 }

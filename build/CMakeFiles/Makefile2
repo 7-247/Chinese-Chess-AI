@@ -56,7 +56,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build
+CMAKE_BINARY_DIR = C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/mychess.dir/clean
 CMakeFiles/mychess.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target mychess"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target mychess"
 .PHONY : CMakeFiles/mychess.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mychess.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/mychess.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\Build\CMakeFiles 0
 .PHONY : CMakeFiles/mychess.dir/rule
 
 # Convenience name for target.

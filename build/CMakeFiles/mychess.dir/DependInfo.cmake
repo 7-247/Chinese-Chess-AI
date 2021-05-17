@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Generate.cpp" "CMakeFiles/mychess.dir/src/Generate.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Generate.cpp.obj.d"
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Main.cpp" "CMakeFiles/mychess.dir/src/Main.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Main.cpp.obj.d"
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Position.cpp" "CMakeFiles/mychess.dir/src/Position.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Position.cpp.obj.d"
+  "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Predict.cpp" "CMakeFiles/mychess.dir/src/Predict.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Predict.cpp.obj.d"
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Repeat.cpp" "CMakeFiles/mychess.dir/src/Repeat.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Repeat.cpp.obj.d"
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/Search.cpp" "CMakeFiles/mychess.dir/src/Search.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/Search.cpp.obj.d"
   "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/src/ucci.cpp" "CMakeFiles/mychess.dir/src/ucci.cpp.obj" "gcc" "CMakeFiles/mychess.dir/src/ucci.cpp.obj.d"

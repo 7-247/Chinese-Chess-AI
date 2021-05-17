@@ -140,4 +140,5 @@ CMakeFiles/mychess.dir/src/Search.cpp.obj: \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_uninitialized.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_vector.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_bvector.h \
- C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc \
+ C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/include/Position.h

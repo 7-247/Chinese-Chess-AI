@@ -1,6 +1,5 @@
-CMakeFiles/mychess.dir/src/ChessBoard.cpp.obj: \
- C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\src\ChessBoard.cpp \
- C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/include/ChessBoard.h \
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: \
+ C:\Users\111\source\vscode\c++\7-247\SSH\Chinese-Chess-AI\Chinese-Chess-AI\src\Predict.cpp \
  C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/include/Position.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/cstdio \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
@@ -139,5 +138,4 @@ CMakeFiles/mychess.dir/src/ChessBoard.cpp.obj: \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_uninitialized.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_vector.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_bvector.h \
- C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc \
- C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/include/Position.h
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc

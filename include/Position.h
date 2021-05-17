@@ -1,10 +1,11 @@
-#pragma once
+
 #include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <vector>
 using namespace std;
-
+#ifndef SEARCH_H
+#define SEARCH_H
 /*
     棋子序号对应的棋子类型
     0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
@@ -79,3 +80,4 @@ inline int PosToNo(int pos, int ucsqPieces[]) {
 inline int GetPiecePos(int i, int j) {
     return i * COL + j + 1;  //棋盘中的0空着，用1~90
 }
+#endif

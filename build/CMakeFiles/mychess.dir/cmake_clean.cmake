@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/mychess.dir/src/Main.cpp.obj.d"
   "CMakeFiles/mychess.dir/src/Position.cpp.obj"
   "CMakeFiles/mychess.dir/src/Position.cpp.obj.d"
+  "CMakeFiles/mychess.dir/src/Predict.cpp.obj"
+  "CMakeFiles/mychess.dir/src/Predict.cpp.obj.d"
   "CMakeFiles/mychess.dir/src/Repeat.cpp.obj"
   "CMakeFiles/mychess.dir/src/Repeat.cpp.obj.d"
   "CMakeFiles/mychess.dir/src/Search.cpp.obj"
