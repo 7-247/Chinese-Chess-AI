@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "*.asp": "plaintext",
         "*.h": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "vector": "cpp"
     }
 }

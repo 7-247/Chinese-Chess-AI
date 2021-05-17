@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = @CMakeFiles/mychess.dir/includes_CXX.rsp
 
-CXX_FLAGS = -O3 -DNDEBUG
+CXX_FLAGS = -g
 

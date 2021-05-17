@@ -56,7 +56,8 @@ static vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
             if (chessboard[ucsqPieces[pos] + i] == 1 + (!sdPlayer) * 7)
                 possible_move.push_back(ucsqPieces[pos] + i);
             break;
-        }
+        } else
+            break;
     }
     if (chief_rule(sdPlayer, ucsqPieces, chessboard, pos, 1))
         possible_move.push_back(ucsqPieces[pos] + 1);
