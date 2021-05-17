@@ -65,6 +65,7 @@ struct PositionStruct {
     void AddPiece(int, int);         // 在棋盘上放一枚棋子
     void DelPiece(int);              // 从棋盘上拿走一枚棋子
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
+    vector<vector<int>> Predict();  //顶层函数，生成若干种走法(保护，威胁)
 };
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
     ucsqPieces[no] = 0;

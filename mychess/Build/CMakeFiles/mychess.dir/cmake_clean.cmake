@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/mychess.dir/src/Generate.cpp.obj"
   "CMakeFiles/mychess.dir/src/Main.cpp.obj"
   "CMakeFiles/mychess.dir/src/Position.cpp.obj"
+  "CMakeFiles/mychess.dir/src/Predict.cpp.obj"
   "CMakeFiles/mychess.dir/src/Search.cpp.obj"
   "CMakeFiles/mychess.dir/src/ucci.cpp.obj"
 )

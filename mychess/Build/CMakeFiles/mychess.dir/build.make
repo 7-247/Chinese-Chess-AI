@@ -143,10 +143,24 @@ CMakeFiles/mychess.dir/src/Position.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mychess.dir/src/Position.cpp.s"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\Position.cpp -o CMakeFiles\mychess.dir\src\Position.cpp.s
 
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: CMakeFiles/mychess.dir/flags.make
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: CMakeFiles/mychess.dir/includes_CXX.rsp
+CMakeFiles/mychess.dir/src/Predict.cpp.obj: ../src/Predict.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mychess.dir/src/Predict.cpp.obj"
+	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mychess.dir\src\Predict.cpp.obj -c D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\Predict.cpp
+
+CMakeFiles/mychess.dir/src/Predict.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mychess.dir/src/Predict.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\Predict.cpp > CMakeFiles\mychess.dir\src\Predict.cpp.i
+
+CMakeFiles/mychess.dir/src/Predict.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mychess.dir/src/Predict.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\Predict.cpp -o CMakeFiles\mychess.dir\src\Predict.cpp.s
+
 CMakeFiles/mychess.dir/src/Search.cpp.obj: CMakeFiles/mychess.dir/flags.make
 CMakeFiles/mychess.dir/src/Search.cpp.obj: CMakeFiles/mychess.dir/includes_CXX.rsp
 CMakeFiles/mychess.dir/src/Search.cpp.obj: ../src/Search.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/mychess.dir/src/Search.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/mychess.dir/src/Search.cpp.obj"
 	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mychess.dir\src\Search.cpp.obj -c D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\Search.cpp
 
 CMakeFiles/mychess.dir/src/Search.cpp.i: cmake_force
@@ -160,7 +174,7 @@ CMakeFiles/mychess.dir/src/Search.cpp.s: cmake_force
 CMakeFiles/mychess.dir/src/ucci.cpp.obj: CMakeFiles/mychess.dir/flags.make
 CMakeFiles/mychess.dir/src/ucci.cpp.obj: CMakeFiles/mychess.dir/includes_CXX.rsp
 CMakeFiles/mychess.dir/src/ucci.cpp.obj: ../src/ucci.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/mychess.dir/src/ucci.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/mychess.dir/src/ucci.cpp.obj"
 	g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\mychess.dir\src\ucci.cpp.obj -c D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\src\ucci.cpp
 
 CMakeFiles/mychess.dir/src/ucci.cpp.i: cmake_force
@@ -178,6 +192,7 @@ mychess_OBJECTS = \
 "CMakeFiles/mychess.dir/src/Generate.cpp.obj" \
 "CMakeFiles/mychess.dir/src/Main.cpp.obj" \
 "CMakeFiles/mychess.dir/src/Position.cpp.obj" \
+"CMakeFiles/mychess.dir/src/Predict.cpp.obj" \
 "CMakeFiles/mychess.dir/src/Search.cpp.obj" \
 "CMakeFiles/mychess.dir/src/ucci.cpp.obj"
 
@@ -189,13 +204,14 @@ mychess_EXTERNAL_OBJECTS =
 ../bin/mychess.exe: CMakeFiles/mychess.dir/src/Generate.cpp.obj
 ../bin/mychess.exe: CMakeFiles/mychess.dir/src/Main.cpp.obj
 ../bin/mychess.exe: CMakeFiles/mychess.dir/src/Position.cpp.obj
+../bin/mychess.exe: CMakeFiles/mychess.dir/src/Predict.cpp.obj
 ../bin/mychess.exe: CMakeFiles/mychess.dir/src/Search.cpp.obj
 ../bin/mychess.exe: CMakeFiles/mychess.dir/src/ucci.cpp.obj
 ../bin/mychess.exe: CMakeFiles/mychess.dir/build.make
 ../bin/mychess.exe: CMakeFiles/mychess.dir/linklibs.rsp
 ../bin/mychess.exe: CMakeFiles/mychess.dir/objects1.rsp
 ../bin/mychess.exe: CMakeFiles/mychess.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ..\bin\mychess.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\7-247\Chinese-Chess-AI-SSH\Chinese-Chess-AI\mychess\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ..\bin\mychess.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\mychess.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
