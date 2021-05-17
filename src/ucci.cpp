@@ -31,7 +31,8 @@ void BestMoveIntToNum(PositionStruct& pos, int bestmove) {
     int highno = PosToNo(high, pos.ucsqPieces);
     printf("%d", type = cnPieceTypes[highno] + 1);
     if (type > 3 && type < 7) {
-        int no_a = FROM_NUM[type - 1], no_b = FROM_NUM[type - 1] + 1;
+        int no_a = FROM_NUM[type - 1] + 16 * pos.sdPlayer,
+            no_b = FROM_NUM[type - 1] + 1 + pos.sdPlayer * 16;
         int pos_other = pos.ucsqPieces[no_a + no_b - highno];  //另一个的位置
         if (PosToLine(pos_other, pos.sdPlayer) ==
             PosToLine(high, pos.sdPlayer)) {
