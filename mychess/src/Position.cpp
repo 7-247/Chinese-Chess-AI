@@ -88,10 +88,7 @@ void PositionStruct::FromFen(const char* const szFen) {
         ++Count;
         lpFen += 4;
         while (*lpFen == ' ') ++lpFen;
-    } /*长打demo局面：2bakab2/9/n6c1/2p3C1p/4r4/9/P3P3P/4B4/9/2BAKA1NR b - - 0 1
-        难度：象棋巫师菜鸟，电脑执红
-        黑方的車一直在e5g5 g5e5地捉炮，红炮一直在e6g6 g6e6地躲着黑車
-     */
+    }
 }
 
 void PositionStruct::ChangeBoard(int move) {

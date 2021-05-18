@@ -14,7 +14,7 @@ static const int PosHash[32] = {7,  8,  9,  10, 5,  6,  12, 14, 3,  4,  1,
                                 2,  11, 15, 13, 0,  23, 24, 25, 26, 21, 22,
                                 28, 30, 19, 20, 17, 18, 27, 31, 29, 16};
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
-    int state = -1 /*mychess.Repeat()*/;
+    int state = mychess.Repeat();
     if (depth == 0 || mychess.ucsqPieces[0] == 0 ||
         mychess.ucsqPieces[16] == 0 || state != -1) {
         if (mychess.ucsqPieces[0] == 0 || state == 1)  //帅 死了
@@ -25,15 +25,18 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
             Eval myeval(mychess);
             int tepvalue = myeval.GetEvalNum();
             if (state == 0) {
-                if ((mychess.sdPlayer == 0 && tepvalue < 0) ||
-                    (mychess.sdPlayer == 1 && tepvalue > 0)) {
-                    //当前是红方且此时红方优势不大；或者当前是黑方且此时黑方优势不大
-                    return tepvalue + 200;  //调高评估值，你愿意和我便和你和
-                }
-                if ((mychess.sdPlayer == 1 && tepvalue < 0) ||
-                    (mychess.sdPlayer == 0 && tepvalue > 0)) {
+                if ((mychess.sdPlayer == 1 && tepvalue < -250) ||
+                    (mychess.sdPlayer == 0 && tepvalue > 250)) {
                     //当前是红方且此时红方有优势；或者当前是黑方且此时黑方有优势
-                    return tepvalue - 200;  //调低评估值，你愿意和我偏不和你和
+                    return 0;
+                    //调低评估值，你愿意和我偏不和你和
+                }
+                /*if ((mychess.sdPlayer == 0 && tepvalue < 100) ||
+                    (mychess.sdPlayer == 1 && tepvalue > -100))*/
+                else {
+                    //当前是红方且此时红方优势不大；或者当前是黑方且此时黑方优势不大
+                    return tepvalue - 1000 * mychess.sdPlayer + 500;
+                    //调高评估值，你愿意和我便和你和
                 }
             } else
                 return tepvalue;

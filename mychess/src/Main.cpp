@@ -65,25 +65,18 @@ int main() {
         else {
             mychess.PositionInit(input);  //然后把改变后的c转化为局面
 
-            int move = SearchMain(mychess, gotime);
-            if (move == 0) {
-                PrintLn("error");
-                continue;
-            }
-            BestMoveIntToChar(move);          //用于最后的输出
-            BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
-            mychess.ChangeBoard(move);
-
             cout << "当前局面：" << endl;
             ChessBoard myboard(mychess);
             myboard.DrawBoard();
             Eval myeval(mychess);
-            cout << "当前评估值：" << myeval.GetEvalNum() << endl;
-            cout << "Red:" << myeval.EvalRed << " "
-                 << "Black:" << myeval.EvalBlack << endl;
 
-            /*vector<vector<int>> tep = mychess.Predict();
-            for (int i = 0; i < 32; i++) {
+            /*cout << "当前评估值：" << myeval.GetEvalNum() << endl;
+            cout << "Red:" << myeval.EvalRed << " "
+                 << "Black:" << myeval.EvalBlack << endl;*/
+
+            vector<vector<int>> tep = mychess.Generate();
+            for (int i = 16 * mychess.sdPlayer; i < 16 + mychess.sdPlayer * 16;
+                 i++) {
                 if (!mychess.ucsqPieces[i]) continue;
                 if (i >= 16)
                     cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]]
@@ -94,10 +87,19 @@ int main() {
                 cout << endl;
                 for (int j = 0; j < tep[i].size(); j++) {
                     cout << " ";
-                    PosIntToChar(tep[i][j]);
+                    cout << tep[i][j];  // PosIntToChar(tep[i][j]);
                 }
                 cout << endl;
-            }*/
+            }
+
+            int move = SearchMain(mychess, gotime);
+            if (move == 0) {
+                PrintLn("error");
+                continue;
+            }
+            BestMoveIntToChar(move);          //用于最后的输出
+            BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
+            mychess.ChangeBoard(move);
         }
     }
     return 0;
