@@ -76,11 +76,10 @@ int main() {
             BestMoveIntToChar(move);          //用于最后的输出
             BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
 
-            /*Eval myeval(mychess);
+            Eval myeval(mychess);
             cout << "当前评估值：" << myeval.GetEvalNum() << endl;
             cout << "Red:" << myeval.EvalRed << " "
                  << "Black:" << myeval.EvalBlack << endl;
-            */
 
             /*vector<vector<int>> tep = mychess.Predict();
             for (int i = 0; i < 32; i++) {

@@ -62,7 +62,8 @@ Eval::Eval(PositionStruct& pos) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateRedEval(pos.ucsqPieces[i], cnPieceTypes[i],
                                              gonum[i]);
-                if (ThreatenValue[i] > ProtectValue[i]) {  //保护不过来了
+                if (ThreatenValue[i] >
+                    ((i % 16 == 0) ? 0 : ProtectValue[i])) {  //保护不过来了
                     if (value > MaxthreatenValue) {
                         if (MaxthreatenNo != -1)          //已经发现过了
                             EvalRed -= MaxthreatenValue;  //补扣
@@ -79,7 +80,8 @@ Eval::Eval(PositionStruct& pos) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateBlackEval(pos.ucsqPieces[i],
                                                cnPieceTypes[i], gonum[i]);
-                if (ThreatenValue[i] > ProtectValue[i]) {  //保护不过来了
+                if (ThreatenValue[i] >
+                    ((i % 16 == 0) ? 0 : ProtectValue[i])) {  //保护不过来了
                     if (value > MaxthreatenValue) {
                         if (MaxthreatenNo != -1)            //已经发现过了
                             EvalBlack += MaxthreatenValue;  //补加
@@ -96,7 +98,8 @@ Eval::Eval(PositionStruct& pos) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateBlackEval(pos.ucsqPieces[i],
                                                cnPieceTypes[i], gonum[i]);
-                if (ThreatenValue[i] > ProtectValue[i]) {  //保护不过来了
+                if (ThreatenValue[i] >
+                    ((i % 16 == 0) ? 0 : ProtectValue[i])) {  //保护不过来了
                     if (value > MaxthreatenValue) {
                         if (MaxthreatenNo != -1)            //已经发现过了
                             EvalBlack -= MaxthreatenValue;  //补扣
@@ -113,7 +116,8 @@ Eval::Eval(PositionStruct& pos) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateRedEval(pos.ucsqPieces[i], cnPieceTypes[i],
                                              gonum[i]);
-                if (ThreatenValue[i] > ProtectValue[i]) {  //保护不过来了
+                if (ThreatenValue[i] >
+                    ((i % 16 == 0) ? 0 : ProtectValue[i])) {  //保护不过来了
                     if (value > MaxthreatenValue) {
                         if (MaxthreatenNo != -1)          //已经发现过了
                             EvalRed += MaxthreatenValue;  //补加
