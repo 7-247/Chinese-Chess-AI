@@ -72,6 +72,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 //复原
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
+                mychess.Moves.pop_back();
                 if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
                 if (alpha - beta >= EXP) break;
             }
@@ -111,6 +112,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 //复原
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
+                mychess.Moves.pop_back();
                 if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
                 if (alpha - beta >= EXP) break;
             }

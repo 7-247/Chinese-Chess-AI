@@ -51,11 +51,12 @@ static vector<int> move_chief(int sdPlayer, const int ucsqPieces[],
     vector<int> possible_move;
     int step = sdPlayer ? 9 : -9;
     for (int i = step;; i += step) {
-        if (judgeIn(ucsqPieces[pos] + i) &&
-            exist_all(ucsqPieces, chessboard, pos, i)) {
-            if (chessboard[ucsqPieces[pos] + i] == 1 + (!sdPlayer) * 7)
-                possible_move.push_back(ucsqPieces[pos] + i);
-            break;
+        if (judgeIn(ucsqPieces[pos] + i)) {
+            if (exist_all(ucsqPieces, chessboard, pos, i)) {
+                if (chessboard[ucsqPieces[pos] + i] == 1 + (!sdPlayer) * 7)
+                    possible_move.push_back(ucsqPieces[pos] + i);
+                break;
+            }
         } else
             break;
     }
