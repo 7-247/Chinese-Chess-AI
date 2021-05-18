@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Main.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/Main.cpp.obj"
   "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Position.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/Position.cpp.obj"
   "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Predict.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/Predict.cpp.obj"
+  "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Repeat.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/Repeat.cpp.obj"
   "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/Search.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/Search.cpp.obj"
   "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/src/ucci.cpp" "D:/7-247/Chinese-Chess-AI-SSH/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir/src/ucci.cpp.obj"
   )

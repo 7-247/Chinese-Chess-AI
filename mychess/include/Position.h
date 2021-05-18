@@ -45,6 +45,7 @@ const char* const cszStartFen =
 struct moveNode {
     int src, dst;
     bool iseat;
+    bool operator==(moveNode& node1);
 };
 // 局面结构
 struct PositionStruct {
@@ -56,7 +57,7 @@ struct PositionStruct {
     bool sdPlayer;  // 轮到谁走，0=红方，1=黑方
     int RoundNum;   // 回合数
     vector<moveNode> Moves;
-
+    int Count;  // Moves[]尾部累积了多少个没吃字的走法
     PositionStruct() { FromFen(cszStartFen); }
     PositionStruct(const char* const arr) { FromFen(arr); }
     void PositionInit(const char* const arr) { FromFen(arr); }
@@ -65,6 +66,7 @@ struct PositionStruct {
     void AddPiece(int, int);         // 在棋盘上放一枚棋子
     void DelPiece(int);              // 从棋盘上拿走一枚棋子
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
+    int Repeat();
     vector<vector<int>> Predict();  //顶层函数，生成若干种走法(保护，威胁)
 };
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子

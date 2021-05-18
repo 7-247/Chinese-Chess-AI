@@ -18,7 +18,7 @@
 					]
 				}
 			],
-			"name" : "RelWithDebInfo",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -38,7 +38,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "mychess::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-mychess-RelWithDebInfo-5982991bd3bd1fa2b70b.json",
+					"jsonFile" : "target-mychess-Release-d6dd8da52eec33742fd1.json",
 					"name" : "mychess",
 					"projectIndex" : 0
 				}

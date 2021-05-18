@@ -301,6 +301,33 @@ src/Predict.cpp.s:
 	$(MAKE) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Predict.cpp.s
 .PHONY : src/Predict.cpp.s
 
+src/Repeat.obj: src/Repeat.cpp.obj
+
+.PHONY : src/Repeat.obj
+
+# target to build an object file
+src/Repeat.cpp.obj:
+	$(MAKE) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Repeat.cpp.obj
+.PHONY : src/Repeat.cpp.obj
+
+src/Repeat.i: src/Repeat.cpp.i
+
+.PHONY : src/Repeat.i
+
+# target to preprocess a source file
+src/Repeat.cpp.i:
+	$(MAKE) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Repeat.cpp.i
+.PHONY : src/Repeat.cpp.i
+
+src/Repeat.s: src/Repeat.cpp.s
+
+.PHONY : src/Repeat.s
+
+# target to generate assembly for a file
+src/Repeat.cpp.s:
+	$(MAKE) -f CMakeFiles\mychess.dir\build.make CMakeFiles/mychess.dir/src/Repeat.cpp.s
+.PHONY : src/Repeat.cpp.s
+
 src/Search.obj: src/Search.cpp.obj
 
 .PHONY : src/Search.obj
@@ -382,6 +409,9 @@ help:
 	@echo ... src/Predict.obj
 	@echo ... src/Predict.i
 	@echo ... src/Predict.s
+	@echo ... src/Repeat.obj
+	@echo ... src/Repeat.i
+	@echo ... src/Repeat.s
 	@echo ... src/Search.obj
 	@echo ... src/Search.i
 	@echo ... src/Search.s
