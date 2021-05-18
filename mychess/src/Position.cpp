@@ -93,3 +93,10 @@ void PositionStruct::FromFen(const char* const szFen) {
         黑方的車一直在e5g5 g5e5地捉炮，红炮一直在e6g6 g6e6地躲着黑車
      */
 }
+
+void PositionStruct::ChangeBoard(int move) {
+    int low = (move & 255), high = ((move - low) >> 8);
+    int no = PosToNo(low, ucsqPieces);
+    if (no != -1) ucsqPieces[no] = 0;  //被吃了
+    ucsqPieces[PosToNo(high, ucsqPieces)] = low;
+}

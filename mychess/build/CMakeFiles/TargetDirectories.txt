@@ -1,3 +1,0 @@
-C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/mychess/build/CMakeFiles/rebuild_cache.dir
-C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/mychess/build/CMakeFiles/mychess.dir
-C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI/mychess/build/CMakeFiles/edit_cache.dir

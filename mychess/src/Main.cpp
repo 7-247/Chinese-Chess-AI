@@ -64,9 +64,6 @@ int main() {
         }*/
         else {
             mychess.PositionInit(input);  //然后把改变后的c转化为局面
-            cout << "当前局面：" << endl;
-            ChessBoard myboard(mychess);
-            myboard.DrawBoard();
 
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
@@ -75,7 +72,12 @@ int main() {
             }
             BestMoveIntToChar(move);          //用于最后的输出
             BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
-
+            mychess.ChangeBoard(move);
+            cout << mychess.ucsqPieces[39] << endl;
+            cout << mychess.ucsqPieces[30] << endl;
+            cout << "当前局面：" << endl;
+            ChessBoard myboard(mychess);
+            myboard.DrawBoard();
             Eval myeval(mychess);
             cout << "当前评估值：" << myeval.GetEvalNum() << endl;
             cout << "Red:" << myeval.EvalRed << " "

@@ -68,6 +68,7 @@ struct PositionStruct {
     vector<vector<int>> Generate();  //顶层函数，生成若干种走法
     int Repeat();
     vector<vector<int>> Predict();  //无视敌我的走法，供评估函数
+    void ChangeBoard(int move);     //一步移动，改变局面
 };
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
     ucsqPieces[no] = 0;
