@@ -1,0 +1,10 @@
+^C:\USERS\111\SOURCE\VSCODE\C++\7-247\SSH\CHINESE-CHESS-AI\CHINESE-CHESS-AI GZY02\MYCHESS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI gzy02/mychess" "-BC:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI gzy02/mychess/build" --check-stamp-file "C:/Users/111/source/vscode/c++/7-247/SSH/Chinese-Chess-AI/Chinese-Chess-AI gzy02/mychess/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

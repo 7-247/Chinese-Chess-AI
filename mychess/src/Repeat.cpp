@@ -1,9 +1,111 @@
 #include "Position.h"
+
+//½«¾ü
+bool readyForKill(int sdPlayer, const int* ucsqPieces,
+                  vector<vector<int>>& possible) {
+    for (int i = 0 + sdPlayer * 16; i < 16 + sdPlayer * 16; i++) {
+        for (int j = 0; j < possible[i].size(); j++) {
+            if (possible[i][j] == ucsqPieces[!sdPlayer * 16]) return true;
+        }
+    }
+    return false;
+}
+
+//×½ hunterÎª½ø¹¥·½Æå×ÓÎ»ÖÃ£¬targetÎª·ÀÊØ·½Æå×ÓÎ»ÖÃ
+bool readyForCatch(int hunter, int target, const int* ucsqPieces,
+                   vector<vector<int>>& possible) {
+    int pos = 0;
+    for (int i = 0; i < 32; i++) {
+        if (ucsqPieces[i] == hunter) {
+            pos = i;
+            break;
+        }
+    }
+    for (int i = 0; i < possible[pos].size(); i++)
+        if (possible[pos][i] == target) return true;
+    return false;
+}
+
 int PositionStruct::Repeat() {
-    //çº¢æ–¹é•¿æ‰“åˆ™è¿”å›ž1ï¼ˆçº¢æ–¹è´Ÿï¼‰ï¼›é»‘æ–¹é•¿æ‰“åˆ™è¿”å›ž2ï¼ˆé»‘æ–¹è´Ÿï¼‰ï¼›åŒæ–¹éƒ½é•¿æ‰“/é‡å¤ä¸å˜åˆ¤å’Œè¿”å›ž0ï¼ˆå¹³å±€ï¼‰ï¼›æ²¡æœ‰é‡å¤å±€é¢åˆ™è¿”å›ž-1
-    //ä½ å¯èƒ½ä¼šç”¨åˆ°çš„æˆå‘˜å˜é‡ï¼šCount,sdPlayer,Moves
-    return -1;
-    return 0;
-    return 1;
-    return 2;
+    //ºì·½³¤´òÔò·µ»Ø1£¨ºì·½¸º£©£»ºÚ·½³¤´òÔò·µ»Ø2£¨ºÚ·½¸º£©£»Ë«·½¶¼³¤´ò/ÖØ¸´²»±äÅÐºÍ·µ»Ø0£¨Æ½¾Ö£©£»Ã»ÓÐÖØ¸´¾ÖÃæÔò·µ»Ø-1
+    //Äã¿ÉÄÜ»áÓÃµ½µÄ³ÉÔ±±äÁ¿£ºCount,sdPlayer,Moves
+
+    if (Count < 12) return -1;
+    int length = Moves.size();
+    vector<int> count(32, 0);
+    for (int i = 0; i < 4; i++) {
+        if (Moves[length - 1 - i] == Moves[length - 1 - i - 4] &&
+            Moves[length - 1 - i] == Moves[length - 1 - i - 8]) {
+            continue;
+        } else {
+            return -1;
+        }
+    }
+    //Á¬ÐøÖØ¸´¾ÖÃæ
+    int h_pos = 0, t_pos = 0;
+    for (int i = 0; i < 32; i++) {
+        if (ucsqPieces[i] == Moves[length - 1].dst) h_pos = i;
+        break;
+    }
+    for (int i = 0; i < 32; i++) {
+        if (ucsqPieces[i] == Moves[length - 2].dst) t_pos = i;
+        break;
+    }
+    if (h_pos != 0 && h_pos != 16 && t_pos != 0 && t_pos != 16) {
+        vector<vector<int>> possible = Generate();  //µ±Ç°×´Ì¬
+        if (readyForKill(sdPlayer, ucsqPieces, possible))
+            count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 1].dst, Moves[length - 2].dst,
+                          ucsqPieces, possible))
+            count[t_pos]++;
+
+        ucsqPieces[h_pos] = Moves[length - 1].src;  //×îºóÒ»²½»ØËÝ
+        sdPlayer = !sdPlayer;
+        possible = Generate();
+        if (readyForKill(sdPlayer, ucsqPieces, possible))
+            count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 2].dst, Moves[length - 1].dst,
+                          ucsqPieces, possible))
+            count[h_pos]++;
+
+        ucsqPieces[t_pos] = Moves[length - 2].src;  //µ¹ÊýµÚ¶þ²½»ØËÝ
+        sdPlayer = !sdPlayer;
+        possible = Generate();
+        if (readyForKill(sdPlayer, ucsqPieces, possible))
+            count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 3].dst, Moves[length - 4].dst,
+                          ucsqPieces, possible))
+            count[h_pos]++;
+
+        ucsqPieces[h_pos] = Moves[length - 3].src;  //µ¹ÊýµÚÈý²½»ØËÝ
+        sdPlayer = !sdPlayer;
+        possible = Generate();
+        if (readyForKill(sdPlayer, ucsqPieces, possible))
+            count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 4].dst, Moves[length - 3].dst,
+                          ucsqPieces, possible))
+            count[t_pos]++;
+        //»Ø¸´½á¹¹ÌåÄÚÈÝ
+        sdPlayer = !sdPlayer;
+        ucsqPieces[h_pos] = Moves[length - 1].dst;
+        ucsqPieces[t_pos] = Moves[length - 2].dst;
+
+        int black = 0, red = 0;
+        if (h_pos > 16) {
+            red = count[t_pos] + count[0];
+            black = count[h_pos] + count[16];
+        } else {
+            red = count[h_pos] + count[0];
+            black = count[t_pos] + count[16];
+        }
+        if (red == black)
+            return 0;
+        else if (red > black)
+            return 2;
+        else
+            return 1;
+    }
+
+    if (h_pos == 16 || t_pos == 16) return 1;
+    if (h_pos == 0 || t_pos == 0) return 2;
 }

@@ -46,6 +46,10 @@ const char* const cszStartFen =
 struct moveNode {
     int src, dst;
     bool iseat;
+    bool operator==(moveNode& node1) {
+        return this->src == node1.src && this->dst == node1.dst &&
+               this->iseat == node1.iseat;
+    }
 };
 // 局面结构
 struct PositionStruct {

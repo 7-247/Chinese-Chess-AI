@@ -73,8 +73,7 @@ int main() {
             BestMoveIntToChar(move);          //用于最后的输出
             BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
             mychess.ChangeBoard(move);
-            cout << mychess.ucsqPieces[39] << endl;
-            cout << mychess.ucsqPieces[30] << endl;
+
             cout << "当前局面：" << endl;
             ChessBoard myboard(mychess);
             myboard.DrawBoard();
