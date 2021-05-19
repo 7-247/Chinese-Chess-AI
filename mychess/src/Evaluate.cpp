@@ -11,12 +11,18 @@ inline int calculateRedEval(int position, int type, int gonum) {
     return (StartPositionValue[type][position] + initvalue[type] +
             govalue[type] * gonum);
 }
+
+int ThreatenValue[32] = {0};  //敌方的威胁
+int ProtectValue[32] = {0};   //己方的保护
+int gonum[32] = {0};          //机动性
+vector<vector<int>> tep[2];
 Eval::Eval(PositionStruct& pos) {
     EvalRed = EvalBlack = 0;
-    int ThreatenValue[32] = {0};  //敌方的威胁
-    int ProtectValue[32] = {0};   //己方的保护
-    int gonum[32] = {0};          //机动性
-    vector<vector<int>> tep[2];
+    vector<vector<int>>().swap(tep[0]);
+    vector<vector<int>>().swap(tep[1]);
+    memset(ThreatenValue, 0, sizeof(ThreatenValue));
+    memset(ProtectValue, 0, sizeof(ProtectValue));
+    memset(gonum, 0, sizeof(gonum));
 
     tep[pos.sdPlayer] = pos.Predict();  // 0为红，1为黑
     pos.sdPlayer = !pos.sdPlayer;
@@ -129,7 +135,4 @@ Eval::Eval(PositionStruct& pos) {
             }
         }
     }
-
-    vector<vector<int>>().swap(tep[0]);
-    vector<vector<int>>().swap(tep[1]);
 }

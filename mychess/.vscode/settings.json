@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "*.asp": "plaintext",
+        "*.h": "cpp",
+        "vector": "cpp"
+    }
+}
