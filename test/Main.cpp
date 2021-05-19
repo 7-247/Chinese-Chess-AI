@@ -28,7 +28,7 @@ int main() {
     }
     // a为输入串，b为处理过程中的串，c为处理结果
     // c仅有在judge返回true时才可改变，即为外部指定局面
-    for(int u=1;u<=100;++u) {
+    for(int u=1;u<=4;++u) {
         memcpy(positionfenarr, "position fen rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1",MAXLEN);
         roundnum = 0;
         mychess.PositionInit(startstr);
@@ -86,17 +86,17 @@ int main() {
                 int move = SearchMain(mychess, gotime,roundnum);
                 if (move == 0) {
                     ++drawnum;
-                    printf("%d:draw\n", u);
+                    //printf("%d:draw\n", u);
                     break;
                 }
                 else if (move == -1) {
                     ++losenum;
-                    printf("%d:lose\n", u);
+                    //printf("%d:lose\n", u);
                     break;
                 }
                 else if (move == 1) {
                     ++winnum;
-                    printf("%d:win\n", u);
+                    //printf("%d:win\n", u);
                     break;
                 }
                 //BestMoveIntToChar(move);          //用于最后的输出

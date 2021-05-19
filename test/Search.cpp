@@ -1,6 +1,6 @@
 #include "Evaluate.h"
 #include "Position.h"
-const int DEPTH = 4;
+const int DEPTH = 5;
 const int EXP = 0;
 // alpha - beta >= EXP时剪枝，EXP为0时保证对DEPTH层的最优性(该值越小剪枝越粗略)
 static int bestmove;  //记录返回的步数
@@ -129,7 +129,7 @@ int SearchMain(PositionStruct& mychess, int gotime,int roundnum) {
     int maxvalue =
         alphabeta(mychess, DEPTH, -100000000, 100000000);  //正亿-负亿
     //cout << "max score:" << maxvalue << endl;
-    if (maxvalue == 6666666) { cout << "loss" << endl; return -1; }
+    if (maxvalue == 6666666) { cout << "lose" << endl; return -1; }
     if (maxvalue == -6666666) { cout << "win" << endl; return 1; }
     return bestmove;
 }
