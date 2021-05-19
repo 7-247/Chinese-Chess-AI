@@ -91,6 +91,23 @@ int main() {
                 }
                 cout << endl;
             }
+            tep = mychess.Predict();
+            for (int i = 16 * mychess.sdPlayer; i < 16 + mychess.sdPlayer * 16;
+                 i++) {
+                if (!mychess.ucsqPieces[i]) continue;
+                if (i >= 16)
+                    cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]]
+                         << ":\n";
+                else
+                    cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] << ":\n";
+                PosIntToChar(mychess.ucsqPieces[i]);
+                cout << endl;
+                for (int j = 0; j < tep[i].size(); j++) {
+                    cout << " ";
+                    cout << tep[i][j];  // PosIntToChar(tep[i][j]);
+                }
+                cout << endl;
+            }
 
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
