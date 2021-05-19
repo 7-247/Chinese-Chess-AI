@@ -335,11 +335,8 @@ static inline vector<vector<int>> possibleMove(int sdPlayer,
                                  const int chessboard[], int pos) = {
         move_chief, move_knight, move_elephant, move_horse,
         move_cart,  move_cannon, move_soldier};
-    vector<vector<int>> possible(
-        32,
-        vector<int>(
-            1,
-            0));  //所有棋子可能走法先全部置0，这可能会与被吃棋子的置0有冲突，读取方法应与下方循环相同
+    vector<vector<int>> possible(32, vector<int>(1, 0));
+    //所有棋子可能走法先全部置0，这可能会与被吃棋子的置0有冲突，读取方法应与下方循环相同
     for (int i = sdPlayer * 16; i < sdPlayer * 16 + 16; ++i) {
         if (ucsqPieces[i] != 0)
             possible[i] = move_chess[cnPieceTypes[i]](sdPlayer, ucsqPieces,

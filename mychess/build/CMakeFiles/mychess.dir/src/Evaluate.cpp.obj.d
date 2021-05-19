@@ -140,4 +140,13 @@ CMakeFiles/mychess.dir/src/Evaluate.cpp.obj: \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_uninitialized.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_vector.h \
  C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_bvector.h \
- C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/vector.tcc \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/algorithm \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/utility \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_relops.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_algo.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/algorithmfwd.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_heap.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/stl_tempbuf.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/bits/uniform_int_dist.h \
+ C:/Program\ Files\ (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/limits
