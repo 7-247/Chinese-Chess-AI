@@ -18,8 +18,8 @@ inline int calculateEval(int position, int type, int gonum, bool isblack) {
             initvalue[type] + govalue[type] * gonum);
 }
 
-int ThreatenValue[32][33] = {0};  //敌方的威胁
-int ProtectValue[32][33] = {0};   //己方的保护
+int ThreatenValue[32][17] = {0};  //敌方的威胁
+int ProtectValue[32][17] = {0};   //己方的保护
 int gonum[32] = {0};              //机动性
 vector<vector<int>> tep[2];
 
@@ -32,8 +32,8 @@ inline bool Threaten(int No, int ucsqPieces[]) {
     else if (ThreatenValue[No][0] == 0)  //威胁为0
         return false;
     else {  //有保护有威胁
-        memset(threatnum, 0, sizeof(threatnum));
-        memset(protectnum, 0, sizeof(protectnum));
+        // memset(threatnum, 0, sizeof(threatnum));
+        // memset(protectnum, 0, sizeof(protectnum));
         int ThreatenvalueSum = 0,
             ProtectvalueSum = calculateEval(ucsqPieces[No], cnPieceTypes[No],
                                             gonum[No], No < 16);
@@ -149,6 +149,7 @@ Eval::Eval(PositionStruct& pos) {
 
     if (pos.sdPlayer == 0) {  //假如现在是红方准备走棋
         int MaxthreatenNo = -1, MaxthreatenValue = -999999;
+        //吃或保护只能选一个bool eat = 0, protect = 0;
         for (int i = 0; i < 16; ++i) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateRedEval(pos.ucsqPieces[i], cnPieceTypes[i],
@@ -165,22 +166,25 @@ Eval::Eval(PositionStruct& pos) {
                 //因为此时我方是先手，故不必扣除此处分数，后面补扣
             }
         }
-        MaxthreatenNo = -1, MaxthreatenValue = -999999;
+        int MaxthreatenNo2 = -1, MaxthreatenValue2 = -999999;
         for (int i = 16; i < 32; ++i) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateBlackEval(pos.ucsqPieces[i],
                                                cnPieceTypes[i], gonum[i]);
                 if (Threaten(i, pos.ucsqPieces)) {
                     //保护不过来,即威胁的子的价值和低于你自己本身的价值+保护你的子的价值
-                    if (value > MaxthreatenValue) {
-                        if (MaxthreatenNo != -1)            //已经发现过了
-                            EvalBlack += MaxthreatenValue;  //补加
-                        MaxthreatenNo = i;  //记录值最大的那个，让其得以逃逸
-                        MaxthreatenValue = value;
+                    if (value > MaxthreatenValue2) {
+                        if (MaxthreatenNo2 != -1)  //已经发现过了
+                            EvalBlack += MaxthreatenValue2;  //补加
+                        MaxthreatenNo2 = i;  //记录值最大的那个，让其得以逃逸
+                        MaxthreatenValue2 = value;
                     }
                 } else  //此处不加，后面补加
                     EvalBlack += value;
             }
+        }
+        if (MaxthreatenNo2 != -1 && MaxthreatenNo != -1) {  //两者只能选其一
+            EvalRed -= min(MaxthreatenValue, MaxthreatenValue2);
         }
     } else {  //假如现在是黑方准备走棋
         int MaxthreatenNo = -1, MaxthreatenValue = -999999;
@@ -200,21 +204,24 @@ Eval::Eval(PositionStruct& pos) {
                 //因为此时我方是先手，故不必扣除此处分数，后面补扣
             }
         }
-        MaxthreatenNo = -1, MaxthreatenValue = -999999;
+        int MaxthreatenNo2 = -1, MaxthreatenValue2 = -999999;
         for (int i = 0; i < 16; ++i) {
             if (pos.ucsqPieces[i]) {
                 int value = calculateRedEval(pos.ucsqPieces[i], cnPieceTypes[i],
                                              gonum[i]);
                 if (Threaten(i, pos.ucsqPieces)) {  //保护不过来了
-                    if (value > MaxthreatenValue) {
-                        if (MaxthreatenNo != -1)          //已经发现过了
-                            EvalRed += MaxthreatenValue;  //补加
-                        MaxthreatenNo = i;  //记录值最大的那个，让其得以逃逸
-                        MaxthreatenValue = value;
+                    if (value > MaxthreatenValue2) {
+                        if (MaxthreatenNo2 != -1)          //已经发现过了
+                            EvalRed += MaxthreatenValue2;  //补加
+                        MaxthreatenNo2 = i;  //记录值最大的那个，让其得以逃逸
+                        MaxthreatenValue2 = value;
                     }
                 } else  //此处不加，后面补加
                     EvalRed += value;
             }
+        }
+        if (MaxthreatenNo2 != -1 && MaxthreatenNo != -1) {  //两者只能选其一
+            EvalRed += min(MaxthreatenValue, MaxthreatenValue2);
         }
     }
 }
