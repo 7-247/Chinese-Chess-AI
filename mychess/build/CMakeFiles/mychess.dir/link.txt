@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\mychess.dir/objects.a
+C:\PROGRA~2\Dev-Cpp\MinGW64\bin\ar.exe cr CMakeFiles\mychess.dir/objects.a @CMakeFiles\mychess.dir\objects1.rsp
+g++ -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\mychess.dir/objects.a -Wl,--no-whole-archive -o ..\bin\mychess.exe -Wl,--out-implib,..\bin\libmychess.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\mychess.dir\linklibs.rsp

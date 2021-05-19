@@ -68,12 +68,11 @@ int main() {
             cout << "当前局面：" << endl;
             ChessBoard myboard(mychess);
             myboard.DrawBoard();
-            Eval myeval(mychess);
-
-            /*cout << "当前评估值：" << myeval.GetEvalNum() << endl;
+            /*Eval myeval(mychess);
+            cout << "当前评估值：" << myeval.GetEvalNum() << endl;
             cout << "Red:" << myeval.EvalRed << " "
                  << "Black:" << myeval.EvalBlack << endl;*/
-
+            /*
             vector<vector<int>> tep = mychess.Generate();
             for (int i = 16 * mychess.sdPlayer; i < 16 + mychess.sdPlayer * 16;
                  i++) {
@@ -90,24 +89,7 @@ int main() {
                     cout << tep[i][j];  // PosIntToChar(tep[i][j]);
                 }
                 cout << endl;
-            }
-            tep = mychess.Predict();
-            for (int i = 16 * mychess.sdPlayer; i < 16 + mychess.sdPlayer * 16;
-                 i++) {
-                if (!mychess.ucsqPieces[i]) continue;
-                if (i >= 16)
-                    cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]]
-                         << ":\n";
-                else
-                    cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] << ":\n";
-                PosIntToChar(mychess.ucsqPieces[i]);
-                cout << endl;
-                for (int j = 0; j < tep[i].size(); j++) {
-                    cout << " ";
-                    cout << tep[i][j];  // PosIntToChar(tep[i][j]);
-                }
-                cout << endl;
-            }
+            }*/
 
             int move = SearchMain(mychess, gotime);
             if (move == 0) {

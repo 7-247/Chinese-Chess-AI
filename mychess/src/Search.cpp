@@ -54,7 +54,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 int isenemy =
                     PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
                 mychess.ucsqPieces[i] = tep[i][j];           //走一步
-
+                int tepcount = mychess.Count;
                 if (isenemy != -1) {
                     mychess.Moves.push_back(
                         {pastpos, mychess.ucsqPieces[i], 1});
@@ -76,7 +76,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
                 mychess.Moves.pop_back();
-                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
+                if (isenemy != -1) {
+                    mychess.Count = tepcount;
+                    mychess.ucsqPieces[isenemy] = tep[i][j];
+                } else
+                    --mychess.Count;
                 if (alpha - beta >= EXP) break;
             }
             if (alpha - beta >= EXP) break;  //外层循环也要跳
@@ -96,6 +100,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                     PosToNo(tep[i][j], mychess.ucsqPieces);  //从位置找序号
                 mychess.ucsqPieces[i] = tep[i][j];           //走了一步
 
+                int tepcount = mychess.Count;
                 if (isenemy != -1) {
                     mychess.Moves.push_back(
                         {pastpos, mychess.ucsqPieces[i], 1});
@@ -116,7 +121,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
                 mychess.sdPlayer = !mychess.sdPlayer;
                 mychess.ucsqPieces[i] = pastpos;
                 mychess.Moves.pop_back();
-                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
+                if (isenemy != -1) {
+                    mychess.Count = tepcount;
+                    mychess.ucsqPieces[isenemy] = tep[i][j];
+                } else
+                    --mychess.Count;
                 if (alpha - beta >= EXP) break;
             }
             if (alpha - beta >= EXP) break;  //外层循环也要跳

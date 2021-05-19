@@ -108,4 +108,5 @@ int PositionStruct::Repeat() {
 
     if (h_pos == 16 || t_pos == 16) return 1;
     if (h_pos == 0 || t_pos == 0) return 2;
+    return -1;  //应该不会返回这个 防warning
 }
