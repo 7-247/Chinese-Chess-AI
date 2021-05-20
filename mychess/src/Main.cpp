@@ -90,7 +90,7 @@ int main() {
 
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
-                PrintLn("error");
+                PrintLn("no found");
                 continue;
             }
             BestMoveIntToChar(move);          //用于最后的输出
