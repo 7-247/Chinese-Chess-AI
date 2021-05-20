@@ -86,6 +86,8 @@ void PositionStruct::FromFen(const char* const szFen) {
         AddPiece(tep.dst, PosToNo(tep.src, ucsqPieces));  //不用考虑吃子
         Moves.push_back(tep);
         ++Count;
+        sdPlayer = !sdPlayer;  //交换走字方
+
         lpFen += 4;
         while (*lpFen == ' ') ++lpFen;
     }

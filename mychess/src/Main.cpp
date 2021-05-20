@@ -65,13 +65,13 @@ int main() {
         else {
             mychess.PositionInit(input);  //然后把改变后的c转化为局面
 
-            cout << "当前局面：" << endl;
+            /*cout << "当前局面：" << endl;
             ChessBoard myboard(mychess);
             myboard.DrawBoard();
             Eval myeval(mychess);
             cout << "当前评估值：" << myeval.GetEvalNum() << endl;
             cout << "Red:" << myeval.EvalRed << " "
-                 << "Black:" << myeval.EvalBlack << endl;
+                 << "Black:" << myeval.EvalBlack << endl;*/
 
             /*
             vector<vector<int>> tep = mychess.Generate();
@@ -87,15 +87,17 @@ int main() {
                 }
                 cout << endl;
             }*/
-            /*
+
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
                 PrintLn("error");
                 continue;
             }
             BestMoveIntToChar(move);          //用于最后的输出
-            BestMoveIntToNum(mychess, move);  //用于象棋巫师调试'
-            mychess.ChangeBoard(move);*/
+            BestMoveIntToNum(mychess, move);  //用于象棋巫师调试
+            mychess.ChangeBoard(move);
+            ChessBoard myboard(mychess);
+            myboard.DrawBoard();
         }
     }
     return 0;
