@@ -3,22 +3,12 @@
 inline void PositionStruct::AddPiece(int pos, int no) {  // 在棋盘上放一枚棋子
     ucsqPieces[no] = pos;  //第no号（0~32）棋子的位置（9*10）
 }
-inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
-    ucsqPieces[no] = 0;
-}
-inline int PosToNo(int pos, int ucsqPieces[]) {
-    for (int i = 0; i < 32; ++i)
-        if (pos == ucsqPieces[i]) return i;
-    return -1;
-}
+
 void PositionStruct::ClearBoard() {  // 清空棋盘
     sdPlayer = 0;
     memset(ucsqPieces, 0, 32 * sizeof(int));
 }
 
-inline int GetPiecePos(int i, int j) {
-    return i * COL + j + 1;  //棋盘中的0空着，用1~90
-}
 // FEN串识别
 void PositionStruct::FromFen(const char* const szFen) {
     int i, j, k;
@@ -89,12 +79,23 @@ void PositionStruct::FromFen(const char* const szFen) {
     }
     while (*lpFen == ' ') ++lpFen;
     moveNode tep = {0, 0, 0};  //开始、结束时子的位置，是否吃子
+    Count = 0;
     while (*lpFen != '\0') {
         tep.src = GetPiecePos('9' - *(lpFen + 1), *lpFen - 'a');
         tep.dst = GetPiecePos('9' - *(lpFen + 3), *(lpFen + 2) - 'a');
         AddPiece(tep.dst, PosToNo(tep.src, ucsqPieces));  //不用考虑吃子
         Moves.push_back(tep);
+        ++Count;
+        sdPlayer = !sdPlayer;  //交换走字方
+
         lpFen += 4;
         while (*lpFen == ' ') ++lpFen;
     }
+}
+
+void PositionStruct::ChangeBoard(int move) {
+    int low = (move & 255), high = ((move - low) >> 8);
+    int no = PosToNo(low, ucsqPieces);
+    if (no != -1) ucsqPieces[no] = 0;  //被吃了
+    ucsqPieces[PosToNo(high, ucsqPieces)] = low;
 }

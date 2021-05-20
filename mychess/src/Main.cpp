@@ -1,18 +1,20 @@
 #include <cstring>
 
+#include "Evaluate.h"
+#include "Position.h"
 #include "Search.h"
 #include "Ucci.h"
 using namespace std;
 
 int main() {
-    char input[MAXLEN], tep[MAXLEN], arr[MAXLEN];  //ç»™é˜¿è°Šçš„ä¸²å­˜åœ¨arr[]
+    char input[MAXLEN], tep[MAXLEN], arr[MAXLEN];  //¸ø°¢ÒêµÄ´®´æÔÚarr[]
     memset(tep, 0, sizeof(char) * MAXLEN);
     memcpy(
         arr,
         "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1",
         70);
-    int gotime = 0;  //ç»™å®¤é•¿çš„æ—¶é—´å­˜åœ¨int ké‡Œ
-    //å¼€å§‹ä¸€å®šä¸ºucciï¼Œå¦åˆ™ä¸ç»™å¼€
+    int gotime = 0;  //¸øÊÒ³¤µÄÊ±¼ä´æÔÚint kÀï
+    //¿ªÊ¼Ò»¶¨Îªucci£¬·ñÔò²»¸ø¿ª
     PositionStruct mychess;
     while (true) {
         cin.getline(input, MAXLEN);
@@ -21,8 +23,8 @@ int main() {
             break;
         }
     }
-    // aä¸ºè¾“å…¥ä¸²ï¼Œbä¸ºå¤„ç†è¿‡ç¨‹ä¸­çš„ä¸²ï¼Œcä¸ºå¤„ç†ç»“æœ
-    // cä»…æœ‰åœ¨judgeè¿”å›trueæ—¶æ‰å¯æ”¹å˜ï¼Œå³ä¸ºå¤–éƒ¨æŒ‡å®šå±€é¢
+    // aÎªÊäÈë´®£¬bÎª´¦Àí¹ı³ÌÖĞµÄ´®£¬cÎª´¦Àí½á¹û
+    // c½öÓĞÔÚjudge·µ»ØtrueÊ±²Å¿É¸Ä±ä£¬¼´ÎªÍâ²¿Ö¸¶¨¾ÖÃæ
     while (true) {
         cin.getline(input, MAXLEN);
         if (!strncmp(input, "isready", 7 * sizeof(char))) {
@@ -34,13 +36,13 @@ int main() {
                        "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR
         r - - 0 1", 69 * sizeof(char)); memcpy(tep + 69, input + 17, (MAXLEN -
         69) * sizeof(char)); if (judge(tep, MAXLEN)) { memcpy(arr, tep, MAXLEN);
-                    mychess.PositionInit(arr);  //ç„¶åæŠŠæ”¹å˜åçš„cè½¬åŒ–ä¸ºå±€é¢
+                    mychess.PositionInit(arr);  //È»ºó°Ñ¸Ä±äºóµÄc×ª»¯Îª¾ÖÃæ
                 }
             } else if (!strncmp(tep, "fen ", 4 * sizeof(char))) {
                 memmove(tep, tep + 4, (MAXLEN - 4) * sizeof(char));
                 if (judge(tep, MAXLEN)) {
                     memcpy(arr, tep, MAXLEN);
-                    mychess.PositionInit(arr);  //ç„¶åæŠŠæ”¹å˜åçš„cè½¬åŒ–ä¸ºå±€é¢
+                    mychess.PositionInit(arr);  //È»ºó°Ñ¸Ä±äºóµÄc×ª»¯Îª¾ÖÃæ
                 }
             }
         }*/
@@ -51,7 +53,7 @@ int main() {
             memcpy(tep, input + 8, (MAXLEN - 8) * sizeof(char));
             if (gettime(tep, MAXLEN, gotime)) {
                 // printf("set search time:%d ms\n", gotime);
-                //ä»¥ä¸‹åº”ä¸ºæœç´¢å¾—å‡ºbestmoveå’Œèµ°æ³•
+                //ÒÔÏÂÓ¦ÎªËÑË÷µÃ³öbestmoveºÍ×ß·¨
                 int move = SearchMain(mychess, gotime);
                 if (move == 0) {
                     PrintLn("error");
@@ -61,28 +63,41 @@ int main() {
             }
         }*/
         else {
-            mychess.PositionInit(input);  //ç„¶åæŠŠæ”¹å˜åçš„cè½¬åŒ–ä¸ºå±€é¢
+            mychess.PositionInit(input);  //È»ºó°Ñ¸Ä±äºóµÄc×ª»¯Îª¾ÖÃæ
 
-            /*debugç”¨/
-            vector<vector<int>> possible=mychess.Generate();
-            for (int i = 0 + 16 * mychess.sdPlayer; i < 16 + 16 *
-            mychess.sdPlayer; i++) { if (!mychess.ucsqPieces[i]) continue;
-            if(i>16)cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]] <<
-            ":\n"; else cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] <<
-            ":\n"; PosIntToChar(mychess.ucsqPieces[i]); cout << endl; for (int j
-            = 0; j < possible[i].size(); j++) { cout << " ";
-            PosIntToChar(possible[i][j]);
-            }
-            cout << endl;
+            /*cout << "µ±Ç°¾ÖÃæ£º" << endl;
+            ChessBoard myboard(mychess);
+            myboard.DrawBoard();
+            Eval myeval(mychess);
+            cout << "µ±Ç°ÆÀ¹ÀÖµ£º" << myeval.GetEvalNum() << endl;
+            cout << "Red:" << myeval.EvalRed << " "
+                 << "Black:" << myeval.EvalBlack << endl;*/
+
+            /*
+            vector<vector<int>> tep = mychess.Generate();
+            for (int i = 16 * mychess.sdPlayer; i < 16 + mychess.sdPlayer *
+            16; i++) { if (!mychess.ucsqPieces[i]) continue; if (i >= 16)
+                    cout << cszPieceBytesInChineseBlack[cnPieceTypes[i]]
+                         << ":\n";
+                else
+                    cout << cszPieceBytesInChineseRed[cnPieceTypes[i]] <<
+            ":\n"; PosIntToChar(mychess.ucsqPieces[i]); cout << endl; for
+            (int j = 0; j < tep[i].size(); j++) { cout << " "; cout <<
+            tep[i][j];  // PosIntToChar(tep[i][j]);
+                }
+                cout << endl;
             }*/
 
             int move = SearchMain(mychess, gotime);
             if (move == 0) {
-                PrintLn("error");
+                PrintLn("no found");
                 continue;
             }
-            BestMoveIntToChar(move);          //ç”¨äºæœ€åçš„è¾“å‡º
-            BestMoveIntToNum(mychess, move);  //ç”¨äºè±¡æ£‹å·«å¸ˆè°ƒè¯•
+            BestMoveIntToChar(move);          //ÓÃÓÚ×îºóµÄÊä³ö
+            BestMoveIntToNum(mychess, move);  //ÓÃÓÚÏóÆåÎ×Ê¦µ÷ÊÔ
+            mychess.ChangeBoard(move);
+            ChessBoard myboard(mychess);
+            myboard.DrawBoard();
         }
     }
     return 0;

@@ -1,3 +1,9 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "files.associations": {
+        "iostream": "cpp",
+        "*.asp": "plaintext",
+        "*.h": "cpp",
+        "vector": "cpp",
+        "algorithm": "cpp"
+    }
 }
