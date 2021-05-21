@@ -1,135 +1,159 @@
+#include "Search.h"
+
+#include <algorithm>
+#include <ctime>
+#include <map>
+
 #include "Evaluate.h"
 #include "Position.h"
-const int DEPTH = 5;
-const int EXP = 0;
-// alpha - beta >= EXPæ—¶å‰ªæï¼ŒEXPä¸º0æ—¶ä¿è¯å¯¹DEPTHå±‚çš„æœ€ä¼˜æ€§(è¯¥å€¼è¶Šå°å‰ªæè¶Šç²—ç•¥)
-static int bestmove;  //è®°å½•è¿”å›çš„æ­¥æ•°
-/*static const int PosHash [32] =
-                {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,
-                11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                22, 23, 24, 25, 26, 27, 28, 29, 30, 31};//æŒ‰é¡ºåº
-
-//ä¼˜å…ˆè€ƒè™‘è»Šï¼Œç„¶åæ˜¯ç‚®ã€é©¬ã€å…µã€è±¡ã€å£«ã€å¸…*/
-static const int PosHash[32] = {7,  8,  9,  10, 5,  6,  12, 14, 3,  4,  1,
-                                2,  11, 15, 13, 0,  23, 24, 25, 26, 21, 22,
-                                28, 30, 19, 20, 17, 18, 27, 31, 29, 16};
-int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta) {
-    int state = mychess.Repeat();
-    if (depth == 0 || mychess.ucsqPieces[0] == 0 ||
-        mychess.ucsqPieces[16] == 0 || state != -1) {
-        if (mychess.ucsqPieces[0] == 0 || state == 1)  //å¸… æ­»äº†
-            return -6666666;
-        else if (mychess.ucsqPieces[16] == 0 || state == 2)  //å°† æ­»äº†
-            return 6666666;
-        else {  // else if (state == 0 || depth == 0)
-            Eval myeval(mychess);
-            int tepvalue = myeval.GetEvalNum();
-            if (state == 0) {
-                if ((mychess.sdPlayer == 1 && tepvalue < -250) ||
-                    (mychess.sdPlayer == 0 && tepvalue > 250)) {
-                    //å½“å‰æ˜¯çº¢æ–¹ä¸”æ­¤æ—¶çº¢æ–¹æœ‰ä¼˜åŠ¿ï¼›æˆ–è€…å½“å‰æ˜¯é»‘æ–¹ä¸”æ­¤æ—¶é»‘æ–¹æœ‰ä¼˜åŠ¿
-                    return 0;
-                    //è°ƒä½è¯„ä¼°å€¼ï¼Œä½ æ„¿æ„å’Œæˆ‘åä¸å’Œä½ å’Œ
-                }
-                /*if ((mychess.sdPlayer == 0 && tepvalue < 100) ||
-                    (mychess.sdPlayer == 1 && tepvalue > -100))*/
-                else {
-                    //å½“å‰æ˜¯çº¢æ–¹ä¸”æ­¤æ—¶çº¢æ–¹ä¼˜åŠ¿ä¸å¤§ï¼›æˆ–è€…å½“å‰æ˜¯é»‘æ–¹ä¸”æ­¤æ—¶é»‘æ–¹ä¼˜åŠ¿ä¸å¤§
-                    return tepvalue - 1000 * mychess.sdPlayer + 500;
-                    //è°ƒé«˜è¯„ä¼°å€¼ï¼Œä½ æ„¿æ„å’Œæˆ‘ä¾¿å’Œä½ å’Œ
-                }
-            } else
-                return tepvalue;
-        }
-    } else if (mychess.sdPlayer == 0) {                //çº¢æ–¹ä¸ºæå¤§èŠ‚ç‚¹
-        vector<vector<int>> tep = mychess.Generate();  //è·å–èµ°æ³•
-        for (int k = 0; k < 16; ++k) {
-            int i = PosHash[k];
-            int pastpos = mychess.ucsqPieces[i];
-            if (pastpos == 0)  //å·²è¢«åƒæ‰åˆ™ä¸ç”¨ç®¡
-                continue;
-            for (int j = 0; j < tep[i].size(); ++j) {
-                //èµ°ä¸€æ­¥
-                mychess.sdPlayer = !mychess.sdPlayer;
-                int isenemy =
-                    PosToNo(tep[i][j], mychess.ucsqPieces);  //ä»ä½ç½®æ‰¾åºå·
-                mychess.ucsqPieces[i] = tep[i][j];           //èµ°ä¸€æ­¥
-
-                if (isenemy != -1) {
-                    mychess.Moves.push_back(
-                        {pastpos, mychess.ucsqPieces[i], 1});
-                    mychess.Count = 0;
-                    mychess.ucsqPieces[isenemy] = 0;  //æ‰¾åˆ°äº†ï¼Œè¦åƒæ‰
-                } else {
-                    mychess.Moves.push_back(
-                        {pastpos, mychess.ucsqPieces[i], 0});  //æ²¡åƒå­
-                    ++mychess.Count;
-                }
-
-                int tepalpha = alphabeta(mychess, depth - 1, alpha, beta);
-                if (tepalpha > alpha) {
-                    alpha = tepalpha;
-                    if (depth == DEPTH) bestmove = (pastpos << 8) + tep[i][j];
-                }
-
-                //å¤åŸ
-                mychess.sdPlayer = !mychess.sdPlayer;
-                mychess.ucsqPieces[i] = pastpos;
-                mychess.Moves.pop_back();
-                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
-                if (alpha - beta >= EXP) break;
-            }
-            if (alpha - beta >= EXP) break;  //å¤–å±‚å¾ªç¯ä¹Ÿè¦è·³
-        }
-        vector<vector<int>>().swap(tep);  //æ¸…ç©ºå†…å­˜
-        return alpha;
-    } else {                                           //é»‘æ–¹ä¸ºMINèŠ‚ç‚¹
-        vector<vector<int>> tep = mychess.Generate();  //è¾“å‡ºèµ°æ³•
-        for (int k = 16; k < 32; ++k) {
-            int i = PosHash[k];
-            int pastpos = mychess.ucsqPieces[i];
-            if (pastpos == 0)  //è¢«åƒæ‰äº†ä¸ç”¨ç®¡
-                continue;
-            for (int j = 0; j < tep[i].size(); ++j) {  //èµ°æ³•åªæœ‰å‰16ä¸ªæ˜¯æœ‰å€¼çš„
-                mychess.sdPlayer = !mychess.sdPlayer;
-                int isenemy =
-                    PosToNo(tep[i][j], mychess.ucsqPieces);  //ä»ä½ç½®æ‰¾åºå·
-                mychess.ucsqPieces[i] = tep[i][j];           //èµ°äº†ä¸€æ­¥
-
-                if (isenemy != -1) {
-                    mychess.Moves.push_back(
-                        {pastpos, mychess.ucsqPieces[i], 1});
-                    mychess.Count = 0;
-                    mychess.ucsqPieces[isenemy] = 0;  //æ‰¾åˆ°äº†ï¼Œè¦åƒæ‰
-                } else {
-                    mychess.Moves.push_back(
-                        {pastpos, mychess.ucsqPieces[i], 0});
-                    ++mychess.Count;
-                }
-                int tepbeta = alphabeta(mychess, depth - 1, alpha, beta);
-                if (tepbeta < beta) {
-                    beta = tepbeta;
-                    if (depth == DEPTH) bestmove = (pastpos << 8) + tep[i][j];
-                }
-
-                //å¤åŸ
-                mychess.sdPlayer = !mychess.sdPlayer;
-                mychess.ucsqPieces[i] = pastpos;
-                mychess.Moves.pop_back();
-                if (isenemy != -1) mychess.ucsqPieces[isenemy] = tep[i][j];
-                if (alpha - beta >= EXP) break;
-            }
-            if (alpha - beta >= EXP) break;  //å¤–å±‚å¾ªç¯ä¹Ÿè¦è·³
-        }
-        vector<vector<int>>().swap(tep);  //æ¸…ç©ºå†…å­˜
-        return beta;
-    }
-    return -55555555;  //é˜²warning å®é™…ä¸Šåº”è¯¥ä¸ä¼šè¿”å›ä¼šè¿™ä¸ªå€¼
+clock_t startTime = 0;
+int DEPTH = 4;  // ±ØĞëÎª2µÄ±¶Êı
+int gloTime;
+static int bestmove;  // ¼ÇÂ¼·µ»ØµÄ²½Êı
+static PositionStruct turn;
+static const int turnArr[100] = {
+    0,  9,  8,  7,  6,  5,  4,  3,  2,  1,  18, 17, 16, 15, 14, 13, 12, 11, 10,
+    27, 26, 25, 24, 23, 22, 21, 20, 19, 36, 35, 34, 33, 32, 31, 30, 29, 28, 45,
+    44, 43, 42, 41, 40, 39, 38, 37, 54, 53, 52, 51, 50, 49, 48, 47, 46, 63, 62,
+    61, 60, 59, 58, 57, 56, 55, 72, 71, 70, 69, 68, 67, 66, 65, 64, 81, 80, 79,
+    78, 77, 76, 75, 74, 73, 90, 89, 88, 87, 86, 85, 84, 83, 82};
+static int total = 0;
+static int chessType[40] = {0,  1,  1,  2,  2,  3,  3,  4,  4,  5, 5,
+                            6,  6,  6,  6,  6,  7,  8,  8,  9,  9, 10,
+                            10, 11, 11, 12, 12, 13, 13, 13, 13, 13};
+//Ë§ÊËÊËÏàÏàÂíÂí³µ³µÅÚÅÚ±ø±ø±ø±ø±ø(½«Ê¿Ê¿ÏóÏóÂíÂí³µ³µÅÚÅÚ×ä×ä×ä×ä×ä)
+static map<int, int> subtable[20];
+int chessHash(PositionStruct& mychess) {
+    int hs = 0;
+    for (int i = 0; i < 32; ++i) hs ^= hsh[chessType[i]][mychess.nowPos[i]];
+    return hs;
 }
+struct heuristic {
+    int src, des, hh;
+    bool operator<(const heuristic& x) { return this->hh > x.hh; }
+};
+static int hh[100][100];
+
+int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
+              int nowHsh = 0) {
+    if (clock() - startTime >= gloTime) return -100000005;
+
+    int state = mychess.Repeat();
+
+    if (mychess.nowPos[0] == 0 || state == 1) {  //Ë§ËÀÁË
+        return -6666666;
+    }
+    if (mychess.nowPos[16] == 0 || state == 2) {  //½«ËÀÁË
+
+        return 6666666;
+    }
+    if (state == 0 || depth <= 0) {
+        Eval myeval(mychess);
+        int tepvalue = myeval.GetEvalNum();
+
+        if (state == 0) {
+            if ((mychess.sdPlayer == 1 && tepvalue < -300) ||
+                (mychess.sdPlayer == 0 && tepvalue > 300)) {
+                //µ±Ç°¾ÖÃæ×ßÆå·½ÓÅÊÆ½Ï´ó£¬µ«»áµ¼ÖÂºÍÆå£¬ËùÒÔ½«ÆÀ¹ÀÖµÀ­Ïò0
+                return 0;
+            } else {
+                //µ±Ç°¾ÖÃæ×ßÆå·½ÎªÁÓÊÆ£¬ÇÒ»áµ¼ÖÂºÍÆå£¬ËùÒÔÏ£ÍûºÍÆå£¬ËùÒÔ×ßÕâÒ»²½µÄÒâÔ¸¼Ó´ó¡£
+                return tepvalue - 1000 * mychess.sdPlayer + 500;
+            }
+        }
+
+        return tepvalue;
+    }
+
+    if (nowHsh == 0) nowHsh = chessHash(mychess);
+    if (subtable[depth].find(nowHsh) != subtable[depth].end())
+        return subtable[depth][nowHsh];
+
+    int chessBoard[100];
+    memset(chessBoard, -1, sizeof(chessBoard));
+    for (int i = 0; i < 32; ++i) chessBoard[mychess.nowPos[i]] = i;
+
+    vector<vector<int>> moves = mychess.Generate();  //»ñÈ¡×ß·¨
+    int x = mychess.sdPlayer;
+
+    // »ñÈ¡ËùÓĞ×ß·¨
+    vector<heuristic> h;
+    for (int i = x * 16; i < x * 16 + 16; ++i)
+        for (auto nowPos : moves[i])
+            h.push_back(
+                {mychess.nowPos[i], nowPos, hh[mychess.nowPos[i]][nowPos]});
+    sort(h.begin(), h.end());
+
+    int nowbestmove = 0;
+    for (auto ttem : h) {
+        int pastPos = ttem.src;
+        if (pastPos == 0) continue;  //ÒÑ±»³ÔµôÔò²»ÓÃ¹Ü
+        int i = chessBoard[pastPos];
+        int nowPos = ttem.des;
+
+        int newHsh =
+            nowHsh ^ hsh[chessType[i]][pastPos] ^ hsh[chessType[i]][nowPos];
+        mychess.sdPlayer = !mychess.sdPlayer;
+        int isenemy = chessBoard[nowPos];
+        mychess.nowPos[i] = nowPos;
+        int tepcount = mychess.Count;
+        mychess.Moves.push_back({pastPos, mychess.nowPos[i], isenemy != -1});
+        if (isenemy != -1) {
+            newHsh ^= hsh[chessType[isenemy]][nowPos];
+            mychess.Count = 0;
+            mychess.nowPos[isenemy] = 0;  //ÕÒµ½ÁË£¬Òª³Ôµô
+        } else {
+            ++mychess.Count;
+        }
+
+        int score = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh);
+
+        //¸´Ô­
+        mychess.sdPlayer = !mychess.sdPlayer;
+        mychess.nowPos[i] = pastPos;
+        mychess.Moves.pop_back();
+        if (isenemy != -1) mychess.nowPos[isenemy] = nowPos;
+        mychess.Count = tepcount;
+
+        if (score == 100000005) {
+            vector<vector<int>>().swap(moves);
+            h.clear();
+            return -100000005;
+        }
+        if (score > alpha) {
+            if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
+            alpha = score;
+            nowbestmove = pastPos * 100 + nowPos;
+        }
+
+        if (alpha >= beta) break;
+    }
+
+    vector<vector<int>>().swap(moves);
+    h.clear();  // Á½ÖÖÇå¿ÕÄÚ´æ·½·¨
+
+    subtable[depth][nowHsh] = alpha;  // ÀúÊ·¼ÇÂ¼
+    for (int i = 0; i < 32; ++i) turn.nowPos[i] = turnArr[mychess.nowPos[i]];
+    subtable[depth][chessHash(turn)] = alpha;  // ¼ÇÂ¼·­×ª¾ÖÃæ
+
+    hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // ÀúÊ·Æô·¢
+
+    return alpha;
+}
+
 int SearchMain(PositionStruct& mychess, int gotime) {
-    bestmove = 0;
-    int maxvalue =
-        alphabeta(mychess, DEPTH, -100000000, 100000000);  //æ­£äº¿-è´Ÿäº¿
-    cout << "max score:" << maxvalue << endl;
-    return bestmove;
+    startTime = clock();
+    gloTime = gotime - 1000;
+    int smallbestmove = 0;
+    int maxvalue = -10000;
+    for (DEPTH = 4; DEPTH <= 18; DEPTH += 2) {  // µü´úÉî»¯
+        maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
+        if (maxvalue == -100000005) return smallbestmove;
+        if (maxvalue == 6666666) return 1;
+        if (maxvalue == -6666666) return -1;
+        if (DEPTH >= 12 && smallbestmove == bestmove) break;
+        // cout << DEPTH << " " << bestmove << endl;
+        smallbestmove = bestmove;
+    }
+    return smallbestmove;
 }

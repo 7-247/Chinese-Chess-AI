@@ -1,11 +1,10 @@
+#pragma once
 
 #include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <vector>
 using namespace std;
-#ifndef SEARCH_H
-#define SEARCH_H
 /*
     棋子序号对应的棋子类型
     0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
@@ -53,7 +52,7 @@ struct moveNode {
 };
 // 局面结构
 struct PositionStruct {
-    int ucsqPieces[32];  // 每个棋子在棋盘上放的位置，0表示被吃了
+    int nowPos[32];  // 每个棋子在棋盘上放的位置，0表示被吃了
     //其中0到15表示红子，16到31表示黑子。每方的棋子顺序依次是：
     //帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
     //判断棋子是红子用"pc < 16"，黑子用"pc >= 16"
@@ -75,14 +74,13 @@ struct PositionStruct {
     void ChangeBoard(int move);     //一步移动，改变局面
 };
 inline void PositionStruct::DelPiece(int no) {  // 从棋盘上拿走一枚棋子
-    ucsqPieces[no] = 0;
+    nowPos[no] = 0;
 }
-inline int PosToNo(int pos, int ucsqPieces[]) {
+inline int PosToNo(int pos, int nowPos[]) {
     for (int i = 0; i < 32; ++i)
-        if (pos == ucsqPieces[i]) return i;
+        if (pos == nowPos[i]) return i;
     return -1;
 }
 inline int GetPiecePos(int i, int j) {
     return i * COL + j + 1;  //棋盘中的0空着，用1~90
 }
-#endif

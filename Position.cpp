@@ -1,38 +1,39 @@
 #include "ChessBoard.h"
 
-inline void PositionStruct::AddPiece(int pos, int no) {  // ÔÚÆåÅÌÉÏ·ÅÒ»Ã¶Æå×Ó
-    ucsqPieces[no] = pos;  //µÚnoºÅ£¨0~32£©Æå×ÓµÄÎ»ÖÃ£¨9*10£©
+inline void PositionStruct::AddPiece(int pos, int no) {  // åœ¨æ£‹ç›˜ä¸Šæ”¾ä¸€æšæ£‹å­
+    nowPos[no] = pos;  //ç¬¬noå·ï¼ˆ0~32ï¼‰æ£‹å­çš„ä½ç½®ï¼ˆ9*10ï¼‰
 }
 
-void PositionStruct::ClearBoard() {  // Çå¿ÕÆåÅÌ
+void PositionStruct::ClearBoard() {  // æ¸…ç©ºæ£‹ç›˜
     sdPlayer = 0;
-    memset(ucsqPieces, 0, 32 * sizeof(int));
+    memset(nowPos, 0, 32 * sizeof(int));
 }
 
-// FEN´®Ê¶±ğ
+// FENä¸²è¯†åˆ«
 void PositionStruct::FromFen(const char* const szFen) {
+    Count = 0;
     int i, j, k;
     int pcRed[7];
     int pcBlack[7];
     const char* lpFen;
-    // FEN´®µÄÊ¶±ğ°üÀ¨ÒÔÏÂ¼¸¸ö²½Öè£º
-    // 1. ³õÊ¼»¯£¬Çå¿ÕÆåÅÌ
+    // FENä¸²çš„è¯†åˆ«åŒ…æ‹¬ä»¥ä¸‹å‡ ä¸ªæ­¥éª¤ï¼š
+    // 1. åˆå§‹åŒ–ï¼Œæ¸…ç©ºæ£‹ç›˜
     for (i = 0; i < 7; i++) {
         pcRed[i] = FROM_NUM[i];
         pcBlack[i] = pcRed[i] + 16;
     }
 
-    //Êı×é"pcRed[7]"ºÍ"pcBlack[7]"·Ö±ğ´ú±íºì·½ºÍºÚ·½Ã¿¸ö±øÖÖ¼´½«Õ¼ÓĞµÄĞòºÅ£¬
-    //ÒÔ"pcRed[7]"ÎªÀı£¬ÓÉÓÚÆå×Ó0µ½15ÒÀ´Î´ú±í¡°Ë§ÊËÊËÏàÏàÂíÂí³µ³µÅÚÅÚ±ø±ø±ø±ø±ø¡±£¬
-    //ËùÒÔ×î³õÓ¦¸ÃÊÇ"pcRed[7] =
-    //{0,1,3,5,7,9,11}"£¬Ã¿Ìí¼ÓÒ»¸öÆå×Ó£¬¸ÃÏî¾ÍÔö¼Ó1£¬
+    //æ•°ç»„"pcRed[7]"å’Œ"pcBlack[7]"åˆ†åˆ«ä»£è¡¨çº¢æ–¹å’Œé»‘æ–¹æ¯ä¸ªå…µç§å³å°†å æœ‰çš„åºå·ï¼Œ
+    //ä»¥"pcRed[7]"ä¸ºä¾‹ï¼Œç”±äºæ£‹å­0åˆ°15ä¾æ¬¡ä»£è¡¨â€œå¸…ä»•ä»•ç›¸ç›¸é©¬é©¬è½¦è½¦ç‚®ç‚®å…µå…µå…µå…µå…µâ€ï¼Œ
+    //æ‰€ä»¥æœ€åˆåº”è¯¥æ˜¯"pcRed[7] =
+    //{0,1,3,5,7,9,11}"ï¼Œæ¯æ·»åŠ ä¸€ä¸ªæ£‹å­ï¼Œè¯¥é¡¹å°±å¢åŠ 1ï¼Œ
 
     ClearBoard();
     lpFen = szFen;
-    // 2. ¶ÁÈ¡ÆåÅÌÉÏµÄÆå×Ó
+    // 2. è¯»å–æ£‹ç›˜ä¸Šçš„æ£‹å­
     i = RANK_TOP;
     j = FILE_LEFT;
-    while (*lpFen != ' ') {  //·Ç¿Õ¸ñ
+    while (*lpFen != ' ') {  //éç©ºæ ¼
         if (*lpFen == '/') {
             j = FILE_LEFT;
             ++i;
@@ -40,7 +41,7 @@ void PositionStruct::FromFen(const char* const szFen) {
                 break;
             }
         } else if (*lpFen >= '1' && *lpFen <= '9') {
-            j += (*lpFen - '0');  //Ìøµ½¸ÃĞĞÏÂÒ»¿éÕÒ
+            j += (*lpFen - '0');  //è·³åˆ°è¯¥è¡Œä¸‹ä¸€å—æ‰¾
         } else if (*lpFen >= 'A' && *lpFen <= 'Z') {
             k = FenPiece[*lpFen];
             AddPiece(GetPiecePos(i, j), pcRed[k]++);
@@ -54,7 +55,7 @@ void PositionStruct::FromFen(const char* const szFen) {
     }
     while (*lpFen == ' ') ++lpFen;
 
-    // 3. È·¶¨ÂÖµ½ÄÄ·½×ß
+    // 3. ç¡®å®šè½®åˆ°å“ªæ–¹èµ°
     if (*lpFen == 'b') {
         sdPlayer = 1;
     }
@@ -62,30 +63,32 @@ void PositionStruct::FromFen(const char* const szFen) {
     while (*lpFen != ' ') ++lpFen;
     while (*lpFen == ' ') ++lpFen;
 
-    // 4. »ØºÏÊı
+    // 4. å›åˆæ•°
     RoundNum = 0;
     while (*lpFen != ' ' && *lpFen != '\0') {
         RoundNum *= 10;
         RoundNum += *lpFen - '0';
         ++lpFen;
     }
-    if (*lpFen == '\0') return;     //Ã»ÓĞmoves
-    while (*lpFen == ' ') ++lpFen;  //ËµÃ÷ÊÇ¿Õ¸ñ£¬ºóÃæ»¹ÓĞmoves
+    if (*lpFen == '\0') return;     //æ²¡æœ‰moves
+    while (*lpFen == ' ') ++lpFen;  //è¯´æ˜æ˜¯ç©ºæ ¼ï¼Œåé¢è¿˜æœ‰moves
 
-    // 5. ´¦ÀímovesºóÃæµÄ
+    // 5. å¤„ç†movesåé¢çš„
     while (*lpFen != ' ') {
         ++lpFen;
-        if (*lpFen == '\0') return;  //¿ÕÓĞmoves£¬Ã»ÓĞÊµÖÊµÄ¶«Î÷
+        if (*lpFen == '\0') return;  //ç©ºæœ‰movesï¼Œæ²¡æœ‰å®è´¨çš„ä¸œè¥¿
     }
     while (*lpFen == ' ') ++lpFen;
-    moveNode tep = {0, 0, 0};  //¿ªÊ¼¡¢½áÊøÊ±×ÓµÄÎ»ÖÃ£¬ÊÇ·ñ³Ô×Ó
-    Count = 0;
+    moveNode tep = {0, 0, 0};  //å¼€å§‹ã€ç»“æŸæ—¶å­çš„ä½ç½®ï¼Œæ˜¯å¦åƒå­
+
     while (*lpFen != '\0') {
         tep.src = GetPiecePos('9' - *(lpFen + 1), *lpFen - 'a');
         tep.dst = GetPiecePos('9' - *(lpFen + 3), *(lpFen + 2) - 'a');
-        AddPiece(tep.dst, PosToNo(tep.src, ucsqPieces));  //²»ÓÃ¿¼ÂÇ³Ô×Ó
+        AddPiece(tep.dst, PosToNo(tep.src, nowPos));  //ä¸ç”¨è€ƒè™‘åƒå­
         Moves.push_back(tep);
         ++Count;
+        sdPlayer = !sdPlayer;  //äº¤æ¢èµ°å­—æ–¹
+
         lpFen += 4;
         while (*lpFen == ' ') ++lpFen;
     }
@@ -93,7 +96,7 @@ void PositionStruct::FromFen(const char* const szFen) {
 
 void PositionStruct::ChangeBoard(int move) {
     int low = (move & 255), high = ((move - low) >> 8);
-    int no = PosToNo(low, ucsqPieces);
-    if (no != -1) ucsqPieces[no] = 0;  //±»³ÔÁË
-    ucsqPieces[PosToNo(high, ucsqPieces)] = low;
+    int no = PosToNo(low, nowPos);
+    if (no != -1) nowPos[no] = 0;  //è¢«åƒäº†
+    nowPos[PosToNo(high, nowPos)] = low;
 }

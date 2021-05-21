@@ -23,3 +23,4 @@ inline void BestMoveIntToChar(int bestmove) {
 }
 int PosToLine(int Pos, bool sdPlayer);
 void BestMoveIntToNum(PositionStruct& pos, int bestmove);
+int ChangeToFormatMove(int k);

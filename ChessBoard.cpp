@@ -1,7 +1,8 @@
 #include "ChessBoard.h"
 
 #include "Position.h"
-// »æÍ¼
+#include "Ucci.h"
+// ç»˜å›¾
 inline const char* PIECE_BYTE_IN_CHINESE(int pt, bool type) {
     if (type == true)
         return cszPieceBytesInChineseRed[pt];
@@ -11,11 +12,12 @@ inline const char* PIECE_BYTE_IN_CHINESE(int pt, bool type) {
 
 ChessBoard::ChessBoard(PositionStruct& pos) {
     memset(ucpcSquares, -1, (ROW * COL + 1) * sizeof(int));
+    sdPlayer = pos.sdPlayer;
     for (int i = 0; i < 32; ++i) {
-        ucpcSquares[pos.ucsqPieces[i]] =
-            i;  // pos.ucsqPieces[i]=0Ê±£¬´ú±íÐòºÅÎªiµÄÆå×Ó±»³ÔÁË
-        //ÎÞÐèÏñÏÂÃæÕâÑùÐ´£¬ÒòÎªÆåÅÌµÄµÚÁãºÅÎ»²¢ÎÒÃÇ²»Ê¹ÓÃ£¬¿ÉÒÔÊ¡È¥ÅÐ¶ÏÊÇ·ñÎª0µÄif
-        // int tep = pos.ucsqPieces[i];
+        ucpcSquares[pos.nowPos[i]] =
+            i;  // pos.nowPos[i]=0æ—¶ï¼Œä»£è¡¨åºå·ä¸ºiçš„æ£‹å­è¢«åƒäº†
+        //æ— éœ€åƒä¸‹é¢è¿™æ ·å†™ï¼Œå› ä¸ºæ£‹ç›˜çš„ç¬¬é›¶å·ä½å¹¶æˆ‘ä»¬ä¸ä½¿ç”¨ï¼Œå¯ä»¥çœåŽ»åˆ¤æ–­æ˜¯å¦ä¸º0çš„if
+        // int tep = pos.nowPos[i];
         // if(tep)ucpcSquares[tep] = i;
     }
 }
@@ -27,7 +29,7 @@ void ChessBoard::DrawBoard() {
         for (int i = RANK_TOP; i <= RANK_BOTTOM; ++i) {
             for (int j = FILE_LEFT; j <= FILE_RIGHT; ++j) {
                 pc = ucpcSquares[GetPiecePos(i,
-                                             j)];  //¸ù¾ÝÆå×ÓµÄÎ»ÖÃÕÒÆå×ÓµÄÐòºÅ
+                                             j)];  //æ ¹æ®æ£‹å­çš„ä½ç½®æ‰¾æ£‹å­çš„åºå·
                 if (pc == -1) {
                     printf(" .");
                 } else {
@@ -39,4 +41,69 @@ void ChessBoard::DrawBoard() {
         }
         printf(" a b c d e f g h i\n");
     }
+}
+
+const char PieceBytes[] = "KAABBNNRRCCPPPPPkaabbnnrrccppppp";
+
+void ChessBoard::BoardToFen(char* positionfen) {  //å±€é¢è½¬fenä¸²
+    // demo: rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0
+    // 1
+    memset(positionfen, 0, 1000);
+    memcpy(positionfen, "position fen ", 14);
+    int cur = 13;
+    for (int i = 0; i < ROW; ++i) {
+        int cnt = 0;
+        for (int j = 0; j < COL; ++j) {
+            if (ucpcSquares[i * COL + j + 1] == -1)
+                ++cnt;
+            else {
+                if (cnt) positionfen[cur++] = cnt + '0';
+                cnt = 0;
+                positionfen[cur++] = PieceBytes[ucpcSquares[i * COL + j + 1]];
+            }
+        }
+        if (cnt) positionfen[cur++] = cnt + '0';
+        positionfen[cur++] = '/';
+    }
+    --cur;  //æœ€åŽä¸€å±‚ä¸å¿…åŠ  '/'
+    positionfen[cur++] = ' ';
+    if (sdPlayer == 0)
+        positionfen[cur++] = 'r';
+    else
+        positionfen[cur++] = 'b';
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = '-';
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = '-';
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = '0';
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = '1';
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = 'm';
+    positionfen[cur++] = 'o';
+    positionfen[cur++] = 'v';
+    positionfen[cur++] = 'e';
+    positionfen[cur++] = 's';
+    //ç›®å‰å°±ä¸è€ƒè™‘movesäº†
+}
+
+void ChessBoard::BoardToFenMoves(char* positionfen,
+                                 int bestmove) {  //å±€é¢è½¬fenä¸²
+                                                  // demo:position fen
+    // rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR r - - 0 1
+    // moves h2e2
+    int cur = 0;
+    int low = bestmove & 255, high = (bestmove - low) >> 8;
+    high -= 1, low -= 1;
+    char tepmove[5] = {0};
+    tepmove[0] = high % 9 + 'a', tepmove[1] = 9 - high / 9 + '0';
+    tepmove[2] = low % 9 + 'a', tepmove[3] = 9 - low / 9 + '0';
+    while (positionfen[++cur] != 0)
+        ;
+    positionfen[cur++] = ' ';
+    positionfen[cur++] = tepmove[0];
+    positionfen[cur++] = tepmove[1];
+    positionfen[cur++] = tepmove[2];
+    positionfen[cur++] = tepmove[3];
 }

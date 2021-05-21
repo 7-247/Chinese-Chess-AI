@@ -28,12 +28,12 @@ void BestMoveIntToNum(PositionStruct& pos, int bestmove) {
     //棋子在直线上进退时，表示棋子进退的步数；当棋子平走或斜走的时候，表示所到达直线的编号
     int low = (bestmove & 255), high = ((bestmove - low) >> 8);
     int type = 0;
-    int highno = PosToNo(high, pos.ucsqPieces);
+    int highno = PosToNo(high, pos.nowPos);
     printf("%d", type = cnPieceTypes[highno] + 1);
     if (type > 3 && type < 7) {
         int no_a = FROM_NUM[type - 1] + 16 * pos.sdPlayer,
             no_b = FROM_NUM[type - 1] + 1 + pos.sdPlayer * 16;
-        int pos_other = pos.ucsqPieces[no_a + no_b - highno];  //另一个的位置
+        int pos_other = pos.nowPos[no_a + no_b - highno];  //另一个的位置
         if (PosToLine(pos_other, pos.sdPlayer) ==
             PosToLine(high, pos.sdPlayer)) {
             int highcol = 9 - (high - 1) / 9;
@@ -77,4 +77,16 @@ void BestMoveIntToNum(PositionStruct& pos, int bestmove) {
         printf("%d", abs(firstmoveline - nextmoveline));
     }
     printf("\n");
+}
+
+int ChangeToFormatMove(int move) {
+    const char* k = (const char*)&move;
+    int j = k[0] - 'a';
+    int i = 9 - k[1] + '0';
+    int highpos = i * 9 + j + 1;
+    int nj = k[2] - 'a';
+    int ni = 9 - k[3] + '0';
+    int lowpos = ni * 9 + nj + 1;
+    return (highpos << 8) + lowpos;
+    // k[0],k[1],k[2],k[3]
 }

@@ -1,22 +1,22 @@
 #include "Position.h"
 
 //将军
-bool readyForKill(int sdPlayer, const int* ucsqPieces,
+bool readyForKill(int sdPlayer, const int* nowPos,
                   vector<vector<int>>& possible) {
     for (int i = 0 + sdPlayer * 16; i < 16 + sdPlayer * 16; i++) {
         for (int j = 0; j < possible[i].size(); j++) {
-            if (possible[i][j] == ucsqPieces[!sdPlayer * 16]) return true;
+            if (possible[i][j] == nowPos[!sdPlayer * 16]) return true;
         }
     }
     return false;
 }
 
 //捉 hunter为进攻方棋子位置，target为防守方棋子位置
-bool readyForCatch(int hunter, int target, const int* ucsqPieces,
+bool readyForCatch(int hunter, int target, const int* nowPos,
                    vector<vector<int>>& possible) {
     int pos = 0;
     for (int i = 0; i < 32; i++) {
-        if (ucsqPieces[i] == hunter) {
+        if (nowPos[i] == hunter) {
             pos = i;
             break;
         }
@@ -44,51 +44,51 @@ int PositionStruct::Repeat() {
     //连续重复局面
     int h_pos = 0, t_pos = 0;
     for (int i = 0; i < 32; i++) {
-        if (ucsqPieces[i] == Moves[length - 1].dst) h_pos = i;
-        break;
+        if (nowPos[i] == Moves[length - 1].dst) {
+            h_pos = i;
+            break;
+        }
     }
     for (int i = 0; i < 32; i++) {
-        if (ucsqPieces[i] == Moves[length - 2].dst) t_pos = i;
-        break;
+        if (nowPos[i] == Moves[length - 2].dst) {
+            t_pos = i;
+            break;
+        }
     }
     if (h_pos != 0 && h_pos != 16 && t_pos != 0 && t_pos != 16) {
         vector<vector<int>> possible = Generate();  //当前状态
-        if (readyForKill(sdPlayer, ucsqPieces, possible))
-            count[sdPlayer * 16]++;
-        if (readyForCatch(Moves[length - 1].dst, Moves[length - 2].dst,
-                          ucsqPieces, possible))
+        if (readyForKill(sdPlayer, nowPos, possible)) count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 1].dst, Moves[length - 2].dst, nowPos,
+                          possible))
             count[t_pos]++;
 
-        ucsqPieces[h_pos] = Moves[length - 1].src;  //最后一步回溯
+        nowPos[h_pos] = Moves[length - 1].src;  //最后一步回溯
         sdPlayer = !sdPlayer;
         possible = Generate();
-        if (readyForKill(sdPlayer, ucsqPieces, possible))
-            count[sdPlayer * 16]++;
-        if (readyForCatch(Moves[length - 2].dst, Moves[length - 1].dst,
-                          ucsqPieces, possible))
+        if (readyForKill(sdPlayer, nowPos, possible)) count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 2].dst, Moves[length - 1].dst, nowPos,
+                          possible))
             count[h_pos]++;
 
-        ucsqPieces[t_pos] = Moves[length - 2].src;  //倒数第二步回溯
+        nowPos[t_pos] = Moves[length - 2].src;  //倒数第二步回溯
         sdPlayer = !sdPlayer;
         possible = Generate();
-        if (readyForKill(sdPlayer, ucsqPieces, possible))
-            count[sdPlayer * 16]++;
-        if (readyForCatch(Moves[length - 3].dst, Moves[length - 4].dst,
-                          ucsqPieces, possible))
+        if (readyForKill(sdPlayer, nowPos, possible)) count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 3].dst, Moves[length - 4].dst, nowPos,
+                          possible))
             count[h_pos]++;
 
-        ucsqPieces[h_pos] = Moves[length - 3].src;  //倒数第三步回溯
+        nowPos[h_pos] = Moves[length - 3].src;  //倒数第三步回溯
         sdPlayer = !sdPlayer;
         possible = Generate();
-        if (readyForKill(sdPlayer, ucsqPieces, possible))
-            count[sdPlayer * 16]++;
-        if (readyForCatch(Moves[length - 4].dst, Moves[length - 3].dst,
-                          ucsqPieces, possible))
+        if (readyForKill(sdPlayer, nowPos, possible)) count[sdPlayer * 16]++;
+        if (readyForCatch(Moves[length - 4].dst, Moves[length - 3].dst, nowPos,
+                          possible))
             count[t_pos]++;
         //回复结构体内容
         sdPlayer = !sdPlayer;
-        ucsqPieces[h_pos] = Moves[length - 1].dst;
-        ucsqPieces[t_pos] = Moves[length - 2].dst;
+        nowPos[h_pos] = Moves[length - 1].dst;
+        nowPos[t_pos] = Moves[length - 2].dst;
 
         int black = 0, red = 0;
         if (h_pos > 16) {
@@ -108,4 +108,5 @@ int PositionStruct::Repeat() {
 
     if (h_pos == 16 || t_pos == 16) return 1;
     if (h_pos == 0 || t_pos == 0) return 2;
+    return -1;
 }
