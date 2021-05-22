@@ -7,6 +7,7 @@
 #include "Evaluate.h"
 #include "Position.h"
 clock_t startTime = 0;
+Eval myeval;
 int DEPTH = 5;
 int gloTime;
 static int bestmove;  // 记录返回的步数
@@ -46,7 +47,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
         return xishu * 6666666;  //黑死 黑长将
 
     if (state == 0 || depth <= 0) {
-        Eval myeval(mychess);
+        myeval.EvalInit(mychess);
         int tepvalue = myeval.GetEvalNum();
         if (state == 0) {
             if ((mychess.sdPlayer == 1 && tepvalue < -300) ||
@@ -84,7 +85,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
     else {
         sort(h.begin(), h.end());
         int testCount = h.size();
-        if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 16 && h[6].hh > 0)
+        if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 14 && h[6].hh > 0)
             testCount = 16;
 
         int nowbestmove = 0;
@@ -167,7 +168,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
             cout << "必输！\n";
             return smallbestmove;
         }
-        if (DEPTH >= 12 && smallbestmove == bestmove) break;
+        // if (DEPTH >= 12 && smallbestmove == bestmove) break;
         cout << DEPTH << " " << bestmove << " " << clock() - startTime << endl;
         cout << bestmove / 256 << "→" << bestmove % 256 << endl;
         smallbestmove = bestmove;

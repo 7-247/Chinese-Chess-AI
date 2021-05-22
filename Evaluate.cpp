@@ -93,7 +93,7 @@ inline bool Threaten(int No, int nowPos[]) {
     }
 }
 
-Eval::Eval(PositionStruct& pos) {
+void Eval::EvalInit(PositionStruct& pos) {
     EvalRed = EvalBlack = 0;
     vector<vector<int>>().swap(tep[0]);
     vector<vector<int>>().swap(tep[1]);
