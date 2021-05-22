@@ -7,7 +7,7 @@
 #include "Evaluate.h"
 #include "Position.h"
 clock_t startTime = 0;
-int DEPTH = 4;  // 必须为2的倍数
+int DEPTH = 5;
 int gloTime;
 static int bestmove;  // 记录返回的步数
 static PositionStruct turn;
@@ -37,32 +37,27 @@ static int hh[100][100];
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
               int nowHsh = 0) {
     if (clock() - startTime >= gloTime) return -100000005;
-
+    int xishu = ((DEPTH - depth) % 2 == 0 ? 1 : -1);
     int state = mychess.Repeat();
+    // cout << mychess.nowPos[0] << " " << mychess.nowPos[16] << endl;
+    if (mychess.nowPos[0] == 0 || state == 1 || mychess.nowPos[16] == 0 ||
+        state == 2)  //红死 红长将 黑死 黑长将
+        return xishu * 6666666;
 
-    if (mychess.nowPos[0] == 0 || state == 1) {  //帅死了
-        return -6666666;
-    }
-    if (mychess.nowPos[16] == 0 || state == 2) {  //将死了
-
-        return 6666666;
-    }
     if (state == 0 || depth <= 0) {
         Eval myeval(mychess);
         int tepvalue = myeval.GetEvalNum();
-
         if (state == 0) {
             if ((mychess.sdPlayer == 1 && tepvalue < -300) ||
-                (mychess.sdPlayer == 0 && tepvalue > 300)) {
+                (mychess.sdPlayer == 0 && tepvalue > 300))
                 //当前局面走棋方优势较大，但会导致和棋，所以将评估值拉向0
                 return 0;
-            } else {
+            else
                 //当前局面走棋方为劣势，且会导致和棋，所以希望和棋，所以走这一步的意愿加大。
-                return tepvalue - 1000 * mychess.sdPlayer + 500;
-            }
+                return xishu * (tepvalue - 1000 * mychess.sdPlayer + 500);
         }
-
-        return tepvalue;
+        return tepvalue * xishu;
+        // return tepvalue;
     }
 
     if (nowHsh == 0) nowHsh = chessHash(mychess);
@@ -82,77 +77,81 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
         for (auto nowPos : moves[i])
             h.push_back(
                 {mychess.nowPos[i], nowPos, hh[mychess.nowPos[i]][nowPos]});
-    sort(h.begin(), h.end());
+    vector<vector<int>>().swap(moves);
+    if (h.empty())
+        alpha = xishu * 6666666;
+    else {
+        sort(h.begin(), h.end());
+        int nowbestmove = 0;
+        for (auto ttem : h) {
+            int pastPos = ttem.src;
+            if (pastPos == 0) continue;  //已被吃掉则不用管
+            int i = chessBoard[pastPos];
+            int nowPos = ttem.des;
 
-    int nowbestmove = 0;
-    for (auto ttem : h) {
-        int pastPos = ttem.src;
-        if (pastPos == 0) continue;  //已被吃掉则不用管
-        int i = chessBoard[pastPos];
-        int nowPos = ttem.des;
+            int newHsh =
+                nowHsh ^ hsh[chessType[i]][pastPos] ^ hsh[chessType[i]][nowPos];
+            mychess.sdPlayer = !mychess.sdPlayer;
+            int isenemy = chessBoard[nowPos];
+            mychess.nowPos[i] = nowPos;
+            int tepcount = mychess.Count;
+            mychess.Moves.push_back(
+                {pastPos, mychess.nowPos[i], isenemy != -1});
+            if (isenemy != -1) {
+                newHsh ^= hsh[chessType[isenemy]][nowPos];
+                mychess.Count = 0;
+                mychess.nowPos[isenemy] = 0;  //找到了，要吃掉
+            } else {
+                ++mychess.Count;
+            }
 
-        int newHsh =
-            nowHsh ^ hsh[chessType[i]][pastPos] ^ hsh[chessType[i]][nowPos];
-        mychess.sdPlayer = !mychess.sdPlayer;
-        int isenemy = chessBoard[nowPos];
-        mychess.nowPos[i] = nowPos;
-        int tepcount = mychess.Count;
-        mychess.Moves.push_back({pastPos, mychess.nowPos[i], isenemy != -1});
-        if (isenemy != -1) {
-            newHsh ^= hsh[chessType[isenemy]][nowPos];
-            mychess.Count = 0;
-            mychess.nowPos[isenemy] = 0;  //找到了，要吃掉
-        } else {
-            ++mychess.Count;
+            int score = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh);
+
+            //复原
+            mychess.sdPlayer = !mychess.sdPlayer;
+            mychess.nowPos[i] = pastPos;
+            mychess.Moves.pop_back();
+            if (isenemy != -1) mychess.nowPos[isenemy] = nowPos;
+            mychess.Count = tepcount;
+            if (score == 100000005) {
+                h.clear();
+                return -score;
+            }
+            if (score > alpha) {
+                if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
+                alpha = score;
+                nowbestmove = pastPos * 100 + nowPos;
+            }
+
+            if (alpha >= beta) break;
         }
-
-        int score = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh);
-
-        //复原
-        mychess.sdPlayer = !mychess.sdPlayer;
-        mychess.nowPos[i] = pastPos;
-        mychess.Moves.pop_back();
-        if (isenemy != -1) mychess.nowPos[isenemy] = nowPos;
-        mychess.Count = tepcount;
-
-        if (score == 100000005) {
-            vector<vector<int>>().swap(moves);
-            h.clear();
-            return -100000005;
-        }
-        if (score > alpha) {
-            if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
-            alpha = score;
-            nowbestmove = pastPos * 100 + nowPos;
-        }
-
-        if (alpha >= beta) break;
+        hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // 历史启发
     }
 
-    vector<vector<int>>().swap(moves);
     h.clear();  // 两种清空内存方法
 
     subtable[depth][nowHsh] = alpha;  // 历史记录
     for (int i = 0; i < 32; ++i) turn.nowPos[i] = turnArr[mychess.nowPos[i]];
     subtable[depth][chessHash(turn)] = alpha;  // 记录翻转局面
 
-    hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // 历史启发
-
     return alpha;
 }
 
 int SearchMain(PositionStruct& mychess, int gotime) {
     startTime = clock();
-    gloTime = gotime - 1000;
+    memset(hh, 0, sizeof(hh));
+    for (int i = 0; i < 20; ++i) subtable[i].clear();
+    gloTime = (gotime > 10000 ? (gotime - 1000) : (gotime * 9 / 10));
     int smallbestmove = 0;
-    int maxvalue = -10000;
-    for (DEPTH = 4; DEPTH <= 18; DEPTH += 2) {  // 迭代深化
+    int maxvalue = -100000000;
+    for (DEPTH = 3; DEPTH <= 18; DEPTH += 2) {  // 迭代深化
         maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
         if (maxvalue == -100000005) return smallbestmove;
-        if (maxvalue == 6666666) return 1;
-        if (maxvalue == -6666666) return -1;
+        if (maxvalue == 6666666) return bestmove;
+        if (maxvalue == -6666666) return bestmove;
         if (DEPTH >= 12 && smallbestmove == bestmove) break;
-        // cout << DEPTH << " " << bestmove << endl;
+        cout << DEPTH << " " << bestmove << " " << clock() - startTime << endl;
+        cout << bestmove / 256 << "→" << bestmove % 256 << endl;
         smallbestmove = bestmove;
     }
     return smallbestmove;
