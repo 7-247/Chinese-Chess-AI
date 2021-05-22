@@ -37,12 +37,13 @@ static int hh[100][100];
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
               int nowHsh = 0) {
     if (clock() - startTime >= gloTime) return -100000005;
-    int xishu = ((DEPTH - depth) % 2 == 0 ? 1 : -1);
+    int xishu = (mychess.sdPlayer ? -1 : 1);
     int state = mychess.Repeat();
     // cout << mychess.nowPos[0] << " " << mychess.nowPos[16] << endl;
-    if (mychess.nowPos[0] == 0 || state == 1 || mychess.nowPos[16] == 0 ||
-        state == 2)  //红死 红长将 黑死 黑长将
-        return xishu * 6666666;
+    if (mychess.nowPos[0] == 0 || state == 1)
+        return xishu * -6666666;  //红死 红长将
+    if (mychess.nowPos[16] == 0 || state == 2)
+        return xishu * 6666666;  //黑死 黑长将
 
     if (state == 0 || depth <= 0) {
         Eval myeval(mychess);
@@ -83,8 +84,8 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
     else {
         sort(h.begin(), h.end());
         int testCount = h.size();
-        if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 8 && h[3].hh > 0)
-            testCount = 8;
+        if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 16 && h[6].hh > 0)
+            testCount = 16;
 
         int nowbestmove = 0;
         for (auto ttem : h) {
@@ -112,6 +113,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
             }
 
             int score = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh);
+            /*
+                for (int i = 0; i < DEPTH - depth; ++i) cout << "     ";
+                cout << pastPos << " " << nowPos << " " << score * xishu
+                     << endl;
+            */
 
             //复原
             mychess.sdPlayer = !mychess.sdPlayer;
@@ -150,11 +156,17 @@ int SearchMain(PositionStruct& mychess, int gotime) {
     gloTime = (gotime > 10000 ? (gotime - 1000) : (gotime * 9 / 10));
     int smallbestmove = 0;
     int maxvalue = -100000000;
-    for (DEPTH = 2; DEPTH <= 8; DEPTH += 2) {  // 迭代深化
+    for (DEPTH = 2; DEPTH <= 18; DEPTH += 2) {  // 迭代深化
         maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
         if (maxvalue == -100000005) return smallbestmove;
-        if (maxvalue == 6666666) return bestmove;
-        if (maxvalue == -6666666) return bestmove;
+        if (maxvalue == 6666666) {
+            cout << "必胜！\n";
+            return bestmove;
+        }
+        if (maxvalue == -6666666) {
+            cout << "必输！\n";
+            return smallbestmove;
+        }
         if (DEPTH >= 12 && smallbestmove == bestmove) break;
         cout << DEPTH << " " << bestmove << " " << clock() - startTime << endl;
         cout << bestmove / 256 << "→" << bestmove % 256 << endl;
