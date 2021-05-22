@@ -86,7 +86,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
         sort(h.begin(), h.end());
         int testCount = h.size();
         if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 14 && h[6].hh > 0)
-            testCount = 16;
+            testCount = 14;
 
         int nowbestmove = 0;
         for (auto ttem : h) {
@@ -168,10 +168,12 @@ int SearchMain(PositionStruct& mychess, int gotime) {
             cout << "±ØÊä£¡\n";
             return smallbestmove;
         }
+
         // if (DEPTH >= 12 && smallbestmove == bestmove) break;
         cout << DEPTH << " " << bestmove << " " << clock() - startTime << endl;
         cout << bestmove / 256 << "¡ú" << bestmove % 256 << endl;
         smallbestmove = bestmove;
+        if (clock() - startTime > gotime / 2 && DEPTH == 8) break;
     }
     return smallbestmove;
 }
