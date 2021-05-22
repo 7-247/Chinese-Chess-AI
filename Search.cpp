@@ -82,8 +82,14 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta,
         alpha = xishu * 6666666;
     else {
         sort(h.begin(), h.end());
+        int testCount = h.size();
+        if (DEPTH >= 6 && depth <= DEPTH - 2 && h.size() >= 8 && h[3].hh > 0)
+            testCount = 8;
+
         int nowbestmove = 0;
         for (auto ttem : h) {
+            if (!testCount) break;
+            testCount--;
             int pastPos = ttem.src;
             if (pastPos == 0) continue;  //已被吃掉则不用管
             int i = chessBoard[pastPos];
@@ -144,7 +150,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
     gloTime = (gotime > 10000 ? (gotime - 1000) : (gotime * 9 / 10));
     int smallbestmove = 0;
     int maxvalue = -100000000;
-    for (DEPTH = 3; DEPTH <= 18; DEPTH += 2) {  // 迭代深化
+    for (DEPTH = 2; DEPTH <= 8; DEPTH += 2) {  // 迭代深化
         maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
         if (maxvalue == -100000005) return smallbestmove;
         if (maxvalue == 6666666) return bestmove;
