@@ -7,10 +7,12 @@
 #include "Evaluate.h"
 #include "Position.h"
 clock_t startTime = 0;
+const int MaxDepth = 35;
 Eval myeval;
 int DEPTH = 5;
 int gloTime;
-int index[] = {50, 40, 30, 20, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7};
+int index[] = {50, 45, 40, 35, 30, 25, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 9, 8, 7, 7, 7, 7};
+
 static int bestmove;  // 记录返回的步数
 static PositionStruct turn;
 static const int turnArr[100] = {0,  9,  8,  7,  6,  5,  4,  3,  2,  1,  18, 17, 16, 15, 14, 13, 12, 11, 10, 27, 26, 25, 24, 23, 22, 21, 20, 19, 36, 35, 34,
@@ -19,7 +21,7 @@ static const int turnArr[100] = {0,  9,  8,  7,  6,  5,  4,  3,  2,  1,  18, 17,
 static int total = 0;
 static int chessType[40] = {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 13};
 //帅仕仕相相马马车车炮炮兵兵兵兵兵(将士士象象马马车车炮炮卒卒卒卒卒)
-static map<int, int> subtable[22];
+static map<int, int> subtable[MaxDepth];
 int chessHash(PositionStruct& mychess) {
     int hs = 0;
     for (int i = 0; i < 32; ++i) hs ^= hsh[chessType[i]][mychess.nowPos[i]];
@@ -35,7 +37,6 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
     if (clock() - startTime >= gloTime) return -100000005;
     int xishu = (mychess.sdPlayer ? -1 : 1);
     int state = mychess.Repeat();
-    // cout << mychess.nowPos[0] << " " << mychess.nowPos[16] << endl;
     if (mychess.nowPos[0] == 0 || state == 1) return xishu * -6666666;  //红死 红长将
     if (mychess.nowPos[16] == 0 || state == 2) return xishu * 6666666;  //黑死 黑长将
 
@@ -68,6 +69,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
     vector<heuristic> h;
     for (int i = x * 16; i < x * 16 + 16; ++i)
         for (auto nowPos : moves[i]) {
+            if (mychess.nowPos[i] == 0 || nowPos == 0) continue;
             int typ = chessType[chessBoard[mychess.nowPos[i]]];
             if ((typ == 3 || typ == 4 || typ == 10 || typ == 11) && hh[mychess.nowPos[i]][nowPos] == 0) hh[mychess.nowPos[i]][nowPos] = 1;
             h.push_back({mychess.nowPos[i], nowPos, hh[mychess.nowPos[i]][nowPos]});
@@ -78,20 +80,20 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
         best = xishu * 6666666;
     else {
         sort(h.begin(), h.end());
+
         int testCount = min(int(h.size()), index[DEPTH - depth]);
 
         int nowbestmove = 0;
         bool isfirst = 1;
         bool bre = 0;
         for (auto ttem : h) {
+            // cout << "                   " << ttem.src << " " << ttem.des << endl;
             if (!testCount) break;
             testCount--;
-
             int pastPos = ttem.src;
             if (pastPos == 0) continue;  //已被吃掉则不用管
             int i = chessBoard[pastPos];
             int nowPos = ttem.des;
-
             int newHsh = nowHsh ^ hsh[chessType[i]][pastPos] ^ hsh[chessType[i]][nowPos];
             mychess.sdPlayer = !mychess.sdPlayer;
             int isenemy = chessBoard[nowPos];
@@ -105,12 +107,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
             } else
                 ++mychess.Count;
 
-            int oup = 0;
-
             if (isfirst) {
+                // for (int i = 0; i < DEPTH - depth; ++i) cout << "     ";
+                // cout << pastPos << "→" << nowPos << " " << alpha << " " << beta << endl;
                 isfirst = 0;
                 best = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh, isenemy == -1 ? 0 : 4);
-                oup = best;
                 if (best == 100000005) {
                     bre = 1;
                     goto br;
@@ -118,34 +119,27 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
                 if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
                 nowbestmove = pastPos * 100 + nowPos;
             } else {
+                // // cout << alpha << " " << best << " " << beta << endl;
                 alpha = max(best, alpha);
                 if (alpha >= beta) goto br;
+                // for (int i = 0; i < DEPTH - depth; ++i) cout << "     ";
+                // cout << pastPos << "→" << nowPos << " " << alpha << " " << alpha + 1 << endl;
 
-                int score = -alphabeta(mychess, depth - 1, -alpha - 1, -alpha, newHsh, isenemy == -1 ? 0 : 4);
-                oup = score;
+                // int score = -alphabeta(mychess, depth - 1, -alpha - 1, -alpha, newHsh, isenemy == -1 ? 0 : 4);
+                int score = -alphabeta(mychess, depth - 1, -beta, -alpha, newHsh, isenemy == -1 ? 0 : 4);
                 if (score == 100000005) {
                     bre = 1;
                     goto br;
                 }
-                if (score > alpha && score < beta) {
-                    best = -alphabeta(mychess, depth - 1, -beta, -score, newHsh, isenemy == -1 ? 0 : 4);
-                    oup = best;
-                    if (best == 100000005) {
-                        bre = 1;
-                        goto br;
-                    }
-                    if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
-                    nowbestmove = pastPos * 100 + nowPos;
-                } else if (score > best) {
+                if (score > best || (score > alpha && score < beta)) {
+                    // for (int i = 0; i < DEPTH - depth; ++i) cout << "     ";
+                    // cout << pastPos << "→" << nowPos << " " << score << " " << beta << endl;
+                    // best = -alphabeta(mychess, depth - 1, -beta, -score, newHsh, isenemy == -1 ? 0 : 4);
                     best = score;
                     if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
                     nowbestmove = pastPos * 100 + nowPos;
                 }
             }
-            /*
-            for (int i = 0; i < DEPTH - depth; ++i) cout << "     ";
-            cout << pastPos << " " << nowPos << " " << oup * xishu << endl;
-            */
 
         br:
             //复原
@@ -159,8 +153,6 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, int nowHs
                 h.clear();
                 return -100000005;
             }
-
-            // if (alpha >= beta) break;
         }
         hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // 历史启发
     }
@@ -178,23 +170,23 @@ int SearchMain(PositionStruct& mychess, int gotime) {
     startTime = clock();
     int lastTime = startTime;
     memset(hh, 0, sizeof(hh));
-    for (int i = 0; i < 22; ++i) subtable[i].clear();
+    for (int i = 0; i < MaxDepth; ++i) subtable[i].clear();
     gloTime = (gotime > 10000 ? (gotime - 1000) : (gotime * 9 / 10));
     int smallbestmove = 0;
     int maxvalue = -100000000;
-    for (DEPTH = 2; DEPTH <= 18; DEPTH += 1) {  // 迭代深化 2 18 1
+    // for (DEPTH = 2; DEPTH <= MaxDepth - 5; DEPTH += 1) {  // 迭代深化
+    for (DEPTH = 2; DEPTH <= MaxDepth - 5; DEPTH += 1) {  // 迭代深化
         maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
         if (maxvalue == -100000005) return smallbestmove;
         if (maxvalue == 6666666) {
-            cout << "必胜！\n";
+            // cout << "必胜！\n";
             return bestmove;
         }
         if (maxvalue == -6666666) {
-            cout << "必输！\n";
+            // cout << "必输！\n";
             return smallbestmove;
         }
-        cout << DEPTH << " " << bestmove << " " << clock() - lastTime << " " << clock() - startTime << endl;
-        cout << bestmove / 256 << "→" << bestmove % 256 << endl;
+        printf("%2d  %2d→%2d  局面估值%-7d  耗时%5dms  总耗时%5dms\n", DEPTH, bestmove / 256, bestmove % 256, maxvalue * (mychess.sdPlayer == 1 ? -1 : 1), clock() - lastTime, clock() - startTime);
         smallbestmove = bestmove;
         if (clock() - startTime > gotime / 4 && DEPTH == 8) break;
         lastTime = clock();
