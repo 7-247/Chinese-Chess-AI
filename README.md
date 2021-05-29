@@ -16,7 +16,7 @@
 
 # 未完成
 ## 区间滑块搜索
-idx[depth][nownode]
+nodeNum[depth][nownode]
 tree[node] {
     mychess
     int[5] childnode
@@ -35,3 +35,21 @@ tree[node] {
 // 如果低出边界则说明其他着法都将被杀。
 
 ## 杀手着法
+
+
+
+vector<int> nodeNum[MaxDepth + 5];
+int totalNode;
+struct tree {
+    PositionStruct chess;
+    int childnode[5];
+    bool childuse[5];  // 1在用 0抛弃
+    int childmove[5];
+    int fathernode, eval, nowbestnode;
+};
+vector<tree> node;
+
+struct allmoves {
+    PositionStruct chess;
+    int eval, move;
+} am[200];

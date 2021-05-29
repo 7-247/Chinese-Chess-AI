@@ -7,20 +7,38 @@
 #include "Evaluate.h"
 #include "Position.h"
 clock_t startTime = 0;
-const int MaxDepth = 20;
+const int MaxDepth = 12;
 Eval myeval;
-int DEPTH = 5;
+int DEPTH = 2;
 int gloTime;
 int index[] = {50, 45, 40, 35, 30, 25, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 10, 10, 10, 10};
+vector<int> nodeNum[MaxDepth + 5];
+int totalNode;
+struct tree {
+    PositionStruct chess;
+    int childnode[5];
+    bool childuse[5];  // 1åœ¨ç”¨ 0æŠ›å¼ƒ
+    int childmove[5];
+    int fathernode, eval, nowbestnode;
+} node[100000];
 
-int bestmove;  // ¼ÇÂ¼·µ»ØµÄ²½Êı
+struct allmoves {
+    PositionStruct chess;
+    int eval, move;
+    bool operator<(const allmoves& x) { return this->chess.sdPlayer ^ (this->eval < x.eval); }
+    // allmoves(PositionStruct chess, int eval, int move) : chess(chess), eval(eval), move(move){};
+};
+
+vector<allmoves> am;
+
+int bestmove;  // è®°å½•è¿”å›çš„æ­¥æ•°
 int lastbestmove = 0;
 static PositionStruct turn;
 static const int turnArr[100] = {0,  9,  8,  7,  6,  5,  4,  3,  2,  1,  18, 17, 16, 15, 14, 13, 12, 11, 10, 27, 26, 25, 24, 23, 22, 21, 20, 19, 36, 35, 34,
                                  33, 32, 31, 30, 29, 28, 45, 44, 43, 42, 41, 40, 39, 38, 37, 54, 53, 52, 51, 50, 49, 48, 47, 46, 63, 62, 61, 60, 59, 58, 57,
                                  56, 55, 72, 71, 70, 69, 68, 67, 66, 65, 64, 81, 80, 79, 78, 77, 76, 75, 74, 73, 90, 89, 88, 87, 86, 85, 84, 83, 82};
 static int chessType[40] = {0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 13, 13, 13};
-//Ë§ÊËÊËÏàÏàÂíÂí³µ³µÅÚÅÚ±ø±ø±ø±ø±ø(½«Ê¿Ê¿ÏóÏóÂíÂí³µ³µÅÚÅÚ×ä×ä×ä×ä×ä)
+//å¸…ä»•ä»•ç›¸ç›¸é©¬é©¬è½¦è½¦ç‚®ç‚®å…µå…µå…µå…µå…µ(å°†å£«å£«è±¡è±¡é©¬é©¬è½¦è½¦ç‚®ç‚®å’å’å’å’å’)
 static map<long long, int> subtable[MaxDepth];
 long long chessHash(PositionStruct& mychess) {
     long long hs = 0;
@@ -36,18 +54,18 @@ static int hh[100][100];
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long nowHsh = 0, int extend = 0) {
     if (clock() - startTime >= gloTime) return 100000005;
     int state = mychess.Repeat();
-    if (mychess.nowPos[0] == 0 || state == 1) return -6666666;  //ºìËÀ ºì³¤½«
-    if (mychess.nowPos[16] == 0 || state == 2) return 6666666;  //ºÚËÀ ºÚ³¤½«
+    if (mychess.nowPos[0] == 0 || state == 1) return -6666666;  //çº¢æ­» çº¢é•¿å°†
+    if (mychess.nowPos[16] == 0 || state == 2) return 6666666;  //é»‘æ­» é»‘é•¿å°†
 
     if (state == 0 || depth + extend <= 0) {
         myeval.EvalInit(mychess);
         int tepvalue = myeval.GetEvalNum();
         if (state == 0) {
             if ((mychess.sdPlayer == 1 && tepvalue < -300) || (mychess.sdPlayer == 0 && tepvalue > 300))
-                //µ±Ç°¾ÖÃæ×ßÆå·½ÓÅÊÆ½Ï´ó£¬µ«»áµ¼ÖÂºÍÆå£¬ËùÒÔ½«ÆÀ¹ÀÖµÀ­Ïò0
+                //å½“å‰å±€é¢èµ°æ£‹æ–¹ä¼˜åŠ¿è¾ƒå¤§ï¼Œä½†ä¼šå¯¼è‡´å’Œæ£‹ï¼Œæ‰€ä»¥å°†è¯„ä¼°å€¼æ‹‰å‘0
                 return 0;
             else
-                //µ±Ç°¾ÖÃæ×ßÆå·½ÎªÁÓÊÆ£¬ÇÒ»áµ¼ÖÂºÍÆå£¬ËùÒÔÏ£ÍûºÍÆå£¬ËùÒÔ×ßÕâÒ»²½µÄÒâÔ¸¼Ó´ó¡£
+                //å½“å‰å±€é¢èµ°æ£‹æ–¹ä¸ºåŠ£åŠ¿ï¼Œä¸”ä¼šå¯¼è‡´å’Œæ£‹ï¼Œæ‰€ä»¥å¸Œæœ›å’Œæ£‹ï¼Œæ‰€ä»¥èµ°è¿™ä¸€æ­¥çš„æ„æ„¿åŠ å¤§ã€‚
                 return tepvalue - 1000 * mychess.sdPlayer + 500;
         }
         // for (int i = DEPTH; i >= depth; --i) cout << "      ";
@@ -62,10 +80,10 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
     memset(chessBoard, -1, sizeof(chessBoard));
     for (int i = 0; i < 32; ++i) chessBoard[mychess.nowPos[i]] = i;
 
-    vector<vector<int>> moves = mychess.Generate();  //»ñÈ¡×ß·¨
+    vector<vector<int>> moves = mychess.Generate();  //è·å–èµ°æ³•
     int x = mychess.sdPlayer;
 
-    // »ñÈ¡ËùÓĞ×ß·¨
+    // è·å–æ‰€æœ‰èµ°æ³•
     vector<heuristic> h;
     for (int i = x * 16; i < x * 16 + 16; ++i)
         for (auto nowPos : moves[i]) {
@@ -74,7 +92,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
             int ttv = hh[mychess.nowPos[i]][nowPos];
             if ((typ == 3 || typ == 4 || typ == 10 || typ == 11) && ttv == 0) ttv = 1;
             if (DEPTH == depth && ((mychess.nowPos[i] << 8) + nowPos == lastbestmove)) ttv += 100000000;
-
+            /*
             if (mychess.sdPlayer == 1) {
                 if (mychess.sdPlayer) mychess.sdPlayer = !mychess.sdPlayer;
                 int pastPos = mychess.nowPos[i];
@@ -92,7 +110,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 mychess.nowPos[i] = pastPos;
                 if (isenemy != -1) mychess.nowPos[isenemy] = nowPos;
             }
-
+            */
             h.push_back({mychess.nowPos[i], nowPos, ttv});
         }
     vector<vector<int>>().swap(moves);
@@ -116,7 +134,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
             if (!testCount) break;
             testCount--;
             int pastPos = ttem.src;
-            if (pastPos == 0) continue;  //ÒÑ±»³ÔµôÔò²»ÓÃ¹Ü
+            if (pastPos == 0) continue;  //å·²è¢«åƒæ‰åˆ™ä¸ç”¨ç®¡
             int i = chessBoard[pastPos];
             int nowPos = ttem.des;
             long long newHsh = nowHsh ^ hsh[chessType[i]][pastPos] ^ hsh[chessType[i]][nowPos];
@@ -128,7 +146,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
             if (isenemy != -1) {
                 newHsh ^= hsh[chessType[isenemy]][nowPos];
                 mychess.Count = 0;
-                mychess.nowPos[isenemy] = 0;  //ÕÒµ½ÁË£¬Òª³Ôµô
+                mychess.nowPos[isenemy] = 0;  //æ‰¾åˆ°äº†ï¼Œè¦åƒæ‰
             } else
                 ++mychess.Count;
             int value;
@@ -165,7 +183,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 bre = 1;
                 goto br;
             }
-            if (mychess.sdPlayer == 1) {  // Max ÃæÏòµÄÊÇÏÂÒ»¸ö½áµã
+            if (mychess.sdPlayer == 1) {  // Max é¢å‘çš„æ˜¯ä¸‹ä¸€ä¸ªç»“ç‚¹
                 if (value > alpha) {
                     best = alpha = value;
                     if (depth == DEPTH) bestmove = (pastPos << 8) + nowPos;
@@ -178,11 +196,11 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                     nowbestmove = pastPos * 100 + nowPos;
                 }
             }
-
-            if (alpha >= beta) goto br;
-
+            if (DEPTH == depth) {
+                am.push_back({mychess, value, pastPos * 100 + nowPos});
+            }
         br:
-            //¸´Ô­
+            //å¤åŸ
             mychess.sdPlayer = !mychess.sdPlayer;
             mychess.nowPos[i] = pastPos;
             mychess.Moves.pop_back();
@@ -193,45 +211,130 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 h.clear();
                 return 100000005;
             }
+            if (alpha > beta) break;
         }
-        hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // ÀúÊ·Æô·¢
+        hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // å†å²å¯å‘
     }
 
-    h.clear();  // Á½ÖÖÇå¿ÕÄÚ´æ·½·¨
+    h.clear();  // ä¸¤ç§æ¸…ç©ºå†…å­˜æ–¹æ³•
     if (best != -123456789 && beta - alpha > 1) {
-        subtable[depth + 4][nowHsh] = best;  // ÀúÊ·¼ÇÂ¼
+        subtable[depth + 4][nowHsh] = best;  // å†å²è®°å½•
         for (int i = 0; i < 32; ++i) turn.nowPos[i] = turnArr[mychess.nowPos[i]];
-        subtable[depth + 4][chessHash(turn)] = best;  // ¼ÇÂ¼·­×ª¾ÖÃæ
+        subtable[depth + 4][chessHash(turn)] = best;  // è®°å½•ç¿»è½¬å±€é¢
         return best;
     }
 
     return mychess.sdPlayer ? beta : alpha;
 }
 
+int oldSearchMain(PositionStruct& mychess, int nownode, int nowDepth) {
+    memset(hh, 0, sizeof(hh));
+    am.clear();
+    for (int i = 0; i < MaxDepth; ++i) subtable[i].clear();
+    int nowvalue = -100000000;
+    DEPTH = 3;
+    nowvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
+    if (nowvalue == 100000005) return nowvalue;
+    node[nownode].eval = nowvalue;
+    sort(am.begin(), am.end());
+    node[nownode].nowbestnode = 0;
+    int cnt = 0;
+    for (auto i : am) {
+        ++totalNode;
+        node[nownode].childnode[cnt] = totalNode;
+        node[nownode].childuse[cnt] = 1;
+        node[nownode].childmove[cnt] = i.move;
+        nodeNum[nowDepth + 1].push_back(totalNode);
+        node[totalNode].fathernode = nownode;
+        node[totalNode].chess = i.chess;
+        node[totalNode].eval = i.eval;
+        ++cnt;
+        if (cnt == 5) break;
+    }
+
+    return nowvalue;
+}
+
 int SearchMain(PositionStruct& mychess, int gotime) {
     startTime = clock();
     int lastTime = startTime;
-    memset(hh, 0, sizeof(hh));
-    for (int i = 0; i < MaxDepth; ++i) subtable[i].clear();
-    gloTime = (gotime > 10000 ? (gotime - 1000) : (gotime * 9 / 10));
+    gloTime = max(gotime - 1000, gotime * 9 / 10);
+    totalNode = 1;
+    for (int i = 0; i < MaxDepth + 5; ++i) nodeNum[i].clear();
+    nodeNum[1].push_back(1);
+    memset(node, 0, sizeof(node));
+    node[1].chess = mychess;
 
-    int maxvalue = -100000000;
-    // for (DEPTH = 2; DEPTH <= MaxDepth - 5; DEPTH += 1) {  // µü´úÉî»¯
-    for (DEPTH = 2; DEPTH <= MaxDepth - 5; DEPTH += 1) {  // µü´úÉî»¯
-        maxvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
-        if (maxvalue == 100000005) return lastbestmove;
-        if (maxvalue == 6666666) {
-            printf("ºì·½±ØÊ¤£¡\nDepth = %d\n", DEPTH);
-            return bestmove;
+    int temC = 0;
+    for (int nowDepth = 1; nowDepth <= MaxDepth - 5; nowDepth += 1) {
+        // for (int nowDepth = 1; nowDepth <= 3; nowDepth += 1) {
+        temC += (int)pow(5, nowDepth - 2);
+        for (auto j : nodeNum[nowDepth]) {
+            int nowDepthEval = oldSearchMain(node[j].chess, j, nowDepth);
+            if (nowDepthEval == 100000005) goto op;
+            node[j].eval = nowDepthEval;
+
+            for (int k = 1; k < nowDepth; ++k) cout << "   ";
+            cout << j - temC << "/" << int(pow(5, nowDepth - 1)) << "  " << clock() - startTime << endl;
+
+            ChessBoard outp(node[j].chess);
+            outp.DrawBoard();
+
+            /*
+            for (int i = 0; i < 5; ++i) {
+                if (node[j].childuse[i]) {
+                    for (int k = 1; k < nowDepth; ++k) cout << "   ";
+                    int tm = node[j].childmove[i];
+                    printf("%02d->%02d eval=", tm / 100, tm % 100);
+                    cout << node[node[j].childnode[i]].eval << endl;
+                }
+            }
+            */
         }
-        if (maxvalue == -6666666) {
-            printf("ºÚ·½±ØÊ¤£¡\nDepth = %d\n", DEPTH);
-            return lastbestmove ? lastbestmove : bestmove;
+        for (auto j : nodeNum[nowDepth - 1]) node[j].chess.Moves.clear();
+        for (int i = nowDepth - 1; i; --i) {
+            int player = node[nodeNum[i][0]].chess.sdPlayer;
+            for (auto j : nodeNum[i]) node[j].eval = (player == 1 ? 100000000 : -100000000);
+            int fa = 0, facount = 0;
+            for (auto j : nodeNum[i + 1]) {
+                if (node[j].fathernode != fa)
+                    facount = 0;
+                else
+                    facount++;
+                fa = node[j].fathernode;
+                if (player == 1) {
+                    if (node[j].eval < node[fa].eval) {
+                        node[fa].eval = node[j].eval;
+                        node[fa].nowbestnode = facount;
+                    }
+
+                } else {
+                    if (node[j].eval > node[fa].eval) {
+                        node[fa].eval = node[j].eval;
+                        node[fa].nowbestnode = facount;
+                    }
+                }
+            }
         }
-        printf("%2d  %2d¡ú%-2d  ¾ÖÃæ¹ÀÖµ%-7d  ºÄÊ±%5dms  ×ÜºÄÊ±%5dms\n", DEPTH, bestmove / 256, bestmove % 256, maxvalue, int(clock() - lastTime), int(clock() - startTime));
-        lastbestmove = bestmove;
-        if (clock() - lastTime > gotime / 3) break;
+        /*
+        for (int i = 1; i <= nowDepth; ++i) {
+            for (auto j : nodeNum[i]) {
+                for (int k = 1; k < i; ++k) cout << "      ";
+                printf("%4d   %4d        ", node[j].eval, node[j].nowbestnode);
+                for (int k = 0; k < 5; ++k)
+                    if (node[j].childuse[k]) printf("%4d ", node[node[j].childnode[k]].eval);
+
+                cout << endl;
+            }
+        }
+        */
+        printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
+        if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
     }
-    return lastbestmove;
+op:
+    for (int i = 0; i < 5; ++i)
+        if (node[1].childuse[i]) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
+    bestmove = node[1].childmove[node[1].nowbestnode];
+    return ((bestmove / 100) << 8) + (bestmove % 100);
 }
