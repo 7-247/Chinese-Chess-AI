@@ -1,0 +1,4 @@
+﻿  book.cpp
+  ucci.cpp
+  正在生成代码...
+C:\Users\111\source\repos\Chinese-Chess-AI\test\book.cpp : fatal error C1128: 节数超过对象文件格式限制: 请使用 /bigobj 进行编译
