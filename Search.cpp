@@ -9,7 +9,7 @@
 clock_t startTime = 0;
 const int MaxDepth = 12;
 Eval myeval;
-bool tiaoshi = 1;
+bool tiaoshi = 0;
 bool tiaoshiold = 0;
 int DEPTH = 2;
 int gloTime;
@@ -293,10 +293,8 @@ int SearchMain(PositionStruct& mychess, int gotime) {
     node[1].chess = mychess;
     node[1].inuse = 1;
 
-    int temC = 0;
     // for (int nowDepth = 1; nowDepth <= 1; nowDepth += 1) {
     for (int nowDepth = 1; nowDepth <= MaxDepth - 5; nowDepth += 1) {
-        temC += (int)pow(5, nowDepth - 2);
         for (auto j : nodeNum[nowDepth])
             if (node[j].inuse) {
                 int nowDepthEval = oldSearchMain(node[j].chess, j, nowDepth);
@@ -304,7 +302,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
                 node[j].eval = nowDepthEval;
                 if (tiaoshi) {
                     for (int k = 1; k < nowDepth; ++k) cout << "   ";
-                    cout << j - temC << "/" << int(pow(5, nowDepth - 1)) << "  " << clock() - startTime << endl;
+                    cout << j << "/" << totalNode << "  " << clock() - startTime << endl;
                 }
 
                 // ChessBoard outp(node[j].chess);
@@ -349,14 +347,15 @@ int SearchMain(PositionStruct& mychess, int gotime) {
         }
         if (tiaoshi) {
             for (int i = 1; i <= nowDepth; ++i) {
-                for (auto j : nodeNum[i]) {
-                    for (int k = 1; k < i; ++k) cout << "      ";
-                    printf("%4d   %4d        ", node[j].eval, node[j].nowbestnode);
-                    for (int k = 0; k < 5; ++k)
-                        if (node[node[j].childnode[k]].inuse) printf("%4d ", node[node[j].childnode[k]].eval);
+                for (auto j : nodeNum[i])
+                    if (node[j].inuse) {
+                        for (int k = 1; k < i; ++k) cout << "      ";
+                        printf("%4d   %4d        ", node[j].eval, node[j].nowbestnode);
+                        for (int k = 0; k < 5; ++k)
+                            if (node[node[j].childnode[k]].inuse) printf("%4d ", node[node[j].childnode[k]].eval);
 
-                    cout << endl;
-                }
+                        cout << endl;
+                    }
             }
         }
         printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
