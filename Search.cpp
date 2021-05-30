@@ -1,6 +1,7 @@
 #include "Search.h"
 
 #include <algorithm>
+#include <cmath>
 #include <ctime>
 #include <map>
 
@@ -11,9 +12,8 @@ const int MaxDepth = 20;
 Eval myeval;
 bool tiaoshi = 0;
 bool tiaoshiold = 0;
-int DEPTH = 2;
+int DEPTH = 3;
 int gloTime;
-int index[] = {50, 45, 40, 35, 30, 25, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 10, 10, 10, 10};
 vector<int> nodeNum[MaxDepth + 5];
 int totalNode;
 struct tree {
@@ -163,7 +163,8 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
             int value;
             if (isfirst) {
                 isfirst = 0;
-                value = alphabeta(mychess, depth - 1, alpha, beta, newHsh, isenemy == -1 ? 0 : 4);
+                // value = alphabeta(mychess, depth - 1, alpha, beta, newHsh, isenemy == -1 ? 0 : 4);
+                value = alphabeta(mychess, depth - 1, alpha, beta, newHsh, isenemy == -1 ? 0 : 1);
                 if (tiaoshiold) {
                     for (int i = DEPTH; i >= depth; --i) cout << "      ";
                     cout << alpha << " " << value << " " << beta << endl;
@@ -172,13 +173,15 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 nowbestmove = pastPos * 100 + nowPos;
             } else {
                 if (mychess.sdPlayer == 1) {
-                    value = alphabeta(mychess, depth - 1, alpha, alpha + 1, newHsh, isenemy == -1 ? 0 : 4);
+                    // value = alphabeta(mychess, depth - 1, alpha, alpha + 1, newHsh, isenemy == -1 ? 0 : 4);
+                    value = alphabeta(mychess, depth - 1, alpha, alpha + 1, newHsh, isenemy == -1 ? 0 : 1);
                     if (tiaoshiold) {
                         for (int i = DEPTH; i >= depth; --i) cout << "      ";
                         cout << alpha << " " << value << " " << alpha + 1 << endl;
                     }
                     if (alpha < value && value < beta) {
-                        value = alphabeta(mychess, depth - 1, value, beta, newHsh, isenemy == -1 ? 0 : 4);
+                        // value = alphabeta(mychess, depth - 1, value, beta, newHsh, isenemy == -1 ? 0 : 4);
+                        value = alphabeta(mychess, depth - 1, value, beta, newHsh, isenemy == -1 ? 0 : 1);
                         if (tiaoshiold) {
                             for (int i = DEPTH; i >= depth; --i) cout << "      ";
                             cout << " / " << value << " " << beta << endl;
@@ -186,13 +189,15 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                     }
 
                 } else {
-                    value = alphabeta(mychess, depth - 1, beta - 1, beta, newHsh, isenemy == -1 ? 0 : 4);
+                    // value = alphabeta(mychess, depth - 1, beta - 1, beta, newHsh, isenemy == -1 ? 0 : 4);
+                    value = alphabeta(mychess, depth - 1, beta - 1, beta, newHsh, isenemy == -1 ? 0 : 1);
                     if (tiaoshiold) {
                         for (int i = DEPTH; i >= depth; --i) cout << "      ";
                         cout << beta - 1 << " " << value << " " << beta << endl;
                     }
                     if (alpha < value && value < beta) {
-                        value = alphabeta(mychess, depth - 1, alpha, value, newHsh, isenemy == -1 ? 0 : 4);
+                        // value = alphabeta(mychess, depth - 1, alpha, value, newHsh, isenemy == -1 ? 0 : 4);
+                        value = alphabeta(mychess, depth - 1, alpha, value, newHsh, isenemy == -1 ? 0 : 1);
                         if (tiaoshiold) {
                             for (int i = DEPTH; i >= depth; --i) cout << "      ";
                             cout << alpha << " " << value << " / " << endl;
