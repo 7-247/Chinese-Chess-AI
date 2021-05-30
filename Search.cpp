@@ -13,7 +13,7 @@ Eval myeval;
 bool tiaoshismall = 1;
 bool tiaoshi = 0;
 bool tiaoshibig = 0;
-int DEPTH = 3;
+int DEPTH = 5;
 int gloTime;
 vector<int> nodeNum[MaxDepth + 5];
 int totalNode;
@@ -251,7 +251,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
             }
             if (alpha > beta) break;
         }
-        hh[nowbestmove / 100][nowbestmove % 100] += pow(2, depth);  // 历史启发
+        hh[nowbestmove / 100][nowbestmove % 100] += int(pow(2, depth));  // 历史启发
     }
 
     h.clear();  // 两种清空内存方法
@@ -270,7 +270,6 @@ int oldSearchMain(PositionStruct& mychess, int nownode, int nowDepth) {
     am.clear();
     for (int i = 0; i < MaxDepth; ++i) subtable[i].clear();
     int nowvalue = -100000000;
-    DEPTH = 3;
     nowvalue = alphabeta(mychess, DEPTH, -100000000, 100000000);
     if (nowvalue == 100000005) return nowvalue;
     node[nownode].eval = nowvalue;
@@ -313,10 +312,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
 
     // for (int nowDepth = 1; nowDepth <= 1; nowDepth += 1) {
     for (int nowDepth = 1; nowDepth <= MaxDepth - 5; nowDepth += 1) {
-        if (nowDepth == 1)
-            DEPTH = 5;
-        else
-            DEPTH = 3;
+        DEPTH = max(5 - nowDepth, 3);
         for (auto j : nodeNum[nowDepth])
             if (node[j].inuse) {
                 int nowDepthEval = oldSearchMain(node[j].chess, j, nowDepth);
