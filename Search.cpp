@@ -10,7 +10,7 @@
 clock_t startTime = 0;
 const int MaxDepth = 20;
 Eval myeval;
-bool tiaoshismall = 0;
+bool tiaoshismall = 1;
 bool tiaoshi = 0;
 bool tiaoshibig = 0;
 int DEPTH = 3;
@@ -19,9 +19,9 @@ vector<int> nodeNum[MaxDepth + 5];
 int totalNode;
 struct tree {
     PositionStruct chess;
-    int childnode[5];
+    int childnode[10];
     // bool childuse[5];  // 1ÔÚÓÃ 0Å×Æú
-    int childmove[5];
+    int childmove[10];
     int fathernode, eval, nowbestnode;
     bool inuse;
 } node[100000];
@@ -278,6 +278,8 @@ int oldSearchMain(PositionStruct& mychess, int nownode, int nowDepth) {
     node[nownode].nowbestnode = 0;
     int cnt = 0;
     for (auto i : am) {
+        if (cnt >= 10) break;
+        if (cnt >= 5 && (abs(node[totalNode].eval - i.eval) > 10 || nowDepth > 1)) break;
         ++totalNode;
         node[nownode].childnode[cnt] = totalNode;
         // node[nownode].childuse[cnt] = 1;
@@ -288,7 +290,6 @@ int oldSearchMain(PositionStruct& mychess, int nownode, int nowDepth) {
         node[totalNode].eval = i.eval;
         node[totalNode].inuse = 1;
         ++cnt;
-        if (cnt == 5) break;
     }
 
     return nowvalue;
@@ -296,7 +297,7 @@ int oldSearchMain(PositionStruct& mychess, int nownode, int nowDepth) {
 void discard(int x) {
     if (x == 0) return;
     node[x].inuse = 0;
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 10; ++i)
         if (node[node[x].childnode[i]].inuse) discard(node[x].childnode[i]);
 }
 int SearchMain(PositionStruct& mychess, int gotime) {
@@ -312,6 +313,10 @@ int SearchMain(PositionStruct& mychess, int gotime) {
 
     // for (int nowDepth = 1; nowDepth <= 1; nowDepth += 1) {
     for (int nowDepth = 1; nowDepth <= MaxDepth - 5; nowDepth += 1) {
+        if (nowDepth == 1)
+            DEPTH = 5;
+        else
+            DEPTH = 3;
         for (auto j : nodeNum[nowDepth])
             if (node[j].inuse) {
                 int nowDepthEval = oldSearchMain(node[j].chess, j, nowDepth);
@@ -368,7 +373,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
                     if (node[j].inuse) {
                         for (int k = 1; k < i; ++k) cout << "      ";
                         printf("%4d   %4d        ", node[j].eval, node[j].nowbestnode);
-                        for (int k = 0; k < 5; ++k)
+                        for (int k = 0; k < 10; ++k)
                             if (node[node[j].childnode[k]].inuse) printf("%4d ", node[node[j].childnode[k]].eval);
 
                         cout << endl;
@@ -377,14 +382,14 @@ int SearchMain(PositionStruct& mychess, int gotime) {
         }
         if (tiaoshismall) {
             printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < 10; ++i)
                 if (node[node[1].childnode[i]].inuse) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
         }
 
         if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
         if (abs(node[1].eval) > 6000000) {
-            for (int k = 0; k < 5; ++k)
+            for (int k = 0; k < 10; ++k)
                 if (node[node[1].childnode[k]].inuse && (node[1].childmove[k] % 100 == mychess.nowPos[0] || node[1].childmove[k] % 100 == mychess.nowPos[16])) {
                     node[1].nowbestnode = k;
                     break;
@@ -393,7 +398,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
         }
 
         int zoufa = 0;
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 10; ++i)
             if (node[node[1].childnode[i]].inuse) ++zoufa;
         if (zoufa <= 1) break;
     }
