@@ -373,6 +373,11 @@ int SearchMain(PositionStruct& mychess, int gotime) {
         if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
         if (abs(node[1].eval) > 6000000) break;
+
+        int zoufa = 0;
+        for (int i = 0; i < 5; ++i)
+            if (node[node[1].childnode[i]].inuse) ++zoufa;
+        if (zoufa <= 1) break;
     }
 op:
     bestmove = node[1].childmove[node[1].nowbestnode];
