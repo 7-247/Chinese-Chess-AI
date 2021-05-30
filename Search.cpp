@@ -372,7 +372,14 @@ int SearchMain(PositionStruct& mychess, int gotime) {
 
         if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
-        if (abs(node[1].eval) > 6000000) break;
+        if (abs(node[1].eval) > 6000000) {
+            for (int k = 0; k < 5; ++k)
+                if (node[node[1].childnode[k]].inuse && (node[1].childmove[k] % 100 == mychess.nowPos[0] || node[1].childmove[k] % 100 == mychess.nowPos[16])) {
+                    node[1].nowbestnode = k;
+                    break;
+                }
+            break;
+        }
 
         int zoufa = 0;
         for (int i = 0; i < 5; ++i)
