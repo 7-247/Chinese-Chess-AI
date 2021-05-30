@@ -10,7 +10,7 @@
 clock_t startTime = 0;
 const int MaxDepth = 20;
 Eval myeval;
-bool tiaoshismall = 1;
+bool tiaoshismall = 0;
 bool tiaoshi = 0;
 bool tiaoshibig = 0;
 int DEPTH = 3;
@@ -58,6 +58,7 @@ static int hh[100][100];
 int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long nowHsh = 0, int extend = 0) {
     if (clock() - startTime >= gloTime) return 100000005;
     int state = mychess.Repeat();
+
     if (mychess.nowPos[0] == 0 || state == 1) return -6666666;  //红死 红长将
     if (mychess.nowPos[16] == 0 || state == 2) return 6666666;  //黑死 黑长将
 
@@ -67,10 +68,13 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
         myeval.EvalInit(mychess);
         int tepvalue = myeval.GetEvalNum();
         if (state == 0) {
-            if ((mychess.sdPlayer == 1 && tepvalue < -300) || (mychess.sdPlayer == 0 && tepvalue > 300))
+            cout << "state=000\n";
+            cout << tepvalue << endl;
+            if ((mychess.sdPlayer == 1 && tepvalue < -300) || (mychess.sdPlayer == 0 && tepvalue > 300)) {
+                cout << "拉回0\n";
                 //当前局面走棋方优势较大，但会导致和棋，所以将评估值拉向0
                 return 0;
-            else
+            } else
                 //当前局面走棋方为劣势，且会导致和棋，所以希望和棋，所以走这一步的意愿加大。
                 return tepvalue - 1000 * mychess.sdPlayer + 500;
         }
@@ -96,6 +100,13 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
     for (int i = x * 16; i < x * 16 + 16; ++i)
         for (auto nowPos : moves[i]) {
             if (mychess.nowPos[i] == 0 || nowPos == 0) continue;
+            if (nowPos == mychess.nowPos[0]) {
+                if (DEPTH == depth) am.push_back({mychess, -6666667, mychess.nowPos[i] * 100 + nowPos});
+                return -6666666;
+            } else if (nowPos == mychess.nowPos[16]) {
+                if (DEPTH == depth) am.push_back({mychess, 6666667, mychess.nowPos[i] * 100 + nowPos});
+                return 6666666;
+            }
             int typ = chessType[chessBoard[mychess.nowPos[i]]];
             int ttv = hh[mychess.nowPos[i]][nowPos];
             if ((typ == 3 || typ == 4 || typ == 10 || typ == 11) && ttv == 0) ttv = 1;
