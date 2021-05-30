@@ -7,7 +7,7 @@
 #include "Evaluate.h"
 #include "Position.h"
 clock_t startTime = 0;
-const int MaxDepth = 12;
+const int MaxDepth = 20;
 Eval myeval;
 bool tiaoshi = 0;
 bool tiaoshiold = 0;
@@ -28,7 +28,7 @@ struct tree {
 struct allmoves {
     PositionStruct chess;
     int eval, move;
-    bool operator<(const allmoves& x) { return this->chess.sdPlayer ^ (this->eval < x.eval); }
+    bool operator<(const allmoves& x) { return this->chess.sdPlayer == 0 ? (this->eval < x.eval) : (this->eval > x.eval); }
     // allmoves(PositionStruct chess, int eval, int move) : chess(chess), eval(eval), move(move){};
 };
 
@@ -343,7 +343,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
                 }
             }
             for (auto j : nodeNum[i + 1])
-                if (abs(node[j].eval - node[node[j].fathernode].eval) > 40) discard(j);
+                if (abs(node[j].eval - node[node[j].fathernode].eval) > 100) discard(j);
         }
         if (tiaoshi) {
             for (int i = 1; i <= nowDepth; ++i) {
@@ -361,12 +361,12 @@ int SearchMain(PositionStruct& mychess, int gotime) {
         printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
         if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
+        if (abs(node[1].eval) > 6000000) break;
     }
 op:
-    if (tiaoshi) {
-        for (int i = 0; i < 5; ++i)
-            if (node[node[1].childnode[i]].inuse) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
-    }
+    for (int i = 0; i < 5; ++i)
+        if (node[node[1].childnode[i]].inuse) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
+
     bestmove = node[1].childmove[node[1].nowbestnode];
     return ((bestmove / 100) << 8) + (bestmove % 100);
 }
