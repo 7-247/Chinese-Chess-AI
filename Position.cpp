@@ -108,4 +108,5 @@ PositionStruct& PositionStruct::operator=(const PositionStruct& newchess) {
     RoundNum = newchess.RoundNum;  // 回合数
     Moves = newchess.Moves;
     Count = newchess.Count;  // Moves[]尾部累积了多少个没吃字的走法
+    return *this;
 }

@@ -10,8 +10,9 @@
 clock_t startTime = 0;
 const int MaxDepth = 20;
 Eval myeval;
+bool tiaoshismall = 1;
 bool tiaoshi = 0;
-bool tiaoshiold = 0;
+bool tiaoshibig = 0;
 int DEPTH = 3;
 int gloTime;
 vector<int> nodeNum[MaxDepth + 5];
@@ -73,7 +74,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 //当前局面走棋方为劣势，且会导致和棋，所以希望和棋，所以走这一步的意愿加大。
                 return tepvalue - 1000 * mychess.sdPlayer + 500;
         }
-        if (tiaoshiold) {
+        if (tiaoshibig) {
             for (int i = DEPTH; i >= depth; --i) cout << "      ";
             cout << tepvalue << endl;
         }
@@ -137,7 +138,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
         bool isfirst = 1;
         bool bre = 0;
         for (auto ttem : h) {
-            if (tiaoshiold) {
+            if (tiaoshibig) {
                 for (int i = DEPTH; i >= depth; --i) cout << "      ";
                 cout << ttem.src << " " << ttem.des << " " << mychess.sdPlayer << endl;
             }
@@ -165,7 +166,7 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 isfirst = 0;
                 // value = alphabeta(mychess, depth - 1, alpha, beta, newHsh, isenemy == -1 ? 0 : 4);
                 value = alphabeta(mychess, depth - 1, alpha, beta, newHsh, isenemy == -1 ? 0 : 1);
-                if (tiaoshiold) {
+                if (tiaoshibig) {
                     for (int i = DEPTH; i >= depth; --i) cout << "      ";
                     cout << alpha << " " << value << " " << beta << endl;
                 }
@@ -175,14 +176,14 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 if (mychess.sdPlayer == 1) {
                     // value = alphabeta(mychess, depth - 1, alpha, alpha + 1, newHsh, isenemy == -1 ? 0 : 4);
                     value = alphabeta(mychess, depth - 1, alpha, alpha + 1, newHsh, isenemy == -1 ? 0 : 1);
-                    if (tiaoshiold) {
+                    if (tiaoshibig) {
                         for (int i = DEPTH; i >= depth; --i) cout << "      ";
                         cout << alpha << " " << value << " " << alpha + 1 << endl;
                     }
                     if (alpha < value && value < beta) {
                         // value = alphabeta(mychess, depth - 1, value, beta, newHsh, isenemy == -1 ? 0 : 4);
                         value = alphabeta(mychess, depth - 1, value, beta, newHsh, isenemy == -1 ? 0 : 1);
-                        if (tiaoshiold) {
+                        if (tiaoshibig) {
                             for (int i = DEPTH; i >= depth; --i) cout << "      ";
                             cout << " / " << value << " " << beta << endl;
                         }
@@ -191,14 +192,14 @@ int alphabeta(PositionStruct& mychess, int depth, int alpha, int beta, long long
                 } else {
                     // value = alphabeta(mychess, depth - 1, beta - 1, beta, newHsh, isenemy == -1 ? 0 : 4);
                     value = alphabeta(mychess, depth - 1, beta - 1, beta, newHsh, isenemy == -1 ? 0 : 1);
-                    if (tiaoshiold) {
+                    if (tiaoshibig) {
                         for (int i = DEPTH; i >= depth; --i) cout << "      ";
                         cout << beta - 1 << " " << value << " " << beta << endl;
                     }
                     if (alpha < value && value < beta) {
                         // value = alphabeta(mychess, depth - 1, alpha, value, newHsh, isenemy == -1 ? 0 : 4);
                         value = alphabeta(mychess, depth - 1, alpha, value, newHsh, isenemy == -1 ? 0 : 1);
-                        if (tiaoshiold) {
+                        if (tiaoshibig) {
                             for (int i = DEPTH; i >= depth; --i) cout << "      ";
                             cout << alpha << " " << value << " / " << endl;
                         }
@@ -348,7 +349,7 @@ int SearchMain(PositionStruct& mychess, int gotime) {
                 }
             }
             for (auto j : nodeNum[i + 1])
-                if (abs(node[j].eval - node[node[j].fathernode].eval) > 100) discard(j);
+                if (abs(node[j].eval - node[node[j].fathernode].eval) > 50) discard(j);
         }
         if (tiaoshi) {
             for (int i = 1; i <= nowDepth; ++i) {
@@ -363,15 +364,17 @@ int SearchMain(PositionStruct& mychess, int gotime) {
                     }
             }
         }
-        printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
+        if (tiaoshismall) {
+            printf("Depth=%-2d timeUse=%-5d totalTimeUse=%-5d\n", nowDepth, clock() - lastTime, clock() - startTime);
+            for (int i = 0; i < 5; ++i)
+                if (node[node[1].childnode[i]].inuse) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
+        }
+
         if (clock() - lastTime > gotime / 2) goto op;
         lastTime = clock();
         if (abs(node[1].eval) > 6000000) break;
     }
 op:
-    for (int i = 0; i < 5; ++i)
-        if (node[node[1].childnode[i]].inuse) printf("%04d  %d\n", node[1].childmove[i], node[node[1].childnode[i]].eval);
-
     bestmove = node[1].childmove[node[1].nowbestnode];
     return ((bestmove / 100) << 8) + (bestmove % 100);
 }
